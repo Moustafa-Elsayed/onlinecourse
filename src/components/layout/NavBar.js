@@ -14,11 +14,12 @@ import Logo from "../../../public/Image/Logo.png";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
+import { useRouter } from "next/router";
 const pages = ["Home", "Courses", "About Us", "Pricing", "Contact"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const NavBar = () => {
+  const router = useRouter();
   const [activeButton, setActiveButton] = React.useState("login");
-
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
   };
@@ -40,11 +41,22 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const handlelogin = () => {
+    handleButtonClick("login");
+    router.push("/login");
+  };
+  const handlesignup = () => {
+    handleButtonClick("signUp");
+    router.push("/signup");
+  };
   return (
-    <AppBar position="static" elevation={0} sx={{ backgroundColor: "transparent" }}>
+    <AppBar
+      position="static"
+      elevation={0}
+      sx={{ backgroundColor: "transparent" }}
+    >
       <Container
-        maxWidth="lg"
+        maxWidth="xxl"
         sx={{
           backgroundColor: "transparent",
         }}
@@ -52,8 +64,6 @@ const NavBar = () => {
         <Toolbar disableGutters>
           <Image src={Logo} alt="logo" width={50} height={50} />
 
-          
-          
           <Typography
             variant="h5"
             noWrap
@@ -69,9 +79,7 @@ const NavBar = () => {
               color: "inherit",
               textDecoration: "none",
             }}
-          >
-            
-          </Typography>
+          ></Typography>
           <Box sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -99,7 +107,7 @@ const NavBar = () => {
               }
               color={activeButton === "signUp" ? "white" : "black"}
               sx={{ ml: 2 }}
-              onClick={() => handleButtonClick("signUp")}
+              onClick={handlesignup}
             />
             <CustomButton
               title="Login"
@@ -109,7 +117,7 @@ const NavBar = () => {
                   : "transparent"
               }
               color={activeButton === "login" ? "white" : "black"}
-              onClick={() => handleButtonClick("login")}
+              onClick={handlelogin}
             />
 
             {/* <Menu
@@ -135,7 +143,7 @@ const NavBar = () => {
               ))}
             </Menu> */}
           </Box>
-          <Box sx={{  display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
