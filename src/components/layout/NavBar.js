@@ -16,9 +16,16 @@ import Logo from "../../../public/Image/Logo.png";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
+import { Margin } from "@mui/icons-material";
 const pages = ["Home", "Courses", "About Us", "Pricing", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const NavBar = () => {
+  const [activeButton, setActiveButton] = React.useState("login");
+
+  const handleButtonClick = (buttonType) => {
+    setActiveButton(buttonType);
+  };
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -125,15 +132,25 @@ const NavBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <CustomButton
-              title={"sing up"}
-              backgroundColor="transparent"
-              color="black"
+              title="Sign Up"
+              backgroundColor={
+                activeButton === "signUp"
+                  ? theme.palette.secondary.main
+                  : "transparent"
+              }
+              color={activeButton === "signUp" ? "white" : "black"}
               sx={{ ml: 2 }}
+              onClick={() => handleButtonClick("signUp")}
             />
             <CustomButton
-              title={"Login"}
-              backgroundColor={theme.palette.secondary.main}
-              color="white"
+              title="Login"
+              backgroundColor={
+                activeButton === "login"
+                  ? theme.palette.secondary.main
+                  : "transparent"
+              }
+              color={activeButton === "login" ? "white" : "black"}
+              onClick={() => handleButtonClick("login")}
             />
 
             <Menu

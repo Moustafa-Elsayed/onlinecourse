@@ -13,9 +13,8 @@ const CustomButton = ({ title, color, backgroundColor, ...props }) => (
       border: "1px solid transparent",
       transition: "background-color 0.3s, color 0.3s, border 0.3s",
       "&:hover": {
-        backgroundColor: "transparent",
-        color: "black",
-        border: `1px solid ${theme.palette.secondary.main}`,
+        backgroundColor: backgroundColor,
+        
       },
     }}
   >
