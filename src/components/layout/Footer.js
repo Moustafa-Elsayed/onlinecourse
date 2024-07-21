@@ -48,7 +48,7 @@ const Footer = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" fontWeight={"bold"} gutterBottom>
               Home
             </Typography>
             <Link
@@ -92,7 +92,7 @@ const Footer = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h4" fontWeight={"bold"}  gutterBottom>
               About Us
             </Typography>
             <Link
@@ -125,8 +125,8 @@ const Footer = () => {
               Our Goals
             </Link>
           </Grid>
-          <Grid item xs={12} sm={3} >
-            <Typography variant="h6" gutterBottom>
+          <Grid item xs={12} sm={3}  >
+            <Typography variant="h4" fontWeight={"bold"}  gutterBottom>
               Social Profiles
             </Typography>
             <Box display="flex" gap={1}>

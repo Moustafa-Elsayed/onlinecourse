@@ -101,6 +101,7 @@ const ContactForm = () => {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
+              borderLeft:{xs:"none",sm:"none",md:"1px solid #c4c4c442"}
             }}
           >
             <Box
@@ -161,6 +162,7 @@ const ContactForm = () => {
                 p: 3,
                 backgroundColor: theme.palette.primary.light,
                 width: "80%",
+                
               }}
             >
               <Box
