@@ -12,11 +12,15 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
 import DividerWithText from "@/components/shared/DividerWithText";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 const testimonials = loginData;
 
 const Index = () => {
   const [currentCard, setCurrentCard] = useState(0);
+  const [ShowPaasword, setShowPassword] = useState(false);
+  const handleShowPassword = () => {
+    setShowPassword(!ShowPaasword);
+  };
 
   const handleNext = () => {
     setCurrentCard((prevCard) => (prevCard + 1) % testimonials.length);
@@ -34,9 +38,9 @@ const Index = () => {
         textAlign: "center",
         display: "flex",
         justifyContent: "space-evenly",
-        alignItems: "start",
+        alignItems: "center",
         flexDirection: "row",
-        flexWrap: "wrap",
+        flexWrap: "wrap-reverse",
         gap: 5,
       }}
     >
@@ -97,7 +101,10 @@ const Index = () => {
                 {testimonials[currentCard].name}
               </Typography>
             </Box>
-            <CustomButton title={"read more"} backgroundColor={"#f8f5f5"} />
+            <CustomButton
+              title={"read more"}
+              backgroundColor={theme.palette.primary.light}
+            />
           </Box>
         </Box>
         <Box
@@ -139,16 +146,27 @@ const Index = () => {
           p: 2,
         }}
       >
-        <Typography>Login</Typography>
+        <Typography sx={{ fontWeight: "bold" }} variant="h1">
+          Login
+        </Typography>
         <Typography>
           Welcome back! Please log in to access your account.
         </Typography>
-        <CustomInput label="Email" placeholder="Enter your Email" />
-        <CustomInput label="Password" placeholder="Enter your Password" endIcon={
-        <IconButton>
-          <RemoveRedEyeIcon />
-        </IconButton>
-      } />
+        <CustomInput
+          type={"email"}
+          label="Email"
+          placeholder="Enter your Email"
+        />
+        <CustomInput
+          type={ShowPaasword ? "text" : "password"}
+          label="Password"
+          placeholder="Enter your Password"
+          endIcon={
+            <IconButton onClick={handleShowPassword}>
+              <RemoveRedEyeIcon />
+            </IconButton>
+          }
+        />
         <Link href={""} style={{ textAlign: "right" }}>
           Forgot Password?
         </Link>

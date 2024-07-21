@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh", 
+        minHeight: "100vh",
       }}
     >
       <Header />
@@ -19,8 +19,8 @@ const MainLayout = ({ children }) => {
         sx={{
           flex: 1,
           mt: 5,
-         pr:10,
-         pl:10,
+          pr: { xs: 2, sm: 3, md: 5 }, 
+          pl: { xs: 2, sm: 3, md: 5}, 
         }}
       >
         {children}

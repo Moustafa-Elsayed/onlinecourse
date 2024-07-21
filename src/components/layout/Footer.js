@@ -13,6 +13,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import PlaceIcon from "@mui/icons-material/Place";
 import Logo from "../../../public/Image/Logo.png";
 import Image from "next/image";
+import theme from "@/styles/theme";
 
 const Footer = () => {
   return (
@@ -125,11 +126,11 @@ const Footer = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom >
               Social Profiles
             </Typography>
             <Box display="flex">
-              <IconButton href="#" color="inherit">
+              <IconButton href="#" color="inherit" >
                 <Facebook />
               </IconButton>
               <IconButton href="#" color="inherit">

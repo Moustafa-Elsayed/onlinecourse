@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton"; // Import IconButton if you n
 const CustomTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
     color: theme.palette.primary.main,
-    backgroundColor: "#f9f9f9", // Customize background color
+    backgroundColor: theme.palette.primary.light, // Customize background color
     borderRadius: "8px", // Customize border radius
   },
   "& .MuiOutlinedInput-root": {
@@ -22,7 +22,7 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const CustomInput = ({ label, placeholder, endIcon, ...props }) => {
+const CustomInput = ({ label,type, placeholder, endIcon, ...props }) => {
   return (
     <Box sx={{ margin: 1 }}>
       <Typography sx={{ textAlign: "left", mb: 1, fontWeight: "bold" }}>{label}</Typography>
@@ -31,6 +31,7 @@ const CustomInput = ({ label, placeholder, endIcon, ...props }) => {
         fullWidth
         {...props}
         placeholder={placeholder}
+        type={type}
         InputProps={{
           endAdornment: endIcon ? <InputAdornment position="end">{endIcon}</InputAdornment> : null,
         }}
