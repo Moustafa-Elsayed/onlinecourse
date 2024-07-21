@@ -94,7 +94,7 @@ const Index = () => {
           </Typography>
         </Box>
         <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
-          <Typography sx={{ mb: 3 }}>
+          <Typography sx={{ mb: 3,minHeight:"100px" }}>
             {testimonials[currentCard].text}
           </Typography>
           <DividerWithText />
@@ -172,6 +172,7 @@ const Index = () => {
           width: "100%",
           height: "650px",
           p: 2,
+          borderRadius:5
         }}
       >
         <Typography sx={{ fontWeight: "bold" }} variant="h1">

@@ -41,14 +41,14 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handlelogin = () => {
-    handleButtonClick("login");
-    router.push("/login");
-  };
-  const handlesignup = () => {
-    handleButtonClick("signUp");
-    router.push("/signup");
-  };
+  // const handlelogin = () => {
+  //   handleButtonClick("login");
+  //   router.push("/login");
+  // };
+  // const handlesignup = () => {
+  //   handleButtonClick("signUp");
+  //   router.push("/signup");
+  // };
   return (
     <AppBar
       position="static"
@@ -107,7 +107,7 @@ const NavBar = () => {
               }
               color={activeButton === "signUp" ? "white" : "black"}
               sx={{ ml: 2 }}
-              onClick={handlesignup}
+              // onClick={handlesignup}
             />
             <CustomButton
               title="Login"
@@ -117,7 +117,7 @@ const NavBar = () => {
                   : "transparent"
               }
               color={activeButton === "login" ? "white" : "black"}
-              onClick={handlelogin}
+              // onClick={handlelogin}
             />
 
             {/* <Menu
