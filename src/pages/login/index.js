@@ -126,12 +126,10 @@ const Index = () => {
           maxWidth: "500px",
           display: "flex",
           backgroundColor: "white",
-          border:"1px solid red",
-          width:"100%",
-          height:"100%"
-          
+          border: "1px solid red",
+          width: "100%",
+          height: "100%",
         }}
-        
       >
         <Typography>jdfjgfj</Typography>
       </Box>
