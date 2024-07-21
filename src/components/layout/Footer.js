@@ -125,19 +125,29 @@ const Footer = () => {
               Our Goals
             </Link>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <Typography variant="h6" gutterBottom >
+          <Grid item xs={12} sm={3} >
+            <Typography variant="h6" gutterBottom>
               Social Profiles
             </Typography>
-            <Box display="flex">
-              <IconButton href="#" color="inherit" >
+            <Box display="flex" gap={1}>
+              <IconButton
+                href="#"
+                color="inherit"
+                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+              >
                 <Facebook />
               </IconButton>
-              <IconButton href="#" color="inherit">
-                <Twitter />
+              <IconButton
+                href="#"
+                color="inherit"
+                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+              >                <Twitter />
               </IconButton>
-              <IconButton href="#" color="inherit">
-                <LinkedIn />
+              <IconButton
+                href="#"
+                color="inherit"
+                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+              >                <LinkedIn />
               </IconButton>
             </Box>
           </Grid>

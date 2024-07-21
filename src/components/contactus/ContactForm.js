@@ -115,7 +115,8 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-              <EmailIcon />
+                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><EmailIcon /></Box>
+              
               <Typography sx={{ ml: 1 }}>support@skillbridge.com</Typography>
             </Box>
             <Box
@@ -130,7 +131,8 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-              <PhoneIcon />
+                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><PhoneIcon /></Box>
+              
               <Typography sx={{ ml: 1 }}>+91 00000 00000</Typography>
             </Box>
             <Box
@@ -145,7 +147,8 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-              <LocationOnIcon />
+                 <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><LocationOnIcon /></Box>
+              
               <Typography sx={{ ml: 1 }}>Some Where in the World</Typography>
             </Box>
             <Box
@@ -160,10 +163,25 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-              <Box>
-                <FacebookIcon sx={{ mr: 1}} />
-                <TwitterIcon sx={{ mr: 1 }} />
-                <LinkedInIcon sx={{ mr: 1 }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  gap: 1,
+                }}
+              >
+                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                  <FacebookIcon />
+                </Box>
+
+                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                  <TwitterIcon />
+                </Box>
+
+                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                  <LinkedInIcon />
+                </Box>
               </Box>
               <Typography>Social Profiles</Typography>
             </Box>
