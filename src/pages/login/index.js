@@ -18,6 +18,8 @@ const testimonials = loginData;
 const Index = () => {
   const [currentCard, setCurrentCard] = useState(0);
   const [ShowPaasword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleShowPassword = () => {
     setShowPassword(!ShowPaasword);
   };
@@ -31,7 +33,13 @@ const Index = () => {
       (prevCard) => (prevCard - 1 + testimonials.length) % testimonials.length
     );
   };
-
+  const handleLogin = (event) => {
+    event.preventDefault();
+    console.log("Email:", email);
+    console.log("Password:", password);
+    setEmail("");
+    setPassword("");
+  };
   return (
     <Box
       sx={{
@@ -71,7 +79,7 @@ const Index = () => {
           </Typography>
         </Box>
         <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
-          <Typography sx={{ mb: 1 }}>
+          <Typography sx={{ mb: 3 }}>
             {testimonials[currentCard].text}
           </Typography>
           <DividerWithText />
@@ -80,7 +88,7 @@ const Index = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              mt: 1,
+              mt: 5,
             }}
           >
             <Box
@@ -108,7 +116,7 @@ const Index = () => {
           </Box>
         </Box>
         <Box
-          sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}
+          sx={{ display: "flex", justifyContent:{xs:"center",sm:"center",md:"flex-end"}, mt: 2, gap: 2 }}
         >
           <Button
             onClick={handlePrevious}
@@ -152,29 +160,43 @@ const Index = () => {
         <Typography>
           Welcome back! Please log in to access your account.
         </Typography>
-        <CustomInput
-          type={"email"}
-          label="Email"
-          placeholder="Enter your Email"
-        />
-        <CustomInput
-          type={ShowPaasword ? "text" : "password"}
-          label="Password"
-          placeholder="Enter your Password"
-          endIcon={
-            <IconButton onClick={handleShowPassword}>
-              <RemoveRedEyeIcon />
-            </IconButton>
-          }
-        />
-        <Link href={""} style={{ textAlign: "right" }}>
-          Forgot Password?
-        </Link>
-        <RememberMeCheckbox />
-        <CustomButton
-          title={"Login"}
-          backgroundColor={theme.palette.secondary.main}
-        />
+        <form
+          onSubmit={handleLogin}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <CustomInput
+            type={"email"}
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email"
+          />
+          <CustomInput
+            type={ShowPaasword ? "text" : "password"}
+            label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your Password"
+            endIcon={
+              <IconButton onClick={handleShowPassword}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            }
+          />
+          <Link href={""} style={{ textAlign: "right", marginTop: "8px" }}>
+            Forgot Password?
+          </Link>
+          <RememberMeCheckbox />
+          <CustomButton
+            type="submit"
+            title="Login"
+            color="white"
+            backgroundColor={theme.palette.secondary.main}
+          />
+        </form>
         <DividerWithText text="OR" />
 
         <CustomButton
@@ -189,6 +211,7 @@ const Index = () => {
           <Link
             style={{
               textDecoration: "underline",
+              marginLeft:"5px"
             }}
             href={"/signup"}
           >

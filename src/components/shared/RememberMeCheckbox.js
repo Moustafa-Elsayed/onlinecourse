@@ -8,6 +8,7 @@ const RememberMeCheckbox = () => (
     control={
       <Checkbox
         sx={{
+          mt:1,mb:1,
           color: "customColor.main",
           '&.Mui-checked': {
             color: theme.palette.secondary.main,
