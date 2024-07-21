@@ -13,15 +13,20 @@ import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
 import DividerWithText from "@/components/shared/DividerWithText";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+
 const testimonials = loginData;
 
 const Index = () => {
   const [currentCard, setCurrentCard] = useState(0);
-  const [ShowPaasword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  const [isLogin, setIsLogin] = useState(true);
+
   const handleShowPassword = () => {
-    setShowPassword(!ShowPaasword);
+    setShowPassword(!showPassword);
   };
 
   const handleNext = () => {
@@ -33,6 +38,7 @@ const Index = () => {
       (prevCard) => (prevCard - 1 + testimonials.length) % testimonials.length
     );
   };
+
   const handleLogin = (event) => {
     event.preventDefault();
     console.log("Email:", email);
@@ -40,6 +46,15 @@ const Index = () => {
     setEmail("");
     setPassword("");
   };
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    console.log("SignUp Email:", email);
+    console.log("SignUp Password:", password);
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <Box
       sx={{
@@ -116,7 +131,12 @@ const Index = () => {
           </Box>
         </Box>
         <Box
-          sx={{ display: "flex", justifyContent:{xs:"center",sm:"center",md:"flex-end"}, mt: 2, gap: 2 }}
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", sm: "center", md: "flex-end" },
+            mt: 2,
+            gap: 2,
+          }}
         >
           <Button
             onClick={handlePrevious}
@@ -155,18 +175,33 @@ const Index = () => {
         }}
       >
         <Typography sx={{ fontWeight: "bold" }} variant="h1">
-          Login
+          {isLogin ? "Login" : "Sign Up"}
         </Typography>
         <Typography>
-          Welcome back! Please log in to access your account.
+          {isLogin
+            ? "Welcome back! Please log in to access your account."
+            : "Create an account to get started."}
         </Typography>
         <form
-          onSubmit={handleLogin}
+          onSubmit={isLogin ? handleLogin : handleSignUp}
           style={{
             display: "flex",
             flexDirection: "column",
           }}
         >
+        {
+          !isLogin &&(
+            <>
+               <CustomInput
+            type={"text"}
+            label="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Enter your Email"
+          />
+            </>
+          )
+        }
           <CustomInput
             type={"email"}
             label="Email"
@@ -175,7 +210,7 @@ const Index = () => {
             placeholder="Enter your Email"
           />
           <CustomInput
-            type={ShowPaasword ? "text" : "password"}
+            type={showPassword ? "text" : "password"}
             label="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -186,37 +221,77 @@ const Index = () => {
               </IconButton>
             }
           />
-          <Link href={""} style={{ textAlign: "right", marginTop: "8px" }}>
-            Forgot Password?
-          </Link>
-          <RememberMeCheckbox />
+          {
+            !isLogin&&(
+              <Typography
+            href={""}
+            style={{
+              textAlign: "center",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            I agree with{" "}
+            <Link
+              style={{
+                textDecoration: "underline",
+                marginRight: "8px",
+              }}
+              href={"/signup"}
+            >
+              Terms of Use
+            </Link>
+            and
+            <Link
+              style={{
+                textDecoration: "underline",
+                marginLeft: "8px",
+              }}
+              href={"/signup"}
+            >
+              Privacy Policy
+            </Link>{" "}
+          </Typography>
+            )
+          }
+          {isLogin && (
+            <Link href={""} style={{ textAlign: "right", marginTop: "8px" }}>
+              Forgot Password?
+            </Link>
+          )}
+          {isLogin && <RememberMeCheckbox />}
           <CustomButton
             type="submit"
-            title="Login"
+            title={isLogin ? "Login" : "Sign Up"}
             color="white"
             backgroundColor={theme.palette.secondary.main}
           />
         </form>
         <DividerWithText text="OR" />
-
         <CustomButton
-          title={"Login with Google"}
+          title={isLogin ? "Login with Google" : "Sign Up with Google"}
           backgroundColor={theme.palette.primary.light}
           imageUrl={Google}
           imageAlt="button image"
           imagePosition="start"
         />
         <Typography>
-          Don’t have an account?
-          <Link
+          {isLogin ? "Don’t have an account?" : "Already have an account?"}
+          <button
+            onClick={() => setIsLogin(!isLogin)}
             style={{
               textDecoration: "underline",
-              marginLeft:"5px"
+              marginLeft: "5px",
+              cursor: "pointer",
+              background: "none",
+              border: "none",
+              color: theme.palette.primary.main,
+              display: "inline",
+              fontSize: "inherit",
             }}
-            href={"/signup"}
           >
-            Sign Up
-          </Link>
+            {isLogin ? "Sign Up" : "Login"}
+          </button>
           <ArrowOutwardIcon />
         </Typography>
       </Box>
