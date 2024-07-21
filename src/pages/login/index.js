@@ -6,7 +6,11 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { loginData } from "@/lib/dummyData/loginData/loginData";
 import theme from "@/styles/theme";
-
+import CustomInput from "@/components/shared/CustomInput";
+ import Google from "../../../public/Image/Icon.png"
+ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import Link from "next/link";
+import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
 const testimonials = loginData;
 
 const Index = () => {
@@ -32,6 +36,7 @@ const Index = () => {
         flexDirection: "row",
         flexWrap: "wrap",
         gap: 0,
+      
       }}
     >
       <Box
@@ -126,12 +131,37 @@ const Index = () => {
           maxWidth: "500px",
           display: "flex",
           backgroundColor: "white",
+          flexDirection: "column",
+          justifyContent:"space-between",
           border: "1px solid red",
           width: "100%",
-          height: "100%",
+          height: "650px",
+          p:2
         }}
       >
-        <Typography>jdfjgfj</Typography>
+        <Typography>Login</Typography>
+        <Typography>
+          Welcome back! Please log in to access your account.
+        </Typography>
+        <CustomInput label="Email" placeholder="Enter your Email" />
+        <CustomInput label="Password" placeholder="Enter your Password" />
+        <Typography sx={{ textAlign: "right" }}>Forgot Password?</Typography>
+        <RememberMeCheckbox />
+        <CustomButton
+          title={"Login"}
+          backgroundColor={theme.palette.secondary.main}
+        />
+        <CustomButton
+          title={"Login with Google"}
+          backgroundColor={theme.palette.primary.lightbg}
+          imageUrl={Google}
+          imageAlt="button image"
+          imagePosition="start" 
+        />
+        <Typography >Don’t have an account? 
+          <Link href={""}>Sign Up</Link>
+           <ArrowOutwardIcon /> </Typography>
+
       </Box>
     </Box>
   );
