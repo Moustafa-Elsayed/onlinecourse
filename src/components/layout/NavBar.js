@@ -7,15 +7,14 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Logo from "../../../public/Image/Logo.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
-import { useRouter } from "next/router";
 import useToggle from "@/hooks/useToggle";
+import Logo from "../../../public/Image/Logo.png";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -99,6 +98,8 @@ const NavBar = () => {
                   color: theme.palette.primary.main,
                   display: "block",
                   textTransform: "capitalize",
+                  backgroundColor: router.pathname === page.path ? "#c4c4c442" : "transparent",
+                  color: router.pathname === page.path ? theme.palette.primary.main : theme.palette.primary.main,
                 }}
               >
                 {page.name}
@@ -163,7 +164,10 @@ const NavBar = () => {
                   key={page.name}
                   onClick={() => handleNavItemClick(page.path)}
                 >
-                  <Typography textAlign="center" sx={{ color: "black" }}>
+                  <Typography
+                    textAlign="center"
+                    sx={{ color: "black" }}
+                  >
                     {page.name}
                   </Typography>
                 </MenuItem>
