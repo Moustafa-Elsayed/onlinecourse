@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Image from "next/image";
 import CustomButton from "@/components/shared/CustomButton";
@@ -7,10 +7,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { loginData } from "@/lib/dummyData/loginData/loginData";
 import theme from "@/styles/theme";
 import CustomInput from "@/components/shared/CustomInput";
- import Google from "../../../public/Image/Icon.png"
- import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import Google from "../../../public/Image/Icon.png";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
+import DividerWithText from "@/components/shared/DividerWithText";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 const testimonials = loginData;
 
 const Index = () => {
@@ -31,12 +33,11 @@ const Index = () => {
       sx={{
         textAlign: "center",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         alignItems: "start",
         flexDirection: "row",
         flexWrap: "wrap",
-        gap: 0,
-      
+        gap: 5,
       }}
     >
       <Box
@@ -69,7 +70,7 @@ const Index = () => {
           <Typography sx={{ mb: 1 }}>
             {testimonials[currentCard].text}
           </Typography>
-          <hr />
+          <DividerWithText />
           <Box
             sx={{
               display: "flex",
@@ -132,11 +133,10 @@ const Index = () => {
           display: "flex",
           backgroundColor: "white",
           flexDirection: "column",
-          justifyContent:"space-between",
-          border: "1px solid red",
+          justifyContent: "space-between",
           width: "100%",
           height: "650px",
-          p:2
+          p: 2,
         }}
       >
         <Typography>Login</Typography>
@@ -144,24 +144,40 @@ const Index = () => {
           Welcome back! Please log in to access your account.
         </Typography>
         <CustomInput label="Email" placeholder="Enter your Email" />
-        <CustomInput label="Password" placeholder="Enter your Password" />
-        <Typography sx={{ textAlign: "right" }}>Forgot Password?</Typography>
+        <CustomInput label="Password" placeholder="Enter your Password" endIcon={
+        <IconButton>
+          <RemoveRedEyeIcon />
+        </IconButton>
+      } />
+        <Link href={""} style={{ textAlign: "right" }}>
+          Forgot Password?
+        </Link>
         <RememberMeCheckbox />
         <CustomButton
           title={"Login"}
           backgroundColor={theme.palette.secondary.main}
         />
+        <DividerWithText text="OR" />
+
         <CustomButton
           title={"Login with Google"}
-          backgroundColor={theme.palette.primary.lightbg}
+          backgroundColor={theme.palette.primary.light}
           imageUrl={Google}
           imageAlt="button image"
-          imagePosition="start" 
+          imagePosition="start"
         />
-        <Typography >Don’t have an account? 
-          <Link href={""}>Sign Up</Link>
-           <ArrowOutwardIcon /> </Typography>
-
+        <Typography>
+          Don’t have an account?
+          <Link
+            style={{
+              textDecoration: "underline",
+            }}
+            href={"/signup"}
+          >
+            Sign Up
+          </Link>
+          <ArrowOutwardIcon />
+        </Typography>
       </Box>
     </Box>
   );
