@@ -1,7 +1,6 @@
 import React from "react";
 import { TextField, Box, Typography, InputAdornment } from "@mui/material";
 import { styled } from "@mui/system";
-import IconButton from "@mui/material/IconButton"; // Import IconButton if you need to use it
 
 const CustomTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
@@ -22,7 +21,7 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const CustomInput = ({ label,type, placeholder, endIcon, ...props }) => {
+const CustomInput = ({ label,type,multiline, placeholder, endIcon, ...props }) => {
   return (
     <Box sx={{ margin: 1 }}>
       <Typography sx={{ textAlign: "left", mb: 1, fontWeight: "bold" }}>{label}</Typography>
@@ -30,6 +29,7 @@ const CustomInput = ({ label,type, placeholder, endIcon, ...props }) => {
         variant="outlined"
         fullWidth
         {...props}
+        multiline={multiline}
         placeholder={placeholder}
         type={type}
         InputProps={{

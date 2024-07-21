@@ -181,7 +181,7 @@ const Index = () => {
         <Typography>
           {isLogin
             ? "Welcome back! Please log in to access your account."
-            : "Create an account to get started."}
+            : "Create an account to unlock exclusive features."}
         </Typography>
         <form
           onSubmit={isLogin ? handleLogin : handleSignUp}

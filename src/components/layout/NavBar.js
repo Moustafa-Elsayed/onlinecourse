@@ -15,13 +15,24 @@ import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
 import { useRouter } from "next/router";
-const pages = ["Home", "Courses", "About Us", "Pricing", "Contact"];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import useToggle from "@/hooks/useToggle";
+
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "Courses", path: "/courses" },
+  { name: "About Us", path: "/about-us" },
+  { name: "Pricing", path: "/pricing" },
+  { name: "Contact us", path: "/contactus" },
+];
+
 const NavBar = () => {
   const router = useRouter();
+  const [isLogin, toggleIsLogin] = useToggle(true);
+
   const [activeButton, setActiveButton] = React.useState("login");
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
+    toggleIsLogin();
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -41,14 +52,12 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  // const handlelogin = () => {
-  //   handleButtonClick("login");
-  //   router.push("/login");
-  // };
-  // const handlesignup = () => {
-  //   handleButtonClick("signUp");
-  //   router.push("/signup");
-  // };
+
+  const handleNavItemClick = (path) => {
+    handleCloseNavMenu();
+    router.push(path);
+  };
+
   return (
     <AppBar
       position="static"
@@ -83,8 +92,8 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => handleNavItemClick(page.path)}
                 sx={{
                   my: 2,
                   color: theme.palette.primary.main,
@@ -92,7 +101,7 @@ const NavBar = () => {
                   textTransform: "capitalize",
                 }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -107,7 +116,7 @@ const NavBar = () => {
               }
               color={activeButton === "signUp" ? "white" : "black"}
               sx={{ ml: 2 }}
-              // onClick={handlesignup}
+              onClick={() => handleButtonClick("signUp")}
             />
             <CustomButton
               title="Login"
@@ -117,31 +126,8 @@ const NavBar = () => {
                   : "transparent"
               }
               color={activeButton === "login" ? "white" : "black"}
-              // onClick={handlelogin}
+              onClick={() => handleButtonClick("login")}
             />
-
-            {/* <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -173,9 +159,12 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.name}
+                  onClick={() => handleNavItemClick(page.path)}
+                >
                   <Typography textAlign="center" sx={{ color: "black" }}>
-                    {page}
+                    {page.name}
                   </Typography>
                 </MenuItem>
               ))}
