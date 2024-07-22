@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
 import CustomCard from "./CustomCard";
+import { PricingFree, PricingPro} from "@/lib/dummyData/pricing/Pricingplan";
+
+const freeplan = PricingFree;
+const Proplan = PricingPro;
+
 
 const PricingPlan = () => {
   const [activeTab, setActiveTab] = useState("monthly");
@@ -52,10 +57,10 @@ const PricingPlan = () => {
           <Box sx={{ flexGrow: 1, p: 2 }}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Free"} price={"0"} />
+                <CustomCard Plan={"Free"} price={"0"} features={freeplan}  type={"Month"}/>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Pro"} price={"79"} />
+                <CustomCard Plan={"Pro"} price={"150"} features={Proplan} type={"Year"} />
               </Grid>
             </Grid>
           </Box>
@@ -63,10 +68,10 @@ const PricingPlan = () => {
           <Box sx={{ flexGrow: 1, p: 2 }}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Free"} price={"0"} />
+                <CustomCard Plan={"Free"} price={"0"} features={freeplan} type={"Month"}/>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Pro"} price={"79"} />
+                <CustomCard Plan={"Pro"} price={"79"}   features={Proplan} type={"Year"}/>
               </Grid>
             </Grid>
           </Box>

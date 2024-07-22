@@ -17,9 +17,8 @@ const index = () => {
         <DividerWithText />
       </Box>
       <Box>
-      <PricingPlan />
+        <PricingPlan />
       </Box>
-
     </>
   );
 };
