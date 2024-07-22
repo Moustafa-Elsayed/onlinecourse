@@ -1,3 +1,4 @@
+import FAQs from "@/components/pricing/FAQs";
 import PricingPlan from "@/components/pricing/PricingPlan";
 import DividerWithText from "@/components/shared/DividerWithText";
 import PageTitle from "@/components/shared/PageTitle";
@@ -18,6 +19,9 @@ const index = () => {
       </Box>
       <Box>
         <PricingPlan />
+      </Box>
+      <Box>
+        <FAQs />
       </Box>
     </>
   );

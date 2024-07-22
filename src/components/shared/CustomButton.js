@@ -1,15 +1,31 @@
+import React from "react";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 
-const CustomButton = ({ title, color, backgroundColor, imageUrl, imageAlt,borderRadius, imagePosition = "start",width, ...props }) => {
+const CustomButton = ({
+  fontWeight,
+  border,
+  title,
+  color,
+  backgroundColor,
+  imageUrl,
+  imageAlt,
+  borderRadius,
+  imagePosition = "start",
+  width,
+  endIcon,
+  startIcon,
+  ...props
+}) => {
+  // Determine the icon based on imageUrl and imagePosition
   const icon = imageUrl ? (
     <Image
       src={imageUrl}
       alt={imageAlt}
-      width={24} 
+      width={24}
       height={24}
     />
-  ) : null;
+  ) : imagePosition === "end" ? endIcon : startIcon;
 
   return (
     <Button
@@ -18,18 +34,18 @@ const CustomButton = ({ title, color, backgroundColor, imageUrl, imageAlt,border
         backgroundColor: backgroundColor,
         color: color,
         padding: "8px 16px",
-        borderRadius: "8px",
+        borderRadius: borderRadius || "8px",
         textTransform: "capitalize",
-        border: "1px solid transparent",
+        border: border,
         transition: "background-color 0.3s, color 0.3s, border 0.3s",
-        width:width,
-        borderRadius:borderRadius,
+        width: width,
+        fontWeight: fontWeight,
         "&:hover": {
           backgroundColor: backgroundColor,
         },
       }}
-      startIcon={imageUrl && imagePosition === "start" ? icon : null}
-      endIcon={imageUrl && imagePosition === "end" ? icon : null}
+      startIcon={imagePosition === "start" ? icon : null}
+      endIcon={imagePosition === "end" ? icon : null}
     >
       {title}
     </Button>

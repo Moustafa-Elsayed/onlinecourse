@@ -22,6 +22,8 @@ const CustomCard = ({ Plan, price, features,type }) => {
         maxWidth: 550,
         borderRadius: 2,
         backgroundColor: theme.palette.primary.light,
+        border: `1px solid #f5eaea`,
+
       }}
       elevation={0}
     >

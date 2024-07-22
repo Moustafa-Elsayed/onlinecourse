@@ -11,7 +11,7 @@ const PageTitle = ({title,subTitle}) => {
           flexDirection: { xs: "column", sm: "column", md: "row" },
         }}
       >
-        <Typography variant="h1" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h1" sx={{ fontWeight: "bold",mb:2 }}>
           {title}
         </Typography>
         <Typography variant="subtitle1" sx={{ maxWidth: "600px", mb: 2 }}>
