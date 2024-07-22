@@ -1,7 +1,8 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React, { useState } from "react";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
+import CustomCard from "./CustomCard";
 
 const PricingPlan = () => {
   const [activeTab, setActiveTab] = useState("monthly");
@@ -14,7 +15,15 @@ const PricingPlan = () => {
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Box sx={{ backgroundColor: "white", p: 1, borderRadius: 2 ,display:"flex",gap:1}}>
+        <Box
+          sx={{
+            backgroundColor: "white",
+            p: 1,
+            borderRadius: 2,
+            display: "flex",
+            gap: 1,
+          }}
+        >
           <CustomButton
             title="Monthly"
             active={activeTab === "monthly"}
@@ -38,11 +47,31 @@ const PricingPlan = () => {
           />
         </Box>
       </Box>
-      {activeTab === "yearly" ? (
-        <Box>Yearly data</Box>
-      ) : (
-        <Box>Monthly data</Box>
-      )}
+      <Box sx={{ backgroundColor: "white", borderRadius: 2, p: 2, mt: 4 }}>
+        {activeTab === "yearly" ? (
+          <Box sx={{ flexGrow: 1, p: 2 }}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomCard Plan={"Free"} price={"0"} />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomCard Plan={"Pro"} price={"79"} />
+              </Grid>
+            </Grid>
+          </Box>
+        ) : (
+          <Box sx={{ flexGrow: 1, p: 2 }}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomCard Plan={"Free"} price={"0"} />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <CustomCard Plan={"Pro"} price={"79"} />
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

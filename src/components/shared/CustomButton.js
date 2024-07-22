@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import Image from "next/image";
 
-const CustomButton = ({ title, color, backgroundColor, imageUrl, imageAlt, imagePosition = "start",ml, ...props }) => {
+const CustomButton = ({ title, color, backgroundColor, imageUrl, imageAlt, imagePosition = "start",width, ...props }) => {
   const icon = imageUrl ? (
     <Image
       src={imageUrl}
@@ -22,7 +22,7 @@ const CustomButton = ({ title, color, backgroundColor, imageUrl, imageAlt, image
         textTransform: "capitalize",
         border: "1px solid transparent",
         transition: "background-color 0.3s, color 0.3s, border 0.3s",
-        ml:ml,
+        width:width,
         "&:hover": {
           backgroundColor: backgroundColor,
         },
