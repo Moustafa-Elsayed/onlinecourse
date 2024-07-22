@@ -98,8 +98,12 @@ const NavBar = () => {
                   color: theme.palette.primary.main,
                   display: "block",
                   textTransform: "capitalize",
-                  backgroundColor: router.pathname === page.path ? "#c4c4c442" : "transparent",
-                  color: router.pathname === page.path ? theme.palette.primary.main : theme.palette.primary.main,
+                  backgroundColor:
+                    router.pathname === page.path ? "#c4c4c442" : "transparent",
+                  color:
+                    router.pathname === page.path
+                      ? theme.palette.primary.main
+                      : theme.palette.primary.main,
                 }}
               >
                 {page.name}
@@ -164,10 +168,7 @@ const NavBar = () => {
                   key={page.name}
                   onClick={() => handleNavItemClick(page.path)}
                 >
-                  <Typography
-                    textAlign="center"
-                    sx={{ color: "black" }}
-                  >
+                  <Typography textAlign="center" sx={{ color: "black" }}>
                     {page.name}
                   </Typography>
                 </MenuItem>

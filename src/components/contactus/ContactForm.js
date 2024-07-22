@@ -79,7 +79,7 @@ const ContactForm = () => {
                 rows={4}
                 // value={email}
                 // onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your Email"
+                placeholder="Enter your Message"
               />
             </Grid>
             <Grid item xs={12}>
@@ -101,7 +101,7 @@ const ContactForm = () => {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
-              borderLeft:{xs:"none",sm:"none",md:"1px solid #c4c4c442"}
+              borderLeft: { xs: "none", sm: "none", md: "1px solid #c4c4c442" },
             }}
           >
             <Box
@@ -116,8 +116,12 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><EmailIcon /></Box>
-              
+              <Box
+                sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+              >
+                <EmailIcon />
+              </Box>
+
               <Typography sx={{ ml: 1 }}>support@skillbridge.com</Typography>
             </Box>
             <Box
@@ -132,8 +136,12 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><PhoneIcon /></Box>
-              
+              <Box
+                sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+              >
+                <PhoneIcon />
+              </Box>
+
               <Typography sx={{ ml: 1 }}>+91 00000 00000</Typography>
             </Box>
             <Box
@@ -148,8 +156,12 @@ const ContactForm = () => {
                 width: "80%",
               }}
             >
-                 <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}><LocationOnIcon /></Box>
-              
+              <Box
+                sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+              >
+                <LocationOnIcon />
+              </Box>
+
               <Typography sx={{ ml: 1 }}>Some Where in the World</Typography>
             </Box>
             <Box
@@ -162,7 +174,6 @@ const ContactForm = () => {
                 p: 3,
                 backgroundColor: theme.palette.primary.light,
                 width: "80%",
-                
               }}
             >
               <Box
@@ -173,15 +184,21 @@ const ContactForm = () => {
                   gap: 1,
                 }}
               >
-                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                <Box
+                  sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+                >
                   <FacebookIcon />
                 </Box>
 
-                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                <Box
+                  sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+                >
                   <TwitterIcon />
                 </Box>
 
-                <Box sx={{ backgroundColor:"#c4c4c442", p: 0.5,borderRadius:1 }}>
+                <Box
+                  sx={{ backgroundColor: "#c4c4c442", p: 0.5, borderRadius: 1 }}
+                >
                   <LinkedInIcon />
                 </Box>
               </Box>
