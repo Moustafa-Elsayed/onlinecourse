@@ -57,10 +57,10 @@ const PricingPlan = () => {
           <Box sx={{ flexGrow: 1, p: 2 }}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Free"} price={"0"} features={freeplan}  type={"Month"}/>
+                <CustomCard Plan={"Free"} price={"0"} features={freeplan} type={"Month"} />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <CustomCard Plan={"Pro"} price={"150"} features={Proplan} type={"Year"} />
+                <CustomCard Plan={"Pro"} price={"120"} features={Proplan} type={"Year"} />
               </Grid>
             </Grid>
           </Box>
