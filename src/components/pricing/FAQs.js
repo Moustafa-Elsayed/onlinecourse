@@ -129,21 +129,19 @@ const FAQs = () => {
                         title={faq.buttonText}
                         backgroundColor={"#28282833"}
                         endIcon={
-                            <Box
-                              sx={{
-                                backgroundColor: "white",
-                                borderRadius: "50%",
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                padding: 0.5,
-                                
-                              }}
-                            >
-                              <ArrowForwardIcon />
-                            </Box>
-                          }
-                          
+                          <Box
+                            sx={{
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: 0.5,
+                            }}
+                          >
+                            <ArrowForwardIcon />
+                          </Box>
+                        }
                         imageAlt="button image"
                         imagePosition="end"
                       />

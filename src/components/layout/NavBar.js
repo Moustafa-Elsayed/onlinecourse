@@ -19,7 +19,7 @@ import Logo from "../../../public/Image/Logo.png";
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
-  { name: "About Us", path: "/about-us" },
+  { name: "About Us", path: "/aboutus" },
   { name: "Pricing", path: "/pricing" },
   { name: "Contact us", path: "/contactus" },
 ];

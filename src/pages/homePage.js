@@ -1,9 +1,11 @@
-import React from 'react'
+import CoursesHome from "@/components/courses/homePage/CoursesHome";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <>
+      <CoursesHome />
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
