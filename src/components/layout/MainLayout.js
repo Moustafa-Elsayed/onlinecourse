@@ -14,13 +14,22 @@ const MainLayout = ({ children }) => {
       }}
     >
       <Header />
+      <Box
+        sx={{          
+          pr: { xs: 1, sm: 3, md: 15}, 
+          pl: { xs: 1, sm: 3, md: 15}, 
+          mb:5
+        }}
+      >
+
       <NavBar />
+      </Box>
       <Box
         sx={{
           flex: 1,
           mt: 5,
-          pr: { xs: 2, sm: 3, md: 5 }, 
-          pl: { xs: 2, sm: 3, md: 5}, 
+          pr: { xs: 1, sm: 3, md: 18}, 
+          pl: { xs: 1, sm: 3, md: 18}, 
         }}
       >
         {children}

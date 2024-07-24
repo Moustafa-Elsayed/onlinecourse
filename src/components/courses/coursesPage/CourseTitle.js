@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
-const CourseTitle = ({ title, subtitle,courseId }) => {
+const CourseTitle = ({ title, subtitle, courseId }) => {
   return (
     <Box
       sx={{
@@ -21,12 +21,12 @@ const CourseTitle = ({ title, subtitle,courseId }) => {
         <Typography variant="body2">{subtitle}</Typography>
       </Box>
 
-      <Link href={`/courses/${courseId}`} >
+      <Link href={`/courses/${courseId}`}>
         <CustomButton
           title={"View Course"}
           backgroundColor={theme.palette.primary.light}
           border="1px solid #e9e3e3"
-          component="a" // Ensure the button behaves like a link
+          component="a"
         />
       </Link>
     </Box>
