@@ -18,6 +18,8 @@ const CourseTitle = ({ title, subtitle }) => {
       <CustomButton
         title={"View Course"}
         backgroundColor={theme.palette.primary.light}
+        border="1px solid #e9e3e3"
+
       />
     </Box>
   );

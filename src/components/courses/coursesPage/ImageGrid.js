@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Course1 from "../../../../public/Image/course1.png";
 import Course2 from "../../../../public/Image/course2.png";
@@ -9,22 +9,41 @@ import theme from "@/styles/theme";
 
 const ImageGrid = () => {
   return (
-    <Box sx={{
-        mt:2
-    }}>
+    <Box sx={{ mt: 2 }}>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 1,
-          flexDirection: "row",
           flexWrap: "wrap",
+          gap: 1,
         }}
       >
-        <Image src={Course1} width={"100%"} height={200} alt="Image 1" />
-        <Image src={Course2} width={300} height={200} alt="Image 1" />
-        <Image src={Course3} width={300} height={200} alt="Image 1" />
+        <Box sx={{ flex: 1 }}>
+          <Image
+            src={Course1}
+            width={300}
+            height={300}
+            layout="responsive"
+            alt="Course 1"
+          />
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <Image
+            src={Course2}
+            width={300}
+            height={300}
+            layout="responsive"
+            alt="Course 2"
+          />
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <Image
+            src={Course3}
+            width={300}
+            height={300}
+            layout="responsive"
+            alt="Course 3"
+          />
+        </Box>
       </Box>
       <Box
         sx={{
@@ -33,7 +52,7 @@ const ImageGrid = () => {
           alignItems: "center",
           gap: 2,
           flexDirection: "row",
-          mt:3
+          mt: 3,
         }}
       >
         <Box
