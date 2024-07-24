@@ -1,7 +1,5 @@
-// CallToAction.js
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, Typography } from "@mui/material";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
 
@@ -10,14 +8,15 @@ const CallToAction = () => {
     <Box
       sx={{
         textAlign: "center",
-        p: { xs: 1, sm: 1, md: theme.spacing(4) },
+        p: { xs: 0, sm: 0, md: theme.spacing(4) },
+        mt:4
       }}
     >
       <Box
         sx={{
           backgroundColor: "white",
           width: "100%",
-          p: { xs: 1, sm: 1, md: theme.spacing(4) },
+          p: { xs: 0, sm: 0, md: theme.spacing(4) },
           borderRadius: "10px",
           display: "flex",
           alignItems: { xs: "flex-start", sm: "flex-start", md: "center" },

@@ -7,10 +7,13 @@ import CachedIcon from "@mui/icons-material/Cached";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import PeopleIcon from "@mui/icons-material/People";
 import SchoolIcon from "@mui/icons-material/School";
+import theme from "@/styles/theme";
 
 const Root = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(4),
+  padding: { xs: 0, sm: 0, md: theme.spacing(4) },
   backgroundColor: "#f8f9fa",
+  marginTop:"45px"
+
 }));
 
 const cardData = [
@@ -43,24 +46,27 @@ const cardData = [
 const Achievements = () => {
   return (
     <Root>
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
-        Achievements
-      </Typography>
-      <Typography sx={{ mb: 4 }}>
-        Our commitment to excellence has led us to achieve significant
-        milestones along our journey. Here are some of our notable achievements
-      </Typography>
-      <Grid container spacing={3}>
-        {cardData.map((card, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <CustomCard
-              Icon={card.Icon}
-              title={card.title}
-              description={card.description}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <Box sx={{ p: { xs: 0, sm: 0, md: theme.spacing(4) } }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+          Achievements
+        </Typography>
+        <Typography sx={{ mb: 4 }}>
+          Our commitment to excellence has led us to achieve significant
+          milestones along our journey. Here are some of our notable
+          achievements
+        </Typography>
+        <Grid container spacing={3}>
+          {cardData.map((card, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <CustomCard
+                Icon={card.Icon}
+                title={card.title}
+                description={card.description}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Root>
   );
 };
