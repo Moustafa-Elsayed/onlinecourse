@@ -3,6 +3,7 @@ import React from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
 import Curriculum from "./Curriculum";
+import { useRouter } from "next/router";
 
 const CourseSingleCard = ({
   title,
@@ -14,6 +15,11 @@ const CourseSingleCard = ({
   instructor,
   courseId,
 }) => {
+  const router = useRouter();
+
+  const handleViewDetails = () => {
+    router.push(`/courses/${courseId}`);
+  };
   return (
     <Box
       sx={{
@@ -22,8 +28,9 @@ const CourseSingleCard = ({
       }}
     >
       <Box sx={{ p: 4 }}>
+     
         <Box>
-          <CourseTitle title={title} subtitle={subtitle} courseId={courseId} />
+          <CourseTitle title={title} subtitle={subtitle} handleViewDetails={handleViewDetails} />
         </Box>
         <Box>
           <ImageGrid

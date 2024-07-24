@@ -4,10 +4,9 @@ import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 import { Box } from "@mui/material";
 import React from "react";
 
-const coursesData = CoursesDummyData
+const coursesData = CoursesDummyData;
 
 const CoursesPage = () => {
-
   return (
     <>
       <PageTitle
@@ -27,7 +26,7 @@ const CoursesPage = () => {
             duration={course.duration}
             level={course.level}
             instructor={course.instructor}
-            courseId={course.id}         
+            courseId={course.id}
           />
         ))}
       </Box>

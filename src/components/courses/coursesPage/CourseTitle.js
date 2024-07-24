@@ -5,15 +5,8 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const CourseTitle = ({ title, subtitle, courseId }) => {
-  const router = useRouter();
-  const [activeCourseId, setActiveCourseId] = useState(null);
-
-  const handleButtonClick = () => {
-    setActiveCourseId(courseId);
-    console.log(`Active Course ID: ${courseId}`);
-    router.push(`/courses/${courseId}`);
-  };
+const CourseTitle = ({ title, subtitle, handleViewDetails }) => {
+ 
 
   return (
     <Box
@@ -35,7 +28,7 @@ const CourseTitle = ({ title, subtitle, courseId }) => {
         title={"View Course"}
         backgroundColor={theme.palette.primary.light}
         border="1px solid #e9e3e3"
-        onClick={handleButtonClick}
+        onClick={handleViewDetails}
       />
     </Box>
   );
