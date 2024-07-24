@@ -18,7 +18,7 @@ import theme from "@/styles/theme";
 const Footer = () => {
   return (
     <Box component="footer" sx={{ py: 10, bgcolor: "background.paper", mt: 5 }}>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" >
         <Grid container spacing={10}>
           <Grid item xs={12} sm={3}>
             <Box display="flex" flexDirection="column" alignItems="start">

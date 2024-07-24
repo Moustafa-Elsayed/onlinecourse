@@ -7,6 +7,7 @@ import React from "react";
 const coursesData = CoursesDummyData
 
 const CoursesPage = () => {
+
   return (
     <>
       <PageTitle
@@ -26,7 +27,7 @@ const CoursesPage = () => {
             duration={course.duration}
             level={course.level}
             instructor={course.instructor}
-            courseId={course.id}
+            courseId={course.id}         
           />
         ))}
       </Box>

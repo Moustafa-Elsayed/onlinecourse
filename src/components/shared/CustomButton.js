@@ -14,10 +14,10 @@ const CustomButton = ({
   imagePosition = "start",
   width,
   endIcon,
+  onclick,
   startIcon,
   ...props
 }) => {
-  // Determine the icon based on imageUrl and imagePosition
   const icon = imageUrl ? (
     <Image
       src={imageUrl}
@@ -46,6 +46,7 @@ const CustomButton = ({
       }}
       startIcon={imagePosition === "start" ? icon : null}
       endIcon={imagePosition === "end" ? icon : null}
+      onclick={onclick}
     >
       {title}
     </Button>

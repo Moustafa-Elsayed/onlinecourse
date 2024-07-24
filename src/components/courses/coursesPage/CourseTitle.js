@@ -1,10 +1,20 @@
+import React, { useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
 
 const CourseTitle = ({ title, subtitle, courseId }) => {
+  const router = useRouter();
+  const [activeCourseId, setActiveCourseId] = useState(null);
+
+  const handleButtonClick = () => {
+    setActiveCourseId(courseId);
+    console.log(`Active Course ID: ${courseId}`);
+    router.push(`/courses/${courseId}`);
+  };
+
   return (
     <Box
       sx={{
@@ -21,14 +31,12 @@ const CourseTitle = ({ title, subtitle, courseId }) => {
         <Typography variant="body2">{subtitle}</Typography>
       </Box>
 
-      <Link href={`/courses/${courseId}`}>
-        <CustomButton
-          title={"View Course"}
-          backgroundColor={theme.palette.primary.light}
-          border="1px solid #e9e3e3"
-          component="a"
-        />
-      </Link>
+      <CustomButton
+        title={"View Course"}
+        backgroundColor={theme.palette.primary.light}
+        border="1px solid #e9e3e3"
+        onClick={handleButtonClick}
+      />
     </Box>
   );
 };
