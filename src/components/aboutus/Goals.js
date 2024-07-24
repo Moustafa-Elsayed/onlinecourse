@@ -66,7 +66,7 @@ const Goals = () => {
         </Typography>
         <Grid container spacing={3}>
           {cardData.map((card, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={6} key={index}>
               <CustomCard
                 Icon={card.Icon}
                 title={card.title}
