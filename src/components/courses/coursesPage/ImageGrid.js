@@ -7,7 +7,7 @@ import Course3 from "../../../../public/Image/course3.png";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 
-const ImageGrid = () => {
+const ImageGrid = ({ duration, level, instructor }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Box
@@ -53,6 +53,7 @@ const ImageGrid = () => {
           gap: 2,
           flexDirection: "row",
           mt: 3,
+          flexWrap: "wrap",
         }}
       >
         <Box
@@ -65,18 +66,18 @@ const ImageGrid = () => {
           }}
         >
           <CustomButton
-            title={"4 Weeks"}
+            title={duration}
             backgroundColor={theme.palette.primary.light}
             border="1px solid #e9e3e3"
           />
           <CustomButton
-            title={"Beginner"}
+            title={level}
             border="1px solid #e9e3e3"
             backgroundColor={theme.palette.primary.light}
           />
         </Box>
         <Box>
-          <Typography>By John Smith</Typography>
+          <Typography>By {instructor}</Typography>
         </Box>
       </Box>
     </Box>

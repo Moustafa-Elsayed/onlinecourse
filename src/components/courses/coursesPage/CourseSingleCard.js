@@ -2,8 +2,18 @@ import { Box } from "@mui/material";
 import React from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
+import Curriculum from "./Curriculum";
 
-const CourseSingleCard = () => {
+const CourseSingleCard = ({
+  title,
+  subtitle,
+  courseSlug,
+  curriculum,
+  duration,
+  level,
+  instructor,
+  courseId
+}) => {
   return (
     <Box
       sx={{
@@ -13,17 +23,14 @@ const CourseSingleCard = () => {
     >
       <Box sx={{ p: 4 }}>
         <Box>
-          <CourseTitle
-            title={"Web Design Fundamentals"}
-            subtitle={
-              "Learn the fundamentals of web design, including HTML, CSS, and responsive design principles. Develop the skills to create visually appealing and user-friendly websites."
-            }
-          />
+          <CourseTitle title={title} subtitle={subtitle}  courseId={courseId}/>
         </Box>
         <Box>
-            <ImageGrid />
+          <ImageGrid instructor={instructor} duration={duration} level={level} />
         </Box>
-        <Box>last</Box>
+        <Box>
+          <Curriculum curriculum={curriculum} />
+        </Box>
       </Box>
     </Box>
   );
