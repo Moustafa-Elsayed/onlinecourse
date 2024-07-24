@@ -34,6 +34,7 @@ const MainLayout = ({ children }) => {
       >
         {children}
       </Box>
+      
       <Footer />
     </Box>
   );

@@ -60,6 +60,7 @@ const FAQs = () => {
         height: "100%",
         maxHeight: "auto",
         pb: 5,
+        borderRadius:2
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
