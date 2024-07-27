@@ -28,9 +28,12 @@ const CourseSingleCard = ({
       }}
     >
       <Box sx={{ p: 4 }}>
-     
         <Box>
-          <CourseTitle title={title} subtitle={subtitle} handleViewDetails={handleViewDetails} />
+          <CourseTitle
+            title={title}
+            subtitle={subtitle}
+            handleViewDetails={handleViewDetails}
+          />
         </Box>
         <Box>
           <ImageGrid
