@@ -4,27 +4,11 @@ import CourseCard from "./CourseCard";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
-const courses = [
-  {
-    image: "path/to/image1.jpg",
-    title: "Web Design Fundamentals",
-    duration: "4 Weeks",
-    level: "Beginner",
-    instructor: "John Smith",
-    description:
-      "Learn the basics of web design including HTML, CSS, and responsive design principles...",
-  },
-  {
-    image: "path/to/image2.jpg",
-    title: "UI/UX Design",
-    duration: "6 Weeks",
-    level: "Intermediate",
-    instructor: "Emily Johnson",
-    description:
-      "Explore the world of creating intuitive user interfaces (UI) and user experiences (UX)...",
-  },
-];
+import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
+const coursesData = CoursesDummyData;
+
 const CoursesHome = () => {
+  console.log(coursesData,"coursesData");
   const handleCoursesRoute = useButtonClickHandler("/courses");
   return (
     <Container>
@@ -34,6 +18,7 @@ const CoursesHome = () => {
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
+          mb:5
         }}
       >
         <Box sx={{ flexGrow: 1, maxWidth: "80%", mb: 1 }}>
@@ -55,9 +40,9 @@ const CoursesHome = () => {
         />
       </Box>
       <Grid container spacing={4}>
-        {courses.map((course, index) => (
-          <Grid item key={index} xs={12} sm={6} md={4}>
-            <CourseCard {...course} />
+        {coursesData.map((course, index) => (
+          <Grid item key={index} xs={12} sm={6} md={6}>
+            <CourseCard {...course} />   
           </Grid>
         ))}
       </Grid>

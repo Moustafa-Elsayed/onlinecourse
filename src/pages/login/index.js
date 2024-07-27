@@ -94,7 +94,7 @@ const Index = () => {
           </Typography>
         </Box>
         <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
-          <Typography sx={{ mb: 3,minHeight:"100px" }}>
+          <Typography sx={{ mb: 3, minHeight: "100px" }}>
             {testimonials[currentCard].text}
           </Typography>
           <DividerWithText />
@@ -172,7 +172,7 @@ const Index = () => {
           width: "100%",
           height: "650px",
           p: 2,
-          borderRadius:5
+          borderRadius: 5,
         }}
       >
         <Typography sx={{ fontWeight: "bold" }} variant="h1">
@@ -190,19 +190,17 @@ const Index = () => {
             flexDirection: "column",
           }}
         >
-        {
-          !isLogin &&(
+          {!isLogin && (
             <>
-               <CustomInput
-            type={"text"}
-            label="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="Enter your Email"
-          />
+              <CustomInput
+                type={"text"}
+                label="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Enter your Email"
+              />
             </>
-          )
-        }
+          )}
           <CustomInput
             type={"email"}
             label="Email"
@@ -222,39 +220,37 @@ const Index = () => {
               </IconButton>
             }
           />
-          {
-            !isLogin&&(
-              <Typography
-            href={""}
-            style={{
-              textAlign: "center",
-              marginTop: "10px",
-              marginBottom: "10px",
-            }}
-          >
-            I agree with{" "}
-            <Link
+          {!isLogin && (
+            <Typography
+              href={""}
               style={{
-                textDecoration: "underline",
-                marginRight: "8px",
+                textAlign: "center",
+                marginTop: "10px",
+                marginBottom: "10px",
               }}
-              href={"/signup"}
             >
-              Terms of Use
-            </Link>
-            and
-            <Link
-              style={{
-                textDecoration: "underline",
-                marginLeft: "8px",
-              }}
-              href={"/signup"}
-            >
-              Privacy Policy
-            </Link>{" "}
-          </Typography>
-            )
-          }
+              I agree with{" "}
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  marginRight: "8px",
+                }}
+                href={"/signup"}
+              >
+                Terms of Use
+              </Link>
+              and
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  marginLeft: "8px",
+                }}
+                href={"/signup"}
+              >
+                Privacy Policy
+              </Link>{" "}
+            </Typography>
+          )}
           {isLogin && (
             <Link href={""} style={{ textAlign: "right", marginTop: "8px" }}>
               Forgot Password?

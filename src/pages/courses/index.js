@@ -2,6 +2,7 @@ import CourseSingleCard from "@/components/courses/coursesPage/CourseSingleCard"
 import PageTitle from "@/components/shared/PageTitle";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 import { Box } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const coursesData = CoursesDummyData;
@@ -17,17 +18,9 @@ const CoursesPage = () => {
       />
       <Box sx={{ display: "flex", gap: 3, flexDirection: "column" }}>
         {coursesData.map((course) => (
-          <CourseSingleCard
-            key={course.id}
-            title={course.title}
-            subtitle={course.subtitle}
-            courseSlug={course.title}
-            curriculum={course.curriculum}
-            duration={course.duration}
-            level={course.level}
-            instructor={course.instructor}
-            courseId={course.id}
-          />
+          // <Link href={`/courses/${course.id}`}>
+          <CourseSingleCard {...course} />
+          // </Link>
         ))}
       </Box>
     </>

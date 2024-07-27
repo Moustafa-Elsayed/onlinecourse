@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
 import Curriculum from "./Curriculum";
@@ -12,13 +12,8 @@ const CourseSingleCard = ({
   duration,
   level,
   instructor,
-  courseId,
+  id,
 }) => {
-  const router = useRouter();
-
-  const handleViewDetails = () => {
-    router.push(`/courses/${courseId}`);
-  };
   return (
     <Box
       sx={{
@@ -28,11 +23,7 @@ const CourseSingleCard = ({
     >
       <Box sx={{ p: 4 }}>
         <Box>
-          <CourseTitle
-            title={title}
-            subtitle={subtitle}
-            handleViewDetails={handleViewDetails}
-          />
+          <CourseTitle title={title} subtitle={subtitle} id={id} />
         </Box>
         <Box>
           <ImageGrid

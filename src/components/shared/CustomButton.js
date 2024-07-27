@@ -16,6 +16,7 @@ const CustomButton = ({
   endIcon,
   onClick, 
   startIcon,
+  fontSize,
   ...props
 }) => {
   const icon = imageUrl ? (
@@ -40,6 +41,7 @@ const CustomButton = ({
         transition: "background-color 0.3s, color 0.3s, border 0.3s",
         width: width,
         fontWeight: fontWeight,
+        fontSize:fontSize,
         "&:hover": {
           backgroundColor: backgroundColor,
         },

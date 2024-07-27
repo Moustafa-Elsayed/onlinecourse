@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import { Box, Typography } from "@mui/material";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const CourseTitle = ({ title, subtitle, handleViewDetails }) => {
- 
+const CourseTitle = ({ title, subtitle, id }) => {
+  console.log(id,"id");
+  const router = useRouter();
+  const handleViewDetails = () => {
+    router.push(`/courses/${id}`);
+  };
 
   return (
     <Box
@@ -21,7 +27,6 @@ const CourseTitle = ({ title, subtitle, handleViewDetails }) => {
         </Typography>
         <Typography variant="body2">{subtitle}</Typography>
       </Box>
-
       <CustomButton
         title={"View Course"}
         backgroundColor={theme.palette.primary.light}

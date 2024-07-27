@@ -2,8 +2,10 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
+import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 
 const CallToAction = () => {
+  const handleJoin=useButtonClickHandler("/login")
   return (
     <Box
       sx={{
@@ -60,6 +62,7 @@ const CallToAction = () => {
             title={" Join Now"}
             width={"100%"}
             color={"white"}
+            onClick={handleJoin}
           />
         </Box>
       </Box>
