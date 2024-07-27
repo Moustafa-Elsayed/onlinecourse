@@ -58,7 +58,12 @@ const Banner = () => {
         container
         spacing={0}
         justifyContent="center"
-        sx={{ marginTop: 4, marginBottom: 4 }}
+        sx={{
+          marginTop: 4,
+          marginBottom: 4,
+          backgroundColor: "white",
+          borderRadius: 2,
+        }}
       >
         <Grid item>
           <Image src={Adobe} width={140} height={140} alt="Adobe" />
@@ -82,7 +87,6 @@ const Banner = () => {
           <Image src={Zoom} width={140} height={140} alt="Zoom" />
         </Grid>
       </Grid>
-     
     </Container>
   );
 };
