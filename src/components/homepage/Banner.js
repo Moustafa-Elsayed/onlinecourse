@@ -11,8 +11,13 @@ import Spotify from "../../../public/Image/spotify.png";
 import Zapier from "../../../public/Image/zapier.png";
 import Zoom from "../../../public/Image/zoom.png";
 import Image from "next/image";
+import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 
 const Banner = () => {
+
+  const handleCoursesRoute = useButtonClickHandler("/courses");
+  const handlePricingRoute = useButtonClickHandler("/pricing");
+
   return (
     <Container
       sx={{
@@ -35,11 +40,12 @@ const Banner = () => {
             backgroundColor: "#FFF9F0",
             borderRadius: 1,
             border: "1px solid #FFEACC",
+            p:1
           }}
         >
           <ElectricBoltIcon />
         </Box>
-        <Typography>Unlock Your Creative Potential</Typography>
+        <Typography sx={{fontWeight:"bold"}} variant="h4">Unlock Your Creative Potential</Typography>
       </Box>
       <Typography variant="h3" sx={{ mb: 2 }}>
         with Online Design and Development Courses.
@@ -51,16 +57,20 @@ const Banner = () => {
         <CustomButton
           title={"Explore Courses"}
           backgroundColor={theme.palette.secondary.main}
+          onClick={handleCoursesRoute}
         />
-        <CustomButton title={"View Pricing"} backgroundColor={"white"} />
+        <CustomButton title={"View Pricing"} backgroundColor={"white"} 
+          onClick={handlePricingRoute}
+
+        />
       </Box>
       <Grid
         container
         spacing={0}
         justifyContent="center"
         sx={{
-          marginTop: 4,
-          marginBottom: 4,
+          marginTop: 10,
+          marginBottom: 8,
           backgroundColor: "white",
           borderRadius: 2,
         }}

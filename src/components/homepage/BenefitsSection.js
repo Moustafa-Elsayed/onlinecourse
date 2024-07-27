@@ -42,24 +42,6 @@ const benefits = [
     description:
       "Collaborate with fellow learners, exchanging ideas and feedback to enhance your understanding.",
   },
-  {
-    number: "07",
-    title: "Updated Curriculum",
-    description:
-      "Access courses with up-to-date content reflecting the latest trends and industry practices.",
-  },
-  {
-    number: "08",
-    title: "Practical Projects and Assignments",
-    description:
-      "Develop a portfolio showcasing your skills and abilities to potential employers.",
-  },
-  {
-    number: "09",
-    title: "Interactive Learning Environment",
-    description:
-      "Collaborate with fellow learners, exchanging ideas and feedback to enhance your understanding.",
-  },
 ];
 
 const BenefitsSection = () => {
@@ -83,12 +65,6 @@ const BenefitsSection = () => {
             eget habitasse in velit fringilla feugiat senectus in.
           </Typography>
         </Box>
-
-        <CustomButton
-          title={"View All"}
-          backgroundColor={theme.palette.primary.light}
-          border="1px solid #e9e3e3"
-        />
       </Box>
       <BenefitCards benefits={benefits} />
     </Box>

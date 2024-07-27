@@ -1,15 +1,24 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button, Grid } from '@mui/material';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Grid,
+} from "@mui/material";
 
-const CourseCard = ({ image, title, duration, level, instructor, description }) => {
+const CourseCard = ({
+  image,
+  title,
+  duration,
+  level,
+  instructor,
+  description,
+}) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={image}
-        alt={title}
-      />
+      <CardMedia component="img" height="140" image={image} alt={title} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}

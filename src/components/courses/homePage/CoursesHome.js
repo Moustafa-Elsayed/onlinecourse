@@ -1,6 +1,9 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import CourseCard from "./CourseCard";
+import CustomButton from "@/components/shared/CustomButton";
+import theme from "@/styles/theme";
+import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 const courses = [
   {
     image: "path/to/image1.jpg",
@@ -20,31 +23,46 @@ const courses = [
     description:
       "Explore the world of creating intuitive user interfaces (UI) and user experiences (UX)...",
   },
-  // Add more courses here
 ];
 const CoursesHome = () => {
+  const handleCoursesRoute = useButtonClickHandler("/courses");
   return (
     <Container>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Our Courses
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Lorem ipsum dolor sit amet consectetur. Turpis faucibus id et amet
-          consectetur. Et in. Cras est dignissim lorem nibh. Ac cum porttitor
-          risus in vel magna feugiat in arcu sit.
-        </Typography>
-        <Button variant="outlined" color="primary" sx={{ mb: 4 }}>
-          View All
-        </Button>
-        <Grid container spacing={4}>
-          {courses.map((course, index) => (
-            <Grid item key={index} xs={12} sm={6} md={4}>
-              <CourseCard {...course} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-  )
-}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <Box sx={{ flexGrow: 1, maxWidth: "80%", mb: 1 }}>
+          <Typography variant="h3" sx={{ fontWeight: "bold", mb: 1 }}>
+            Our Courses
+          </Typography>
+          <Typography variant="body2">
+            Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget
+            elit id imperdiet et. Cras eu sit dignissim lorem nibh et. Ac cum
+            eget habitasse in velit fringilla feugiat senectus in.
+          </Typography>
+        </Box>
 
-export default CoursesHome
+        <CustomButton
+          title={"View Course"}
+          backgroundColor={theme.palette.primary.light}
+          border="1px solid #e9e3e3"
+          onClick={handleCoursesRoute}
+        />
+      </Box>
+      <Grid container spacing={4}>
+        {courses.map((course, index) => (
+          <Grid item key={index} xs={12} sm={6} md={4}>
+            <CourseCard {...course} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+  );
+};
+
+export default CoursesHome;

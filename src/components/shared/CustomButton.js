@@ -14,7 +14,7 @@ const CustomButton = ({
   imagePosition = "start",
   width,
   endIcon,
-  onclick,
+  onClick, 
   startIcon,
   ...props
 }) => {
@@ -46,7 +46,7 @@ const CustomButton = ({
       }}
       startIcon={imagePosition === "start" ? icon : null}
       endIcon={imagePosition === "end" ? icon : null}
-      onclick={onclick}
+      onClick={onClick} 
     >
       {title}
     </Button>
