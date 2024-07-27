@@ -5,7 +5,6 @@ import { Box } from "@mui/material";
 import React from "react";
 
 const coursesData = CoursesDummyData;
-console.log(coursesData,"coursesData");
 
 const CoursesPage = () => {
   return (

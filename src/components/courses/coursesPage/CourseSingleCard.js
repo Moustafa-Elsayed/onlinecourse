@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 const CourseSingleCard = ({
   title,
   subtitle,
-  courseSlug,
   curriculum,
   duration,
   level,

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import { Box, Typography } from "@mui/material";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 const CourseTitle = ({ title, subtitle, handleViewDetails }) => {
  
