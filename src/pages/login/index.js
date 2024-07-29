@@ -17,6 +17,7 @@ import { BaseUrl } from "@/lib/api/constants";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setUserData } from "@/redux/userSlice";
+import { showToast } from "@/components/shared/showToast";
 
 const testimonials = loginData;
 
@@ -59,15 +60,19 @@ const Index = () => {
       if (response.ok) {
         const data = await response.json();
         Cookies.set("token", data?.data?.token, { expires: 7 });
+        showToast("Login successful!", "success"); // Show success toast
+        window.location.href = "/";
       } else {
         console.error("Login failed:", response.statusText);
+        showToast("Login failed. Please try again.", "error"); // Show error toast
       }
     } catch (error) {
       console.error("Error during login:", error);
+      showToast("An error occurred. Please try again.", "error"); // Show error toast
     }
+    setEmail("");
+    setPassword("");
   };
-  
-  
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -79,25 +84,31 @@ const Index = () => {
         },
         body: JSON.stringify({ username, email, password }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        console.log("new data",data);
+        console.log("new data", data);
         Cookies.set("token", data?.data?.token, { expires: 7 });
+        showToast("registertion successful!", "success"); // Show success toast
+
         dispatch(setUserData(data?.data));
         // Redirect to login page or other actions
-        // window.location.href = "/login";
+        window.location.href = "/login";
       } else {
         const errorData = await response.json();
-        console.error("SignUp failed:", errorData.message || response.statusText);
-        alert("Registration failed: " + (errorData.message || response.statusText));
+        console.error(
+          "SignUp failed:",
+          errorData.message || response.statusText
+        );
+        alert(
+          "Registration failed: " + (errorData.message || response.statusText)
+        );
       }
     } catch (error) {
       console.error("Error during signup:", error);
       alert("An error occurred during registration. Please try again.");
     }
   };
-  
 
   return (
     <Box

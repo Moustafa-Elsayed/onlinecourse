@@ -5,9 +5,11 @@ import theme from "@/styles/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Router from "next/router";
 import { useState, useEffect } from "react";
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '@/redux/store'; // Adjust the path as needed
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "@/redux/store"; // Adjust the path as needed
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +41,8 @@ export default function App({ Component, pageProps }) {
           <CssBaseline />
           <MainLayout>
             <Component {...pageProps} />
+            <ToastContainer />
+
             <LoadingSpinner isLoading={isLoading} />
           </MainLayout>
         </ThemeProvider>

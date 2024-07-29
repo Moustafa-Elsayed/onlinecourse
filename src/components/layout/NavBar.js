@@ -19,6 +19,7 @@ import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { remove } from "nprogress";
+import { showToast } from "../shared/showToast";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -35,10 +36,11 @@ const NavBar = () => {
   console.log("token", token);
 
   const handleLoginRoute = useButtonClickHandler("/login");
-  const handleLogout = () => { 
-    Cookies.remove("token")
+  const handleLogout = () => {
+    Cookies.remove("token");
     handleLoginRoute();
-   };
+    showToast("Logout successful!", "success"); 
+  };
 
   const router = useRouter();
   const [isLogin, toggleIsLogin] = useToggle(true);
@@ -143,18 +145,18 @@ const NavBar = () => {
             /> */}
 
             {token ? (
-               <>
-               <CustomButton
-                 title="Logout"
-                 backgroundColor={
-                   activeButton === "login"
-                     ? theme.palette.secondary.main
-                     : "transparent"
-                 }
-                 color={activeButton === "login" ? "white" : "black"}
-                 onClick={handleLogout}
-               />
-             </>
+              <>
+                <CustomButton
+                  title="Logout"
+                  backgroundColor={
+                    activeButton === "login"
+                      ? theme.palette.secondary.main
+                      : "transparent"
+                  }
+                  color={activeButton === "login" ? "white" : "black"}
+                  onClick={handleLogout}
+                />
+              </>
             ) : (
               <>
                 <CustomButton
