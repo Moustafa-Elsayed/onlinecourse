@@ -44,7 +44,6 @@ const NavBar = () => {
     setAnchorEl(null);
   };
   const userData = useSelector((state) => state?.user);
-  console.log("userData", userData);
   const token = Cookies.get("token");
   const handleLoginRoute = useButtonClickHandler("/login");
   const handleLogout = () => {

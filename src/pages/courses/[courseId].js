@@ -1,52 +1,32 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import CourseSinglePage from "@/components/courses/courseSinglePage/CourseSinglePage";
-import { fetchCourses } from "@/redux/actions/courses/coursesActions";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-const CourseDetails = () => {
+const CourseDetail = () => {
   const router = useRouter();
   const { courseId } = router.query;
-  const dispatch = useDispatch();
-  const {
-    courses = [],
-    loading,
-    error,
-  } = useSelector((state) => state.courses);
+  console.log("Current courseId from router.query:", courseId);
+
+  const courses = useSelector((state) => state.courses.courses.data);
+  console.log("Courses from Redux store:", courses);
+
+  const [course, setCourse] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchCourses());
-  }, [dispatch]);
+    if (courseId && courses?.length > 0) {
+      const selectedCourse = courses.find((course) => course._id === courseId);
+      setCourse(selectedCourse);
+    }
+  }, [courseId, courses]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
-  if (!router.isReady) {
-    return <p>Loading...</p>;
-  }
-
-  // Ensure courses is an array
-  const course =
-    Array.isArray(courses) &&
-    courses.find(
-      (course) =>
-        course._id && courseId && course._id.toString() === courseId.toString()
-    );
-
-  if (!course) {
-    return <p>Course not found!</p>;
-  }
+  if (!course) return <p>Loading...</p>;
 
   return (
     <div>
-      <CourseSinglePage {...course} />
+      <h1>{course.title}</h1>
+      <p>{course.duration}</p>
     </div>
   );
 };
 
-export default CourseDetails;
+export default CourseDetail;
