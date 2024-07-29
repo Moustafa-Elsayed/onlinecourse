@@ -5,10 +5,10 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const CourseTitle = ({ title, subtitle, id }) => {
+const CourseTitle = ({ title, subtitle, _id }) => {
   const router = useRouter();
   const handleViewDetails = () => {
-    router.push(`/courses/${id}`);
+    router.push(`/courses/${_id}`);
   };
 
   return (

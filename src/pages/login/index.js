@@ -1,13 +1,13 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { loginData } from "@/lib/dummyData/loginData/loginData";
 import theme from "@/styles/theme";
 import CustomInput from "@/components/shared/CustomInput";
-import Google from "../../../public/Image/Icon.png";
+import GoogleIcon from "../../../public/Image/Icon.png";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
@@ -16,34 +16,41 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { BaseUrl } from "@/lib/api/constants";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
-import { setUserData } from "@/redux/userSlice";
+import { setUserData } from "@/redux/slices/userSlice";
 import { showToast } from "@/components/shared/showToast";
 
-const testimonials = loginData;
+const TESTIMONIALS = loginData;
 
-const Index = () => {
+const AuthPage = () => {
   const dispatch = useDispatch();
-
-  const [currentCard, setCurrentCard] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-
   const [isLogin, setIsLogin] = useState(true);
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email");
+    if (savedEmail) setEmail(savedEmail);
+  }, []);
+
+  const handleShowPasswordToggle = () => setShowPassword(!showPassword);
+
+  const handleNextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
   };
 
-  const handleNext = () => {
-    setCurrentCard((prevCard) => (prevCard + 1) % testimonials.length);
-  };
-
-  const handlePrevious = () => {
-    setCurrentCard(
-      (prevCard) => (prevCard - 1 + testimonials.length) % testimonials.length
+  const handlePreviousTestimonial = () => {
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
     );
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    localStorage.setItem("email", value);
   };
 
   const handleLogin = async (event) => {
@@ -56,21 +63,24 @@ const Index = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         Cookies.set("token", data?.data?.token, { expires: 7 });
-        showToast("Login successful!", "success"); // Show success toast
+        showToast("Login successful!", "success");
+        dispatch(setUserData(data?.data));
         window.location.href = "/";
       } else {
-        console.error("Login failed:", response.statusText);
-        showToast("Login failed. Please try again.", "error"); // Show error toast
+        const errorData = await response.json();
+        showToast(
+          errorData.message || "Login failed. Please try again.",
+          "error"
+        );
       }
     } catch (error) {
       console.error("Error during login:", error);
-      showToast("An error occurred. Please try again.", "error"); // Show error toast
+      showToast("An error occurred. Please try again.", "error");
     }
-    setEmail("");
     setPassword("");
   };
 
@@ -87,26 +97,23 @@ const Index = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("new data", data);
         Cookies.set("token", data?.data?.token, { expires: 7 });
-        showToast("registertion successful!", "success"); // Show success toast
-
+        showToast("Registration successful!", "success");
         dispatch(setUserData(data?.data));
-        // Redirect to login page or other actions
         window.location.href = "/login";
       } else {
         const errorData = await response.json();
-        console.error(
-          "SignUp failed:",
-          errorData.message || response.statusText
-        );
-        alert(
-          "Registration failed: " + (errorData.message || response.statusText)
+        showToast(
+          errorData.message || "Registration failed. Please try again.",
+          "error"
         );
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("An error occurred during registration. Please try again.");
+      showToast(
+        "An error occurred during registration. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -150,7 +157,7 @@ const Index = () => {
         </Box>
         <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
           <Typography sx={{ mb: 3, minHeight: "100px" }}>
-            {testimonials[currentCard].text}
+            {TESTIMONIALS[currentTestimonial].text}
           </Typography>
           <DividerWithText />
           <Box
@@ -170,13 +177,13 @@ const Index = () => {
               }}
             >
               <Image
-                src={testimonials[currentCard].image}
+                src={TESTIMONIALS[currentTestimonial].image}
                 alt="personImage"
                 width={50}
                 height={50}
               />
               <Typography sx={{ fontWeight: "bold" }}>
-                {testimonials[currentCard].name}
+                {TESTIMONIALS[currentTestimonial].name}
               </Typography>
             </Box>
             <CustomButton
@@ -194,7 +201,7 @@ const Index = () => {
           }}
         >
           <Button
-            onClick={handlePrevious}
+            onClick={handlePreviousTestimonial}
             sx={{
               backgroundColor: "white",
               borderRadius: 1,
@@ -205,7 +212,7 @@ const Index = () => {
             <ArrowBackIcon />
           </Button>
           <Button
-            onClick={handleNext}
+            onClick={handleNextTestimonial}
             sx={{
               backgroundColor: "white",
               borderRadius: 1,
@@ -246,21 +253,19 @@ const Index = () => {
           }}
         >
           {!isLogin && (
-            <>
-              <CustomInput
-                type={"text"}
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
-              />
-            </>
+            <CustomInput
+              type="text"
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
+            />
           )}
           <CustomInput
-            type={"email"}
+            type="email"
             label="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             placeholder="Enter your Email"
           />
           <CustomInput
@@ -270,14 +275,13 @@ const Index = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your Password"
             endIcon={
-              <IconButton onClick={handleShowPassword}>
+              <IconButton onClick={handleShowPasswordToggle}>
                 <RemoveRedEyeIcon />
               </IconButton>
             }
           />
           {!isLogin && (
             <Typography
-              href={""}
               style={{
                 textAlign: "center",
                 marginTop: "10px",
@@ -290,7 +294,7 @@ const Index = () => {
                   textDecoration: "underline",
                   marginRight: "8px",
                 }}
-                href={"/signup"}
+                href="/terms"
               >
                 Terms of Use
               </Link>
@@ -300,14 +304,17 @@ const Index = () => {
                   textDecoration: "underline",
                   marginLeft: "8px",
                 }}
-                href={"/signup"}
+                href="/privacy"
               >
                 Privacy Policy
-              </Link>{" "}
+              </Link>
             </Typography>
           )}
           {isLogin && (
-            <Link href={""} style={{ textAlign: "right", marginTop: "8px" }}>
+            <Link
+              href="/forgot-password"
+              style={{ textAlign: "right", marginTop: "8px" }}
+            >
               Forgot Password?
             </Link>
           )}
@@ -323,8 +330,8 @@ const Index = () => {
         <CustomButton
           title={isLogin ? "Login with Google" : "Sign Up with Google"}
           backgroundColor={theme.palette.primary.light}
-          imageUrl={Google}
-          imageAlt="button image"
+          imageUrl={GoogleIcon}
+          imageAlt="Google logo"
           imagePosition="start"
         />
         <Typography>
@@ -351,4 +358,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default AuthPage;

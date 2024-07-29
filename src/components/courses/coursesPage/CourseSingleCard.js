@@ -12,7 +12,7 @@ const CourseSingleCard = ({
   duration,
   level,
   instructor,
-  id,
+  _id,
 }) => {
   return (
     <Box
@@ -23,7 +23,7 @@ const CourseSingleCard = ({
     >
       <Box sx={{ p: 4 }}>
         <Box>
-          <CourseTitle title={title} subtitle={subtitle} id={id} />
+          <CourseTitle title={title} subtitle={subtitle}  _id={_id} />
         </Box>
         <Box>
           <ImageGrid

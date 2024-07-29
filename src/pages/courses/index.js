@@ -1,13 +1,23 @@
 import CourseSingleCard from "@/components/courses/coursesPage/CourseSingleCard";
 import PageTitle from "@/components/shared/PageTitle";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
+import { fetchCourses } from "@/redux/actions/courses/coursesActions";
 import { Box } from "@mui/material";
-import Link from "next/link";
-import React from "react";
-
-const coursesData = CoursesDummyData;
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const CoursesPage = () => {
+  const dispatch = useDispatch();
+  const { courses, status, error } = useSelector((state) => state.courses);
+  const coursesData = courses?.data || CoursesDummyData;
+
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, [dispatch]);
+
+  if (status === "loading") return <div>Loading...</div>;
+  if (status === "failed") return <div>Error: {error}</div>;
+
   return (
     <>
       <PageTitle
@@ -18,9 +28,7 @@ const CoursesPage = () => {
       />
       <Box sx={{ display: "flex", gap: 3, flexDirection: "column" }}>
         {coursesData.map((course) => (
-          // <Link href={`/courses/${course.id}`}>
           <CourseSingleCard {...course} />
-          // </Link>
         ))}
       </Box>
     </>
