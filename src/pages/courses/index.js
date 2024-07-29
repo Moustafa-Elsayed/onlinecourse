@@ -1,12 +1,15 @@
 import CourseSingleCard from "@/components/courses/coursesPage/CourseSingleCard";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import PageTitle from "@/components/shared/PageTitle";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 import { fetchCourses } from "@/redux/actions/courses/coursesActions";
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CoursesPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
   const coursesData = courses?.data || CoursesDummyData;
@@ -15,7 +18,12 @@ const CoursesPage = () => {
     dispatch(fetchCourses());
   }, [dispatch]);
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading")
+    return (
+      <>
+        <LoadingSpinner isLoading={isLoading} />
+      </>
+    );
   if (status === "failed") return <div>Error: {error}</div>;
 
   return (
