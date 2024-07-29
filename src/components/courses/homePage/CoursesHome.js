@@ -8,7 +8,6 @@ import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 const coursesData = CoursesDummyData;
 
 const CoursesHome = () => {
-  console.log(coursesData,"coursesData");
   const handleCoursesRoute = useButtonClickHandler("/courses");
   return (
     <Container>

@@ -4,7 +4,6 @@ import React from "react";
 import { Grid } from "react-loader-spinner";
 import TestimonialsCard from "../shared/TestimonialsCard";
 const testimonials = loginData;
-console.log("testimonials", testimonials);
 const Testimonials = () => {
   return (
     <Container>

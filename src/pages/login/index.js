@@ -13,6 +13,8 @@ import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
 import DividerWithText from "@/components/shared/DividerWithText";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { BaseUrl } from "@/lib/api/constants";
+import Cookies from "js-cookie";
 
 const testimonials = loginData;
 
@@ -21,7 +23,7 @@ const Index = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
 
   const [isLogin, setIsLogin] = useState(true);
 
@@ -39,20 +41,60 @@ const Index = () => {
     );
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    setEmail("");
-    setPassword("");
+    try {
+      const response = await fetch(`${BaseUrl}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        Cookies.set("token", data?.data?.token, { expires: 7 });
+      } else {
+        console.error("Login failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   };
 
-  const handleSignUp = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
-    console.log("SignUp Email:", email);
-    console.log("SignUp Password:", password);
-    setEmail("");
-    setPassword("");
+    try {
+      const response = await fetch(`${BaseUrl}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Perform any additional actions here, such as redirecting to a login page
+        // Example: Redirect to login page
+        window.location.href = "/login";
+      } else {
+        const errorData = await response.json();
+        console.error(
+          "SignUp failed:",
+          errorData.message || response.statusText
+        );
+        // Display a user-friendly message
+        alert(
+          "Registration failed: " + (errorData.message || response.statusText)
+        );
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      // Display a user-friendly message
+      alert("An error occurred during registration. Please try again.");
+    }
   };
 
   return (
@@ -184,7 +226,7 @@ const Index = () => {
             : "Create an account to unlock exclusive features."}
         </Typography>
         <form
-          onSubmit={isLogin ? handleLogin : handleSignUp}
+          onSubmit={isLogin ? handleLogin : handleRegister}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -194,10 +236,10 @@ const Index = () => {
             <>
               <CustomInput
                 type={"text"}
-                label="Full Name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Enter your Email"
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
               />
             </>
           )}

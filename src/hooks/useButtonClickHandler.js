@@ -5,7 +5,6 @@ const useButtonClickHandler = (route) => {
   const router = useRouter();
 
   const handleButtonClick = useCallback(() => {
-    console.log("Custom button clicked!");
 
     router.push(route);
   }, [route, router]);

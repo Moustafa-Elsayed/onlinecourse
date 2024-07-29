@@ -11,8 +11,7 @@ const CourseDetails = () => {
     return <p>Loading...</p>;
   }
 
-  console.log("Course ID:", courseId); // Log the courseId
-  console.log("Courses Data:", CoursesDummyData); // Log the courses data
+
 
   // Ensure the ID is converted to the right type if necessary
   const course = CoursesDummyData.find(

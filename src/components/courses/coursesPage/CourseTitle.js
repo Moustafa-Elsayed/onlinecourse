@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const CourseTitle = ({ title, subtitle, id }) => {
-  console.log(id,"id");
   const router = useRouter();
   const handleViewDetails = () => {
     router.push(`/courses/${id}`);
