@@ -15,10 +15,14 @@ import DividerWithText from "@/components/shared/DividerWithText";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { BaseUrl } from "@/lib/api/constants";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setUserData } from "@/redux/userSlice";
 
 const testimonials = loginData;
 
 const Index = () => {
+  const dispatch = useDispatch();
+
   const [currentCard, setCurrentCard] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -51,7 +55,7 @@ const Index = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         Cookies.set("token", data?.data?.token, { expires: 7 });
@@ -62,6 +66,8 @@ const Index = () => {
       console.error("Error during login:", error);
     }
   };
+  
+  
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -73,29 +79,25 @@ const Index = () => {
         },
         body: JSON.stringify({ username, email, password }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        // Perform any additional actions here, such as redirecting to a login page
-        // Example: Redirect to login page
-        window.location.href = "/login";
+        console.log("new data",data);
+        Cookies.set("token", data?.data?.token, { expires: 7 });
+        dispatch(setUserData(data?.data));
+        // Redirect to login page or other actions
+        // window.location.href = "/login";
       } else {
         const errorData = await response.json();
-        console.error(
-          "SignUp failed:",
-          errorData.message || response.statusText
-        );
-        // Display a user-friendly message
-        alert(
-          "Registration failed: " + (errorData.message || response.statusText)
-        );
+        console.error("SignUp failed:", errorData.message || response.statusText);
+        alert("Registration failed: " + (errorData.message || response.statusText));
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      // Display a user-friendly message
       alert("An error occurred during registration. Please try again.");
     }
   };
+  
 
   return (
     <Box

@@ -15,6 +15,10 @@ import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
 import useToggle from "@/hooks/useToggle";
 import Logo from "../../../public/Image/Logo.png";
+import useButtonClickHandler from "@/hooks/useButtonClickHandler";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { remove } from "nprogress";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -25,6 +29,17 @@ const pages = [
 ];
 
 const NavBar = () => {
+  const userData = useSelector((state) => state?.user?.data);
+  console.log("userData", userData);
+  const token = Cookies.get("token");
+  console.log("token", token);
+
+  const handleLoginRoute = useButtonClickHandler("/login");
+  const handleLogout = () => { 
+    Cookies.remove("token")
+    handleLoginRoute();
+   };
+
   const router = useRouter();
   const [isLogin, toggleIsLogin] = useToggle(true);
 
@@ -89,6 +104,9 @@ const NavBar = () => {
             }}
           ></Typography>
           <Box sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}>
+            <Typography sx={{ color: "black" }}>
+              {userData?.username}
+            </Typography>
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -112,7 +130,7 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <CustomButton
+            {/* <CustomButton
               title="Sign Up"
               backgroundColor={
                 activeButton === "signUp"
@@ -122,17 +140,35 @@ const NavBar = () => {
               color={activeButton === "signUp" ? "white" : "black"}
               sx={{ ml: 2 }}
               onClick={() => handleButtonClick("signUp")}
-            />
-            <CustomButton
-              title="Login"
-              backgroundColor={
-                activeButton === "login"
-                  ? theme.palette.secondary.main
-                  : "transparent"
-              }
-              color={activeButton === "login" ? "white" : "black"}
-              onClick={() => handleButtonClick("login")}
-            />
+            /> */}
+
+            {token ? (
+               <>
+               <CustomButton
+                 title="Logout"
+                 backgroundColor={
+                   activeButton === "login"
+                     ? theme.palette.secondary.main
+                     : "transparent"
+                 }
+                 color={activeButton === "login" ? "white" : "black"}
+                 onClick={handleLogout}
+               />
+             </>
+            ) : (
+              <>
+                <CustomButton
+                  title="Login"
+                  backgroundColor={
+                    activeButton === "login"
+                      ? theme.palette.secondary.main
+                      : "transparent"
+                  }
+                  color={activeButton === "login" ? "white" : "black"}
+                  onClick={handleLoginRoute}
+                />
+              </>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

@@ -5,6 +5,9 @@ import theme from "@/styles/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Router from "next/router";
 import { useState, useEffect } from "react";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '@/redux/store'; // Adjust the path as needed
 
 export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +33,16 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <MainLayout>
-        <Component {...pageProps} />
-        <LoadingSpinner isLoading={isLoading} />
-      </MainLayout>
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <MainLayout>
+            <Component {...pageProps} />
+            <LoadingSpinner isLoading={isLoading} />
+          </MainLayout>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 }
