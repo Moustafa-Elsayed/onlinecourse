@@ -44,6 +44,7 @@ const NavBar = () => {
     setAnchorEl(null);
   };
   const userData = useSelector((state) => state?.user);
+  console.log("userphoto",userData?.photo);
   const token = Cookies.get("token");
   const handleLoginRoute = useButtonClickHandler("/login");
   const handleLogout = () => {
@@ -117,7 +118,6 @@ const NavBar = () => {
             }}
           ></Typography>
           <Box sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}>
-            
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -170,10 +170,13 @@ const NavBar = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
-                    <Avatar sx={{ width: 32, height: 32 }}>
+                    {/* <Avatar sx={{ width: 32, height: 32 }}>
                       {userData?.username
-                        ? userData.username.charAt(0).toUpperCase()
+                        ? userData.username.charAt(0).toUpperCase() 
                         : ""}
+                    </Avatar> */}
+                     <Avatar sx={{ width: 32, height: 32 }} src={userData?.photo || ""} alt={userData?.username.charAt(0).toUpperCase() }>
+                      {!userData?.photo }
                     </Avatar>
                   </IconButton>
                 </Box>
