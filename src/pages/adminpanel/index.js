@@ -21,6 +21,7 @@ import { Close as CloseIcon } from "@mui/icons-material";
 import { showToast } from "@/components/shared/showToast";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
+import CustomInput from "@/components/shared/CustomInput";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -28,9 +29,7 @@ const AdminCourses = () => {
   const [newCourse, setNewCourse] = useState({
     title: "",
     subtitle: "",
-    curriculum: [
-      { number: "", title: "", duration: "", level: "", instructor: "" },
-    ],
+    curriculum: [],
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -52,73 +51,73 @@ const AdminCourses = () => {
         },
         {
           number: "02",
-          title: "React and State Management",
+          title: "React Hooks and Context",
           duration: "4 weeks",
           level: "Intermediate",
-          instructor: "John Doe",
+          instructor: "Michael Smith",
         },
         {
           number: "03",
-          title: "Modern CSS Techniques",
-          duration: "3 weeks",
-          level: "Beginner",
-          instructor: "Sarah Smith",
+          title: "Performance Optimization",
+          duration: "5 weeks",
+          level: "Advanced",
+          instructor: "Olivia Brown",
         },
         {
           number: "04",
-          title: "Performance Optimization",
-          duration: "2 weeks",
+          title: "State Management with Redux",
+          duration: "6 weeks",
           level: "Advanced",
-          instructor: "Michael Brown",
+          instructor: "John Doe",
         },
         {
           number: "05",
-          title: "Front-End Build Tools",
-          duration: "5 weeks",
+          title: "Building Progressive Web Apps",
+          duration: "3 weeks",
           level: "Intermediate",
-          instructor: "Jessica Lee",
+          instructor: "Jane Doe",
         },
       ],
     },
     {
       _id: "2",
-      title: "Introduction to Web Development",
-      subtitle: "Basic concepts and tools for web development.",
+      title: "Backend Development with Node.js",
+      subtitle: "Learn how to build scalable backend systems with Node.js.",
       curriculum: [
         {
           number: "01",
-          title: "HTML & CSS Basics",
+          title: "Introduction to Node.js",
           duration: "4 weeks",
           level: "Beginner",
-          instructor: "Alice Green",
+          instructor: "Alice Johnson",
         },
         {
           number: "02",
-          title: "JavaScript Fundamentals",
+          title: "Express.js and RESTful APIs",
           duration: "5 weeks",
-          level: "Beginner",
-          instructor: "Bob White",
+          level: "Intermediate",
+          instructor: "Bob Williams",
         },
         {
           number: "03",
-          title: "Version Control with Git",
-          duration: "2 weeks",
-          level: "Beginner",
-          instructor: "Charlie Black",
+          title: "Database Integration with MongoDB",
+          duration: "6 weeks",
+          level: "Intermediate",
+          instructor: "Chris Evans",
         },
         {
           number: "04",
-          title: "Responsive Design",
-          duration: "3 weeks",
-          level: "Intermediate",
-          instructor: "Diana Blue",
+          title: "Authentication and Authorization",
+          duration: "4 weeks",
+          level: "Advanced",
+          instructor: "David Harris",
         },
         {
           number: "05",
-          title: "Introduction to Web Hosting",
-          duration: "2 weeks",
-          level: "Beginner",
-          instructor: "Eve Gray",
+          title: "Deployment and Best Practices",
+          duration: "3 weeks",
+          level: "Advanced",
+          instructor: "Eve Thompson",
         },
       ],
     },
@@ -126,7 +125,6 @@ const AdminCourses = () => {
 
   const handleOpenDialog = (course = null) => {
     if (course) {
-      // Set dialog for editing existing course
       setEditCourse(course);
       setNewCourse({
         title: course.title,
@@ -134,14 +132,11 @@ const AdminCourses = () => {
         curriculum: course.curriculum || [],
       });
     } else {
-      // Set dialog for adding a new course
       setEditCourse(null);
       setNewCourse({
         title: "",
         subtitle: "",
-        curriculum: [
-          { number: "", title: "", duration: "", level: "", instructor: "" },
-        ],
+        curriculum: [],
       });
     }
     setOpenDialog(true);
@@ -157,13 +152,12 @@ const AdminCourses = () => {
 
   const handleCloseConfirmDialog = () => {
     setCourseToDelete(null);
-    setCourseTitleToDelete("");
+
     setOpenConfirmDialog(false);
   };
 
   const handleAddOrUpdateCourse = () => {
     if (editCourse) {
-      // Update course
       setCourses(
         courses.map((course) =>
           course._id === editCourse._id
@@ -177,7 +171,6 @@ const AdminCourses = () => {
       );
       showToast("Update course successful!");
     } else {
-      // Add new course
       setCourses([...courses, { _id: new Date().toISOString(), ...newCourse }]);
       showToast("Add course successful!");
     }
@@ -196,6 +189,23 @@ const AdminCourses = () => {
     setNewCourse({ ...newCourse, curriculum: updatedCurriculum });
   };
 
+  const handleAddCurriculumItem = () => {
+    setNewCourse((prevCourse) => ({
+      ...prevCourse,
+      curriculum: [
+        ...prevCourse.curriculum,
+        { number: "", title: "", duration: "", level: "", instructor: "" },
+      ],
+    }));
+  };
+
+  const handleRemoveCurriculumItem = (index) => {
+    setNewCourse((prevCourse) => ({
+      ...prevCourse,
+      curriculum: prevCourse.curriculum.filter((_, i) => i !== index),
+    }));
+  };
+
   return (
     <>
       <Typography>Admin Panel: Manage Courses</Typography>
@@ -209,7 +219,7 @@ const AdminCourses = () => {
       </Box>
 
       {/* Add/Edit Course Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
         <DialogTitle>
           {editCourse ? "Edit Course" : "Add New Course"}
           <IconButton
@@ -217,42 +227,41 @@ const AdminCourses = () => {
             color="inherit"
             onClick={handleCloseDialog}
             aria-label="close"
-            sx={{ position: "absolute", right: 8, top: 8 }}
           >
             <CloseIcon />
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <TextField
+          <CustomInput
             label="Course Title"
             value={newCourse.title}
             onChange={(e) =>
               setNewCourse({ ...newCourse, title: e.target.value })
             }
             fullWidth
-            margin="normal"
           />
-          <TextField
+          <CustomInput
             label="Course Subtitle"
             value={newCourse.subtitle}
             onChange={(e) =>
               setNewCourse({ ...newCourse, subtitle: e.target.value })
             }
             fullWidth
-            margin="normal"
           />
+
           {newCourse.curriculum.map((item, index) => (
-            <div key={index}>
+            <div key={index} style={{ marginBottom: "10px" }}>
               <h3>Curriculum Item {index + 1}</h3>
-              <TextField
+
+              <CustomInput
                 label="Number"
                 value={item.number}
+                type="number"
                 onChange={(e) =>
                   handleChangeCurriculum(index, "number", e.target.value)
                 }
-                fullWidth
-                margin="normal"
               />
+
               <TextField
                 label="Title"
                 value={item.title}
@@ -289,16 +298,36 @@ const AdminCourses = () => {
                 fullWidth
                 margin="normal"
               />
+
+              <CustomButton
+                backgroundColor={theme.palette.primary.light}
+                onClick={() => handleRemoveCurriculumItem(index)}
+                border="1px solid #d1cbcb82"
+                sx={{ mt: 2 }}
+                title="Remove"
+              />
             </div>
           ))}
+          <CustomButton
+            backgroundColor={theme.palette.secondary.main}
+            onClick={handleAddCurriculumItem}
+            sx={{ mt: 5 }}
+            color="white"
+            title="Add Curriculum Item"
+          />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleAddOrUpdateCourse} color="primary">
-            {editCourse ? "Update Course" : "Add Course"}
-          </Button>
+        <DialogActions sx={{ mr: 4 }}>
+          <CustomButton
+            title="Cancel"
+            backgroundColor={theme.palette.primary.light}
+            onClick={handleCloseDialog}
+          />
+          <CustomButton
+            title={editCourse ? "Update Course" : "Add Course"}
+            backgroundColor={theme.palette.secondary.main}
+            onClick={handleAddOrUpdateCourse}
+            color="white"
+          />
         </DialogActions>
       </Dialog>
 
@@ -306,17 +335,22 @@ const AdminCourses = () => {
       <Dialog open={openConfirmDialog} onClose={handleCloseConfirmDialog}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          <p>
-            Are you sure you want to delete the course "{courseTitleToDelete}"?
-          </p>
+          <Typography>
+            Are you sure you want to delete the course {courseTitleToDelete}?
+          </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseConfirmDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleDeleteCourse} color="primary">
-            Delete
-          </Button>
+          <CustomButton
+            title="Cancel"
+            backgroundColor={theme.palette.primary.light}
+            onClick={handleCloseConfirmDialog}
+          />
+          <CustomButton
+            title="Delete"
+            backgroundColor={"red"}
+            onClick={handleDeleteCourse}
+            color="white"
+          />
         </DialogActions>
       </Dialog>
 
@@ -340,6 +374,7 @@ const AdminCourses = () => {
                     title="Edit"
                     backgroundColor={theme.palette.secondary.main}
                     onClick={() => handleOpenDialog(course)}
+                    color="white"
                   />
                   <CustomButton
                     title="Delete"

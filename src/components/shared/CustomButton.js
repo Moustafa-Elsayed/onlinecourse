@@ -33,7 +33,7 @@ const CustomButton = ({
       {...props}
       sx={{
         backgroundColor: backgroundColor,
-        color: color,
+        color:  color,
         padding: "8px 16px",
         borderRadius: borderRadius || "8px",
         textTransform: "capitalize",
