@@ -36,6 +36,7 @@ const pages = [
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,9 +46,12 @@ const NavBar = () => {
   };
   const userData = useSelector((state) => state?.user);
   const token = Cookies.get("token");
+  const role = Cookies.get("role");
+
   const handleLoginRoute = useButtonClickHandler("/login");
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("role");
     handleLoginRoute();
     showToast("Logout successful!", "success");
     setAnchorEl(null);
@@ -171,7 +175,7 @@ const NavBar = () => {
                   >
                     <Avatar sx={{ width: 32, height: 32 }}>
                       {userData?.username
-                        ? userData.username.charAt(0).toUpperCase() 
+                        ? userData.username.charAt(0).toUpperCase()
                         : ""}
                     </Avatar>
                     {/* <Avatar
@@ -258,6 +262,13 @@ const NavBar = () => {
                   onClick={handleLoginRoute}
                 />
               </>
+            )}
+            {role === "ADMIN" ? (
+              <>
+                <Typography color="red">Hi, {role}</Typography>
+              </>
+            ) : (
+              ""
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

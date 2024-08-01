@@ -67,6 +67,8 @@ const AuthPage = () => {
       if (response.ok) {
         const data = await response.json();
         Cookies.set("token", data?.data?.token, { expires: 7 });
+        Cookies.set("role", data?.data?.role);
+
         showToast("Login successful!", "success");
         dispatch(setUserData(data?.data));
         window.location.href = "/";
@@ -98,6 +100,7 @@ const AuthPage = () => {
       if (response.ok) {
         const data = await response.json();
         Cookies.set("token", data?.data?.token, { expires: 7 });
+        Cookies.set("role", data?.data?.role);
         showToast("Registration successful!", "success");
         dispatch(setUserData(data?.data));
         window.location.href = "/login";
