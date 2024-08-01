@@ -63,7 +63,7 @@ const CourseCard = ({ number, title, lessons }) => {
                 display: "inline-flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 0.5,
+                gap: 0.2,
               }}
             >
               <AccessTimeIcon /> {lesson.duration}
