@@ -172,7 +172,9 @@ const AdminCourses = () => {
       showToast("Update course successful!");
     } else {
       setCourses([...courses, { _id: new Date().toISOString(), ...newCourse }]);
+      
       showToast("Add course successful!");
+      
     }
     handleCloseDialog();
   };
@@ -262,42 +264,41 @@ const AdminCourses = () => {
                 }
               />
 
-              <TextField
+              <CustomInput
                 label="Title"
                 value={item.title}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "title", e.target.value)
                 }
                 fullWidth
-                margin="normal"
               />
-              <TextField
+
+              <CustomInput
                 label="Duration"
                 value={item.duration}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "duration", e.target.value)
                 }
                 fullWidth
-                margin="normal"
               />
-              <TextField
+              <CustomInput
                 label="Level"
                 value={item.level}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "level", e.target.value)
                 }
                 fullWidth
-                margin="normal"
               />
-              <TextField
+
+              <CustomInput
                 label="Instructor"
                 value={item.instructor}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "instructor", e.target.value)
                 }
                 fullWidth
-                margin="normal"
               />
+
 
               <CustomButton
                 backgroundColor={theme.palette.primary.light}
