@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -22,6 +22,8 @@ import { showToast } from "@/components/shared/showToast";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import CustomInput from "@/components/shared/CustomInput";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "@/redux/actions/courses/coursesActions";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -35,93 +37,12 @@ const AdminCourses = () => {
   const [courseToDelete, setCourseToDelete] = useState(null);
   const [courseTitleToDelete, setCourseTitleToDelete] = useState("");
 
-  // Dummy data
-  const [courses, setCourses] = useState([
-    {
-      _id: "1",
-      title: "Advanced Front-End Development",
-      subtitle: "Deep dive into advanced front-end techniques and frameworks.",
-      curriculum: [
-        {
-          number: "01",
-          title: "Advanced JavaScript Concepts",
-          duration: "6 weeks",
-          level: "Intermediate",
-          instructor: "Emily Johnson",
-        },
-        {
-          number: "02",
-          title: "React Hooks and Context",
-          duration: "4 weeks",
-          level: "Intermediate",
-          instructor: "Michael Smith",
-        },
-        {
-          number: "03",
-          title: "Performance Optimization",
-          duration: "5 weeks",
-          level: "Advanced",
-          instructor: "Olivia Brown",
-        },
-        {
-          number: "04",
-          title: "State Management with Redux",
-          duration: "6 weeks",
-          level: "Advanced",
-          instructor: "John Doe",
-        },
-        {
-          number: "05",
-          title: "Building Progressive Web Apps",
-          duration: "3 weeks",
-          level: "Intermediate",
-          instructor: "Jane Doe",
-        },
-      ],
-    },
-    {
-      _id: "2",
-      title: "Backend Development with Node.js",
-      subtitle: "Learn how to build scalable backend systems with Node.js.",
-      curriculum: [
-        {
-          number: "01",
-          title: "Introduction to Node.js",
-          duration: "4 weeks",
-          level: "Beginner",
-          instructor: "Alice Johnson",
-        },
-        {
-          number: "02",
-          title: "Express.js and RESTful APIs",
-          duration: "5 weeks",
-          level: "Intermediate",
-          instructor: "Bob Williams",
-        },
-        {
-          number: "03",
-          title: "Database Integration with MongoDB",
-          duration: "6 weeks",
-          level: "Intermediate",
-          instructor: "Chris Evans",
-        },
-        {
-          number: "04",
-          title: "Authentication and Authorization",
-          duration: "4 weeks",
-          level: "Advanced",
-          instructor: "David Harris",
-        },
-        {
-          number: "05",
-          title: "Deployment and Best Practices",
-          duration: "3 weeks",
-          level: "Advanced",
-          instructor: "Eve Thompson",
-        },
-      ],
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { courses, status, error } = useSelector((state) => state.courses);
+  console.log("courses", courses);
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, [dispatch]);
 
   const handleOpenDialog = (course = null) => {
     if (course) {
@@ -172,9 +93,7 @@ const AdminCourses = () => {
       showToast("Update course successful!");
     } else {
       setCourses([...courses, { _id: new Date().toISOString(), ...newCourse }]);
-      
       showToast("Add course successful!");
-      
     }
     handleCloseDialog();
   };
@@ -264,41 +183,42 @@ const AdminCourses = () => {
                 }
               />
 
-              <CustomInput
+              <TextField
                 label="Title"
                 value={item.title}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "title", e.target.value)
                 }
                 fullWidth
+                margin="normal"
               />
-
-              <CustomInput
+              <TextField
                 label="Duration"
                 value={item.duration}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "duration", e.target.value)
                 }
                 fullWidth
+                margin="normal"
               />
-              <CustomInput
+              <TextField
                 label="Level"
                 value={item.level}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "level", e.target.value)
                 }
                 fullWidth
+                margin="normal"
               />
-
-              <CustomInput
+              <TextField
                 label="Instructor"
                 value={item.instructor}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "instructor", e.target.value)
                 }
                 fullWidth
+                margin="normal"
               />
-
 
               <CustomButton
                 backgroundColor={theme.palette.primary.light}
@@ -366,7 +286,7 @@ const AdminCourses = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {courses.map((course) => (
+            {courses?.data?.map((course) => (
               <TableRow key={course._id}>
                 <TableCell>{course.title}</TableCell>
                 <TableCell>{course.subtitle}</TableCell>

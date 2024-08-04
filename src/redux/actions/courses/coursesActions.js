@@ -1,4 +1,3 @@
-// coursesActions.js
 import axios from "axios";
 
 import { BaseUrl } from "@/lib/api/constants";
