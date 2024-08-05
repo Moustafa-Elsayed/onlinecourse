@@ -21,31 +21,8 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { Grow } from "@mui/material";
-import { styled, keyframes } from "@mui/system";
 
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-  }
-  70% {
-    transform: scale(1.1);
-    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
-`;
-
-const PulsingButton = styled(Button)`
-  animation: ${pulse} 1.5s infinite;
-`;
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
@@ -172,18 +149,6 @@ const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {/* <CustomButton
-              title="Sign Up"
-              backgroundColor={
-                activeButton === "signUp"
-                  ? theme.palette.secondary.main
-                  : "transparent"
-              }
-              color={activeButton === "signUp" ? "white" : "black"}
-              sx={{ ml: 2 }}
-              onClick={() => handleButtonClick("signUp")}
-            /> */}
-
             {token ? (
               <React.Fragment>
                 <Box
@@ -194,15 +159,20 @@ const NavBar = () => {
                   }}
                 >
                   {role === "ADMIN" && (
-                    <Grow in={true} timeout={1000}>
-                      <PulsingButton
-                        variant="contained"
-                        color="primary"
+                    <Box
+                      sx={{
+                        border: `1px solid ${theme.palette.secondary.main}`,
+                        p:1,
+                        borderRadius:3
+                      }}
+                    >
+                      <CustomButton
+                        backgroundColor={theme.palette.secondary.main}
+                        color="white"
+                        title="Admin Dashboard"
                         onClick={handleDashboard}
-                      >
-                        Admin Dashboard
-                      </PulsingButton>
-                    </Grow>
+                      />
+                    </Box>
                   )}
                   <IconButton
                     onClick={handleClick}
