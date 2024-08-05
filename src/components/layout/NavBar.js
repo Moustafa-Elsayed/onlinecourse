@@ -25,7 +25,27 @@ import Divider from "@mui/material/Divider";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { Tooltip } from "@mui/material";
+import { Grow } from "@mui/material";
+import { styled, keyframes } from "@mui/system";
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+`;
+
+const PulsingButton = styled(Button)`
+  animation: ${pulse} 1.5s infinite;
+`;
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
@@ -36,6 +56,7 @@ const pages = [
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleDashboard = useButtonClickHandler("/adminpanel");
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -120,7 +141,14 @@ const NavBar = () => {
               textDecoration: "none",
             }}
           ></Typography>
-          <Box sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              ml: 5,
+              alignItems: "center",
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -165,6 +193,17 @@ const NavBar = () => {
                     textAlign: "center",
                   }}
                 >
+                  {role === "ADMIN" && (
+                    <Grow in={true} timeout={1000}>
+                      <PulsingButton
+                        variant="contained"
+                        color="primary"
+                        onClick={handleDashboard}
+                      >
+                        Admin Dashboard
+                      </PulsingButton>
+                    </Grow>
+                  )}
                   <IconButton
                     onClick={handleClick}
                     size="small"
@@ -262,13 +301,6 @@ const NavBar = () => {
                   onClick={handleLoginRoute}
                 />
               </>
-            )}
-            {role === "ADMIN" ? (
-              <>
-                <Typography color="red">Hi, {role}</Typography>
-              </>
-            ) : (
-              ""
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
