@@ -24,6 +24,7 @@ import CustomInput from "@/components/shared/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
+import { addcourses } from "@/redux/courses/AddNewCourseRequest";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -32,6 +33,9 @@ const AdminCourses = () => {
     title: "",
     subtitle: "",
     curriculum: [],
+    duration: "",
+    level: "",
+    instructor: "",
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -51,6 +55,9 @@ const AdminCourses = () => {
         title: course.title,
         subtitle: course.subtitle,
         curriculum: course.curriculum || [],
+        duration: course.duration,
+        level: course.level,
+        instructor: course.instructor,
       });
     } else {
       setEditCourse(null);
@@ -58,6 +65,9 @@ const AdminCourses = () => {
         title: "",
         subtitle: "",
         curriculum: [],
+        duration: "",
+        level: "",
+        instructor: "",
       });
     }
     setOpenDialog(true);
@@ -78,13 +88,19 @@ const AdminCourses = () => {
 
   const handleAddOrUpdateCourse = () => {
     if (editCourse) {
-      // Implement your update logic
+      // Implement your update logic here
       showToast("Update course successful!");
     } else {
-      // Implement your add logic
-      showToast("Add course successful!");
+      dispatch(addcourses(newCourse))
+        .then(() => {
+          showToast("Add course successful!");
+          handleCloseDialog();
+          dispatch(fetchCourses()); // Refresh the course list
+        })
+        .catch(() => {
+          showToast("Failed to add course.");
+        });
     }
-    handleCloseDialog();
   };
 
   const handleDeleteCourse = () => {
@@ -95,10 +111,16 @@ const AdminCourses = () => {
         })
         .catch(() => {
           showToast("Failed to delete course.");
+        })
+        .finally(() => {
+          handleCloseConfirmDialog();
+          dispatch(fetchCourses());
         });
+    } else {
+      handleCloseConfirmDialog();
     }
-    handleCloseConfirmDialog();
   };
+  
 
   const handleChangeCurriculum = (index, field, value) => {
     const updatedCurriculum = [...newCourse.curriculum];
@@ -125,7 +147,7 @@ const AdminCourses = () => {
 
   return (
     <>
-      <Typography>Admin Panel: Manage Courses</Typography>
+      <Typography variant="h4">Admin Panel: Manage Courses</Typography>
       <Box sx={{ textAlign: "right", mb: 2, mt: 2 }}>
         <CustomButton
           backgroundColor={theme.palette.secondary.main}
@@ -165,10 +187,33 @@ const AdminCourses = () => {
             }
             fullWidth
           />
-
+          <CustomInput
+            label="Duration"
+            value={newCourse.duration}
+            onChange={(e) =>
+              setNewCourse({ ...newCourse, duration: e.target.value })
+            }
+            fullWidth
+          />
+          <CustomInput
+            label="Level"
+            value={newCourse.level}
+            onChange={(e) =>
+              setNewCourse({ ...newCourse, level: e.target.value })
+            }
+            fullWidth
+          />
+          <CustomInput
+            label="Instructor"
+            value={newCourse.instructor}
+            onChange={(e) =>
+              setNewCourse({ ...newCourse, instructor: e.target.value })
+            }
+            fullWidth
+          />
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
-              <h3>Curriculum Item {index + 1}</h3>
+              <Typography variant="h6">Curriculum Item {index + 1}</Typography>
 
               <CustomInput
                 label="Number"
@@ -184,33 +229,6 @@ const AdminCourses = () => {
                 value={item.title}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "title", e.target.value)
-                }
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Duration"
-                value={item.duration}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "duration", e.target.value)
-                }
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Level"
-                value={item.level}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "level", e.target.value)
-                }
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Instructor"
-                value={item.instructor}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "instructor", e.target.value)
                 }
                 fullWidth
                 margin="normal"
