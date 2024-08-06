@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
 import { addcourses } from "@/redux/courses/AddNewCourseRequest";
+import { updateCourse } from "@/redux/courses/UpdateCourseRequest";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -88,14 +89,23 @@ const AdminCourses = () => {
 
   const handleAddOrUpdateCourse = () => {
     if (editCourse) {
-      // Implement your update logic here
-      showToast("Update course successful!");
+      dispatch(updateCourse({ id: editCourse._id, updatedData: newCourse }))
+        .then(() => {
+          showToast("Update course successful!");
+          handleCloseDialog();
+          dispatch(fetchCourses());
+        })
+        .catch(() => {
+          showToast("Failed to update course.");
+          dispatch(fetchCourses());
+          handleCloseDialog();
+        });
     } else {
       dispatch(addcourses(newCourse))
         .then(() => {
           showToast("Add course successful!");
           handleCloseDialog();
-          dispatch(fetchCourses()); // Refresh the course list
+          dispatch(fetchCourses());
         })
         .catch(() => {
           showToast("Failed to add course.");
@@ -120,7 +130,6 @@ const AdminCourses = () => {
       handleCloseConfirmDialog();
     }
   };
-  
 
   const handleChangeCurriculum = (index, field, value) => {
     const updatedCurriculum = [...newCourse.curriculum];

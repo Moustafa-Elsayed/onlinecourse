@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IndexCoursesRequestHandler } from "../courses/GetAllCoursesRequest";
 import { DeleteCoursesRequestHandler } from "../courses/DeleteCoursesRequest";
+import { UpdateCoursesRequestHandler } from "../courses/UpdateCourseRequest";
+import { AddcoursesRequestHandler } from "../courses/AddNewCourseRequest";
 
 const coursesSlice = createSlice({
   name: "courses",
@@ -13,6 +15,8 @@ const coursesSlice = createSlice({
   extraReducers: (builder) => {
     IndexCoursesRequestHandler(builder);
     DeleteCoursesRequestHandler(builder)
+    AddcoursesRequestHandler(builder)
+    UpdateCoursesRequestHandler(builder)
       
   },
 });
