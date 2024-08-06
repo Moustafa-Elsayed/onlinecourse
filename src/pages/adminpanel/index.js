@@ -22,7 +22,8 @@ import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import CustomInput from "@/components/shared/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses } from "@/redux/actions/courses/coursesActions";
+import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
+import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -38,7 +39,7 @@ const AdminCourses = () => {
 
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
-  console.log("courses", courses);
+
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
@@ -72,35 +73,31 @@ const AdminCourses = () => {
 
   const handleCloseConfirmDialog = () => {
     setCourseToDelete(null);
-
     setOpenConfirmDialog(false);
   };
 
   const handleAddOrUpdateCourse = () => {
     if (editCourse) {
-      setCourses(
-        courses.map((course) =>
-          course._id === editCourse._id
-            ? {
-                ...editCourse,
-                ...newCourse,
-                curriculum: newCourse.curriculum,
-              }
-            : course
-        )
-      );
+      // Implement your update logic
       showToast("Update course successful!");
     } else {
-      setCourses([...courses, { _id: new Date().toISOString(), ...newCourse }]);
+      // Implement your add logic
       showToast("Add course successful!");
     }
     handleCloseDialog();
   };
 
   const handleDeleteCourse = () => {
-    setCourses(courses.filter((course) => course._id !== courseToDelete._id));
+    if (courseToDelete) {
+      dispatch(deleteCourse(courseToDelete._id))
+        .then(() => {
+          showToast("Delete course successful!");
+        })
+        .catch(() => {
+          showToast("Failed to delete course.");
+        });
+    }
     handleCloseConfirmDialog();
-    showToast("Delete course successful!");
   };
 
   const handleChangeCurriculum = (index, field, value) => {

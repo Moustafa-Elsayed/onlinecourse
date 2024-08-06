@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IndexCoursesRequestHandler } from "../courses/GetAllCoursesRequest";
+import { DeleteCoursesRequestHandler } from "../courses/DeleteCoursesRequest";
 
 const coursesSlice = createSlice({
   name: "courses",
@@ -7,39 +9,14 @@ const coursesSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-    fetchCoursesStart: (state) => {
-      state.loading = true;
-    },
-    fetchCoursesSuccess: (state, action) => {
-      state.loading = false;
-      state.courses = action.payload;
-    },
-    fetchCoursesFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    addCourseStart: (state) => {
-      state.loading = true;
-    },
-    addCourseSuccess: (state, action) => {
-      state.loading = false;
-      state.courses.push(action.payload);
-    },
-    addCourseFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    IndexCoursesRequestHandler(builder);
+    DeleteCoursesRequestHandler(builder)
+      
   },
 });
 
-export const {
-  fetchCoursesStart,
-  fetchCoursesSuccess,
-  fetchCoursesFailure,
-  addCourseStart,
-  addCourseSuccess,
-  addCourseFailure,
-} = coursesSlice.actions;
+export const {} = coursesSlice.actions;
 
-export default coursesSlice.reducer;
+export default coursesSlice.reducer;  

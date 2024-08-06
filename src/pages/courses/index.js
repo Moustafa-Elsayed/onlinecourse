@@ -2,17 +2,15 @@ import CourseSingleCard from "@/components/courses/coursesPage/CourseSingleCard"
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import PageTitle from "@/components/shared/PageTitle";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
-import { fetchCourses } from "@/redux/actions/courses/coursesActions";
+import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CoursesPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
-  const coursesData = courses?.data || CoursesDummyData;
+  const coursesData = courses?.data 
 
   useEffect(() => {
     dispatch(fetchCourses());
@@ -21,7 +19,7 @@ const CoursesPage = () => {
   if (status === "loading")
     return (
       <>
-        <LoadingSpinner isLoading={isLoading} />
+        <LoadingSpinner isLoading={true} />
       </>
     );
   if (status === "failed") return <div>Error: {error}</div>;
@@ -35,8 +33,8 @@ const CoursesPage = () => {
         }
       />
       <Box sx={{ display: "flex", gap: 3, flexDirection: "column" }}>
-        {coursesData.map((course) => (
-          <CourseSingleCard {...course} />
+        {coursesData?.map((course) => (
+          <CourseSingleCard key={course.id} {...course} />
         ))}
       </Box>
     </>
