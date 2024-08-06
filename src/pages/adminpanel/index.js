@@ -113,29 +113,35 @@ const AdminCourses = () => {
     }
   };
 
-  const handleDeleteCourse = () => {
+  const handleDeleteCourse = async () => {
     if (courseToDelete) {
-      dispatch(deleteCourse(courseToDelete._id))
-        .then(() => {
-          showToast("Delete course successful!");
-        })
-        .catch(() => {
-          showToast("Failed to delete course.");
-        })
-        .finally(() => {
-          handleCloseConfirmDialog();
-          dispatch(fetchCourses());
-        });
+      try {
+        await dispatch(deleteCourse(courseToDelete._id)).unwrap();
+        showToast("Delete course successful!");
+        handleCloseConfirmDialog();
+        dispatch(fetchCourses());
+      } catch (error) {
+        showToast("Failed to delete course.");
+        dispatch(fetchCourses());
+        handleCloseConfirmDialog();
+      }
     } else {
       handleCloseConfirmDialog();
     }
   };
 
-  const handleChangeCurriculum = (index, field, value) => {
-    const updatedCurriculum = [...newCourse.curriculum];
-    updatedCurriculum[index][field] = value;
-    setNewCourse({ ...newCourse, curriculum: updatedCurriculum });
-  };
+const handleChangeCurriculum = (index, field, value) => {
+  // Create a new array with updated curriculum items
+  const updatedCurriculum = newCourse.curriculum.map((item, i) =>
+    i === index ? { ...item, [field]: value } : item
+  );
+
+  // Update the state with the new curriculum array
+  setNewCourse((prevCourse) => ({
+    ...prevCourse,
+    curriculum: updatedCurriculum,
+  }));
+};
 
   const handleAddCurriculumItem = () => {
     setNewCourse((prevCourse) => ({

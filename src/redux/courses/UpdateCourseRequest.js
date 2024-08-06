@@ -26,7 +26,7 @@ export const updateCourse = createAsyncThunk(
         }
       );
 
-      return response.data; 
+      return response.data;
     } catch (error) {
       console.error("Update course failed:", error.response || error.message);
       return rejectWithValue(error.response?.data || error.message);
