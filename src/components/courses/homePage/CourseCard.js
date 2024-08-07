@@ -3,7 +3,7 @@ import { Card, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "@/components/shared/CustomButton";
-import Course1 from "../../../../public/Image/course1.png"; // Ensure the path is correct
+import Course1 from "../../../../public/Image/course1.png"; 
 
 const CourseCard = ({
   title,
@@ -12,9 +12,10 @@ const CourseCard = ({
   instructor,
   description,
   subtitle,
+ 
 }) => {
   return (
-    <Card sx={{ maxWidth: "100%", height: "auto", p: 2 }}>
+    <Card sx={{ maxWidth: "100%", height: "auto", p: 2, height: "550px" }}>
       <Box
         sx={{
           display: "flex",
@@ -89,8 +90,8 @@ const CourseCard = ({
           </Box>
         </Box>
         <Box sx={{ mt: 1, mb: 3 }}>
-          <Typography sx={{ fontWeight: "bold" ,mb:1}}>{title}</Typography>
-          <Typography variant="body2" color="text.secondary" >
+          <Typography sx={{ fontWeight: "bold", mb: 1 }}>{title}</Typography>
+          <Typography variant="body2" color="text.secondary">
             {subtitle}
           </Typography>
           <Typography variant="body2" color="text.secondary">

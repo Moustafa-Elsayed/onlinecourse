@@ -22,7 +22,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
-
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
@@ -34,6 +34,7 @@ const pages = [
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleDashboard = useButtonClickHandler("/adminpanel");
+  const handleCartPage = useButtonClickHandler("/cart");
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -101,7 +102,6 @@ const NavBar = () => {
       >
         <Toolbar disableGutters>
           <Image src={Logo} alt="logo" width={50} height={50} />
-
           <Typography
             variant="h5"
             noWrap
@@ -147,7 +147,9 @@ const NavBar = () => {
               </Button>
             ))}
           </Box>
-
+          <IconButton onClick={handleCartPage}>
+            <ShoppingCartIcon sx={{ color: theme.palette.secondary.main }} />
+          </IconButton>{" "}
           <Box sx={{ flexGrow: 0 }}>
             {token ? (
               <React.Fragment>
@@ -162,8 +164,8 @@ const NavBar = () => {
                     <Box
                       sx={{
                         border: `1px solid ${theme.palette.secondary.main}`,
-                        p:1,
-                        borderRadius:3
+                        p: 1,
+                        borderRadius: 3,
                       }}
                     >
                       <CustomButton

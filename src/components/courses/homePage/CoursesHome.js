@@ -1,14 +1,22 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import CourseCard from "./CourseCard";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
-const coursesData = CoursesDummyData;
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 
 const CoursesHome = () => {
   const handleCoursesRoute = useButtonClickHandler("/courses");
+  const dispatch = useDispatch();
+  const { courses, status, error } = useSelector((state) => state.courses);
+  const coursesData = courses?.data;
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, [dispatch]);
+
   return (
     <Container>
       <Box
@@ -17,7 +25,7 @@ const CoursesHome = () => {
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          mb:5
+          mb: 5,
         }}
       >
         <Box sx={{ flexGrow: 1, maxWidth: "80%", mb: 1 }}>
@@ -39,9 +47,9 @@ const CoursesHome = () => {
         />
       </Box>
       <Grid container spacing={4}>
-        {coursesData.map((course, index) => (
+        {coursesData?.map((course, index) => (
           <Grid item key={index} xs={12} sm={6} md={6}>
-            <CourseCard {...course} />   
+            <CourseCard {...course} />
           </Grid>
         ))}
       </Grid>

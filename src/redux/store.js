@@ -5,7 +5,6 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './slices/userSlice';
 import coursesReducer from './slices/coursesSlice';
 
-
 const persistConfig = {
   key: 'root',
   storage,

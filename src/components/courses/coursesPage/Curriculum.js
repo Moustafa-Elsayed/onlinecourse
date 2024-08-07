@@ -23,8 +23,10 @@ const Curriculum = ({ curriculum }) => {
               style={{
                 padding: "20px",
                 textAlign: { xs: "left", sm: "left", md: "center" },
-                borderRadius: "8px",    
+                borderRadius: "8px",
                 border: "1px solid #e9e3e3",
+                height:"120px"
+               
               }}
             >
               <Typography
