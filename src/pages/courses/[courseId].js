@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchCourses } from "@/redux/actions/courses/coursesActions";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import PageTitle from "@/components/shared/PageTitle";
 import Grid from "@mui/material/Grid";
 import CourseCard from "@/components/courses/courseSinglePage/CourseCard";
 import Image from "next/image";
 import CourseImage from "../../../public/Image/Container.png";
+import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 const CourseDetail = () => {
   const coursess = [
     {

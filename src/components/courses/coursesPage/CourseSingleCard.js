@@ -13,6 +13,7 @@ const CourseSingleCard = ({
   level,
   instructor,
   _id,
+  photo
 }) => {
   return (
     <Box
@@ -30,6 +31,7 @@ const CourseSingleCard = ({
             instructor={instructor}
             duration={duration}
             level={level}
+            photo={photo}
           />
         </Box>
         <Box>

@@ -11,6 +11,7 @@ const CoursesPage = () => {
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
   const coursesData = courses?.data 
+console.log("coursesData",coursesData);
 
   useEffect(() => {
     dispatch(fetchCourses());
