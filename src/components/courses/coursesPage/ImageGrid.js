@@ -1,13 +1,25 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import CustomButton from "@/components/shared/CustomButton";
+import theme from "@/styles/theme";
 import Course1 from "../../../../public/Image/course1.png";
 import Course2 from "../../../../public/Image/course2.png";
 import Course3 from "../../../../public/Image/course3.png";
-import CustomButton from "@/components/shared/CustomButton";
-import theme from "@/styles/theme";
+import { BaseUrl } from "@/lib/api/constants";
 
-const ImageGrid = ({ duration, level, instructor }) => {
+const ImageGrid = ({ duration, level, instructor, photo }) => {
+  console.log("photo", photo);
+
+  // Ensure photo path uses forward slashes
+  const imageUrl = photo ? photo.replace(/\\/g, "/") : null;
+
+  // Construct the full URL
+  const fullImageUrl =
+    imageUrl && !imageUrl.startsWith("http")
+      ? `${BaseUrl}${imageUrl}`
+      : imageUrl;
+
   return (
     <Box sx={{ mt: 2 }}>
       <Box
@@ -17,6 +29,20 @@ const ImageGrid = ({ duration, level, instructor }) => {
           gap: 1,
         }}
       >
+        {/* Render the API photo if available */}
+        {fullImageUrl && (
+          <Box sx={{ flex: 1 }}>
+            <Image
+              src={fullImageUrl}
+              width={300}
+              height={300}
+              layout="responsive"
+              alt="Course Photo"
+            />
+          </Box>
+        )}
+
+        {/* Render static course images */}
         <Box sx={{ flex: 1 }}>
           <Image
             src={Course1}
