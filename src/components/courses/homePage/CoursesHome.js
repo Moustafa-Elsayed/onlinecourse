@@ -1,21 +1,27 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+// CoursesHome.js
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import CourseCard from "./CourseCard";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
-import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
+import { addItem } from "@/redux/slices/cartSlice";
 
 const CoursesHome = () => {
   const handleCoursesRoute = useButtonClickHandler("/courses");
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
   const coursesData = courses?.data;
+
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
+
+  const handleAddToCart = (course) => {
+    dispatch(addItem(course));
+  };
 
   return (
     <Container>
@@ -49,7 +55,7 @@ const CoursesHome = () => {
       <Grid container spacing={4}>
         {coursesData?.map((course, index) => (
           <Grid item key={index} xs={12} sm={6} md={6}>
-            <CourseCard {...course} />
+            <CourseCard {...course} addToCart={handleAddToCart} />
           </Grid>
         ))}
       </Grid>

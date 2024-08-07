@@ -3,17 +3,30 @@ import { Card, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "@/components/shared/CustomButton";
-import Course1 from "../../../../public/Image/course1.png"; 
+import Course1 from "../../../../public/Image/course1.png";
 
 const CourseCard = ({
+  _id,
   title,
   duration,
   level,
   instructor,
   description,
   subtitle,
- 
+  addToCart,
 }) => {
+  const handleAddToCart = () => {
+    addToCart({
+      _id,
+      title,
+      duration,
+      level,
+      instructor,
+      description,
+      subtitle,
+      quantity: 1,
+    });
+  };
   return (
     <Card sx={{ maxWidth: "100%", height: "auto", p: 2, height: "550px" }}>
       <Box
@@ -104,6 +117,7 @@ const CourseCard = ({
           width="100%"
           fontWeight={"bold"}
           sx={{ mt: 2 }}
+          onClick={handleAddToCart}
         />
       </Box>
     </Card>

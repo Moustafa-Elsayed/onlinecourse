@@ -22,7 +22,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CartButton from "../shared/CartButton";
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
@@ -147,9 +147,9 @@ const NavBar = () => {
               </Button>
             ))}
           </Box>
-          <IconButton onClick={handleCartPage}>
-            <ShoppingCartIcon sx={{ color: theme.palette.secondary.main }} />
-          </IconButton>{" "}
+          <Box sx={{ mr: 2 }}>
+            <CartButton handleCartPage={handleCartPage} />
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             {token ? (
               <React.Fragment>
