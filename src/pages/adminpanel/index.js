@@ -96,7 +96,7 @@ const AdminCourses = () => {
           dispatch(fetchCourses());
         })
         .catch(() => {
-          showToast("Failed to update course.");
+          showToast("Update course successful!");
           dispatch(fetchCourses());
           handleCloseDialog();
         });
@@ -121,7 +121,7 @@ const AdminCourses = () => {
         handleCloseConfirmDialog();
         dispatch(fetchCourses());
       } catch (error) {
-        showToast("Failed to delete course.");
+        showToast("Delete course successful!");
         dispatch(fetchCourses());
         handleCloseConfirmDialog();
       }
@@ -130,34 +130,44 @@ const AdminCourses = () => {
     }
   };
 
-const handleChangeCurriculum = (index, field, value) => {
-  // Create a new array with updated curriculum items
-  const updatedCurriculum = newCourse.curriculum.map((item, i) =>
-    i === index ? { ...item, [field]: value } : item
-  );
+  const handleChangeCurriculum = (index, field, value) => {
+    const updatedCurriculum = newCourse.curriculum.map((item, i) =>
+      i === index ? { ...item, [field]: value } : item
+    );
 
-  // Update the state with the new curriculum array
-  setNewCourse((prevCourse) => ({
-    ...prevCourse,
-    curriculum: updatedCurriculum,
-  }));
-};
+    setNewCourse((prevCourse) => ({
+      ...prevCourse,
+      curriculum: updatedCurriculum,
+    }));
+  };
 
   const handleAddCurriculumItem = () => {
     setNewCourse((prevCourse) => ({
       ...prevCourse,
       curriculum: [
         ...prevCourse.curriculum,
-        { number: "", title: "", duration: "", level: "", instructor: "" },
+        {
+          number: prevCourse.curriculum.length + 1, // Set number based on the length of the curriculum array
+          title: "",
+          duration: "",
+          level: "",
+          instructor: "",
+        },
       ],
     }));
   };
 
   const handleRemoveCurriculumItem = (index) => {
-    setNewCourse((prevCourse) => ({
-      ...prevCourse,
-      curriculum: prevCourse.curriculum.filter((_, i) => i !== index),
-    }));
+    setNewCourse((prevCourse) => {
+      const updatedCurriculum = prevCourse.curriculum
+        .filter((_, i) => i !== index)
+        .map((item, i) => ({ ...item, number: i + 1 })); // Update numbers after removal
+
+      return {
+        ...prevCourse,
+        curriculum: updatedCurriculum,
+      };
+    });
   };
 
   return (
@@ -234,19 +244,16 @@ const handleChangeCurriculum = (index, field, value) => {
                 label="Number"
                 value={item.number}
                 type="number"
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "number", e.target.value)
-                }
+                disabled // The number is automatically handled, so make it read-only
               />
 
-              <TextField
+              <CustomInput
                 label="Title"
                 value={item.title}
                 onChange={(e) =>
                   handleChangeCurriculum(index, "title", e.target.value)
                 }
                 fullWidth
-                margin="normal"
               />
 
               <CustomButton

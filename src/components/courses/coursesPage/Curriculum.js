@@ -32,7 +32,7 @@ const Curriculum = ({ curriculum }) => {
                 gutterBottom
                 style={{ fontWeight: "bold" }}
               >
-                {course.number}
+                0{course.number}
               </Typography>
               <Typography variant="body1">{course.title}</Typography>
             </Paper>
