@@ -44,6 +44,7 @@ const NavBar = () => {
     setAnchorEl(null);
   };
   const userData = useSelector((state) => state?.user);
+
   const token = Cookies.get("token");
   const role = Cookies.get("role");
 
@@ -184,18 +185,25 @@ const NavBar = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
-                    <Avatar sx={{ width: 32, height: 32 }}>
+                    {/* <Avatar sx={{ width: 32, height: 32 }}>
                       {userData?.username
                         ? userData.username.charAt(0).toUpperCase()
                         : ""}
-                    </Avatar>
-                    {/* <Avatar
+                    </Avatar> */}
+                    <Avatar
                       sx={{ width: 32, height: 32 }}
-                      src={userData?.photo || userData?.username?.charAt(0).toUpperCase()}
+                      src={
+                        userData?.avatar
+                        // http://localhost:3000/uploads/ninga.jpg
+                          ? `http://localhost:3000/${userData?.avatar}`
+                          : undefined
+                      } 
                       alt={userData?.username}
                     >
-                      {!userData?.photo}
-                    </Avatar> */}
+                      {!userData?.photo &&
+                        userData?.username?.charAt(0).toUpperCase()}{" "}
+                      {/* Fallback to username's initial if no photo */}
+                    </Avatar>
                   </IconButton>
                 </Box>
                 <Menu
