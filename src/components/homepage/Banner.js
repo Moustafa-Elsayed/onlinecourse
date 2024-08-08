@@ -58,6 +58,7 @@ const Banner = () => {
           title={"Explore Courses"}
           backgroundColor={theme.palette.secondary.main}
           onClick={handleCoursesRoute}
+          color="white"
         />
         <CustomButton title={"View Pricing"} backgroundColor={"white"} 
           onClick={handlePricingRoute}

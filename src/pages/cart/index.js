@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, Card, CardContent, CardActions, IconButton, Button, Divider, Grid } from "@mui/material";
 import { Add, Remove, Delete } from "@mui/icons-material";
 import { removeItem, incrementQuantity, decrementQuantity } from "@/redux/slices/cartSlice";
+import Course1 from "../../../public/Image/course1.png";
+import Image from "next/image";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,11 @@ const Index = () => {
           <Card key={item._id} sx={{ marginBottom: 2, borderRadius: 4, boxShadow: 3 }}>
             <Grid container alignItems="center">
               <Grid item xs={12} md={4}>
-                <Box sx={{ padding: 2 }}>
-                  <img src={item.image} alt={item.title} style={{ width: "100%", borderRadius: 4 }} />
+                <Box sx={{ padding: 2,display:"flex",alignItems:"center",justifyContent:"center" }}>
+                  {/* <img src={item.image} alt={item.title} style={{ width: "100%", borderRadius: 4 }} /> */}
+                  <Image  src={Course1} alt={item.title} width={"100%"} height={"100%"} style={{
+                    borderRadius:"10px"
+                  }} /> 
                 </Box>
               </Grid>
               <Grid item xs={12} md={8}>
