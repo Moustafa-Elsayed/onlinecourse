@@ -13,7 +13,7 @@ const CourseSingleCard = ({
   level,
   instructor,
   _id,
-  photo,
+  photo
 }) => {
   return (
     <Box

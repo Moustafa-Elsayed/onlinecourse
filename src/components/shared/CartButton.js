@@ -7,7 +7,6 @@ import theme from "@/styles/theme";
 const CartButton = ({ handleCartPage }) => {
   // Assuming you have a cart state in Redux
   const cartLength = useSelector((state) => state.cart.items.length);
-  console.log("cartLength", cartLength);
 
   return (
     <IconButton onClick={handleCartPage}>

@@ -1,47 +1,82 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Typography, List, ListItem, Button } from "@mui/material";
-import { removeItem } from "@/redux/slices/cartSlice";
+import { Box, Typography, Card, CardContent, CardActions, IconButton, Button, Divider, Grid } from "@mui/material";
+import { Add, Remove, Delete } from "@mui/icons-material";
+import { removeItem, incrementQuantity, decrementQuantity } from "@/redux/slices/cartSlice";
 
 const Index = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
-  const handleRemove = (item) => {
-    dispatch(removeItem(item));
-  };
-
   return (
-    <Box sx={{ padding: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Cart
+    <Box sx={{ padding: 2, maxWidth: "800px", margin: "auto" }}>
+      <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
+        Your Shopping Cart
       </Typography>
       {cartItems.length === 0 ? (
-        <Typography variant="h6">Your cart is empty</Typography>
+        <Typography variant="h6" sx={{ textAlign: "center" }}>
+          Your cart is empty
+        </Typography>
       ) : (
-        <List>
-          {cartItems.map((item) => (
-            <ListItem
-              key={item._id}
-              sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}
-            >
-              <Box>
-                <Typography variant="h6">{item.title}</Typography>
-                <Typography variant="body2">
-                  Quantity: {item.quantity}
-                </Typography>
-                <Typography variant="body2">Price: ${item.price}</Typography>
-              </Box>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => handleRemove(item._id)}
-              >
-                Remove
-              </Button>
-            </ListItem>
-          ))}
-        </List>
+        cartItems.map((item) => (
+          <Card key={item._id} sx={{ marginBottom: 2, borderRadius: 4, boxShadow: 3 }}>
+            <Grid container alignItems="center">
+              <Grid item xs={12} md={4}>
+                <Box sx={{ padding: 2 }}>
+                  <img src={item.image} alt={item.title} style={{ width: "100%", borderRadius: 4 }} />
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <CardContent>
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
+                    Price: ${item.price}
+                  </Typography>
+                  <Divider sx={{ mb: 2 }} />
+                  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <IconButton
+                        onClick={() => dispatch(decrementQuantity(item._id))}
+                        disabled={item.quantity === 1}
+                        sx={{
+                          backgroundColor: "#f5f5f5",
+                          borderRadius: 2,
+                          "&:hover": { backgroundColor: "#e0e0e0" },
+                        }}
+                      >
+                        <Remove />
+                      </IconButton>
+                      <Typography variant="h6" sx={{ mx: 2 }}>
+                        {item.quantity}
+                      </Typography>
+                      <IconButton
+                        onClick={() => dispatch(incrementQuantity(item._id))}
+                        sx={{
+                          backgroundColor: "#f5f5f5",
+                          borderRadius: 2,
+                          "&:hover": { backgroundColor: "#e0e0e0" },
+                        }}
+                      >
+                        <Add />
+                      </IconButton>
+                    </Box>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      startIcon={<Delete />}
+                      onClick={() => dispatch(removeItem(item._id))}
+                      sx={{ borderRadius: 2, textTransform: "none" }}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
+        ))
       )}
     </Box>
   );

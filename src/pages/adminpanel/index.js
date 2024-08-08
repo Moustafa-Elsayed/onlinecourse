@@ -15,6 +15,7 @@ import {
   IconButton,
   Box,
   Typography,
+  Button,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { showToast } from "@/components/shared/showToast";
@@ -37,6 +38,7 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
+    photo: "", // Add photo field
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -59,6 +61,7 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
+        photo: course.photo || "", // Set the photo if available
       });
     } else {
       setEditCourse(null);
@@ -69,6 +72,7 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
+        photo: "", // Reset the photo
       });
     }
     setOpenDialog(true);
@@ -96,9 +100,9 @@ const AdminCourses = () => {
           dispatch(fetchCourses());
         })
         .catch(() => {
-          showToast("Update course successful!");
-          dispatch(fetchCourses());
+          showToast("Update course failed.");
           handleCloseDialog();
+          dispatch(fetchCourses());
         });
     } else {
       dispatch(addcourses(newCourse))
@@ -106,6 +110,8 @@ const AdminCourses = () => {
           showToast("Add course successful!");
           handleCloseDialog();
           dispatch(fetchCourses());
+          console.log("newCourse",newCourse);
+          
         })
         .catch(() => {
           showToast("Failed to add course.");
@@ -121,7 +127,7 @@ const AdminCourses = () => {
         handleCloseConfirmDialog();
         dispatch(fetchCourses());
       } catch (error) {
-        showToast("Delete course successful!");
+        showToast("Failed to delete course.");
         dispatch(fetchCourses());
         handleCloseConfirmDialog();
       }
@@ -168,6 +174,23 @@ const AdminCourses = () => {
         curriculum: updatedCurriculum,
       };
     });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Here, you should upload the image to your server or a service like Cloudinary
+      // and set the image URL in the newCourse state.
+      // For demonstration purposes, we'll just use the local file URL.
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewCourse((prevCourse) => ({
+          ...prevCourse,
+          photo: reader.result, // This will be the image URL
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -236,6 +259,21 @@ const AdminCourses = () => {
             }
             fullWidth
           />
+          <input
+            accept="image/*"
+            type="file"
+            onChange={handleImageChange}
+            style={{ marginBottom: "10px" }}
+          />
+          {newCourse.photo && (
+            <Box sx={{ mb: 2 }}>
+              <img
+                src={newCourse.photo}
+                alt="Course"
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+            </Box>
+          )}
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <Typography variant="h6">Curriculum Item {index + 1}</Typography>

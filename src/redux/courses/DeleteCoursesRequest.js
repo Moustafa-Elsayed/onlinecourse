@@ -8,13 +8,11 @@ export const deleteCourse = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const token = Cookies.get("token");
-      console.log("Retrieved token from cookies:", token);
 
       if (!token) {
         throw new Error("No token found");
       }
 
-      console.log("Making DELETE request to:", `${BaseUrl}/courses/${id}`);
 
       const response = await axios.delete(`${BaseUrl}/courses/${id}`, {
         headers: {
@@ -22,7 +20,6 @@ export const deleteCourse = createAsyncThunk(
         },
       });
 
-      console.log("Delete course response:", response);
       return id;
     } catch (error) {
       // Log the full error object for debugging
