@@ -15,6 +15,7 @@ import {
   IconButton,
   Box,
   Typography,
+  Button,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { showToast } from "@/components/shared/showToast";
@@ -37,7 +38,7 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
-    photo: null, // Initialize as null for file handling
+    photo: "", // Add photo field
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -60,7 +61,7 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
-        photo: course.photo || null, // Set the photo if available
+        photo: course.photo || "", // Set the photo if available
       });
     } else {
       setEditCourse(null);
@@ -71,7 +72,7 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
-        photo: null, // Reset the photo
+        photo: "", // Reset the photo
       });
     }
     setOpenDialog(true);
@@ -91,19 +92,8 @@ const AdminCourses = () => {
   };
 
   const handleAddOrUpdateCourse = () => {
-    const formData = new FormData();
-    formData.append("title", newCourse.title);
-    formData.append("subtitle", newCourse.subtitle);
-    formData.append("duration", newCourse.duration);
-    formData.append("level", newCourse.level);
-    formData.append("instructor", newCourse.instructor);
-    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
-    if (newCourse.photo) {
-      formData.append("photo", newCourse.photo); // Append the file
-    }
-
     if (editCourse) {
-      dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
+      dispatch(updateCourse({ id: editCourse._id, updatedData: newCourse }))
         .then(() => {
           showToast("Update course successful!");
           handleCloseDialog();
@@ -115,11 +105,13 @@ const AdminCourses = () => {
           dispatch(fetchCourses());
         });
     } else {
-      dispatch(addcourses(formData))
+      dispatch(addcourses(newCourse))
         .then(() => {
           showToast("Add course successful!");
           handleCloseDialog();
           dispatch(fetchCourses());
+          console.log("newCourse",newCourse);
+          
         })
         .catch(() => {
           showToast("Failed to add course.");
@@ -187,16 +179,14 @@ const AdminCourses = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setNewCourse((prevCourse) => ({
-        ...prevCourse,
-        photo: file, // Set the file object
-      }));
-      // If you want to show a preview of the image
+      // Here, you should upload the image to your server or a service like Cloudinary
+      // and set the image URL in the newCourse state.
+      // For demonstration purposes, we'll just use the local file URL.
       const reader = new FileReader();
       reader.onloadend = () => {
         setNewCourse((prevCourse) => ({
           ...prevCourse,
-          photoPreview: reader.result, // Set the preview URL
+          photo: reader.result, // This will be the image URL
         }));
       };
       reader.readAsDataURL(file);
@@ -275,18 +265,26 @@ const AdminCourses = () => {
             onChange={handleImageChange}
             style={{ marginBottom: "10px" }}
           />
-          {newCourse.photoPreview && (
+          {newCourse.photo && (
             <Box sx={{ mb: 2 }}>
               <img
-                src={newCourse.photoPreview}
+                src={newCourse.photo}
                 alt="Course"
                 style={{ maxWidth: "100%", height: "auto" }}
               />
             </Box>
           )}
           {newCourse.curriculum.map((item, index) => (
-            <Box key={index} sx={{ mb: 2 }}>
-              <Typography>Curriculum Item {item.number}</Typography>
+            <div key={index} style={{ marginBottom: "10px" }}>
+              <Typography variant="h6">Curriculum Item {index + 1}</Typography>
+
+              <CustomInput
+                label="Number"
+                value={item.number}
+                type="number"
+                disabled // The number is automatically handled, so make it read-only
+              />
+
               <CustomInput
                 label="Title"
                 value={item.title}
@@ -295,97 +293,69 @@ const AdminCourses = () => {
                 }
                 fullWidth
               />
-              <CustomInput
-                label="Duration"
-                value={item.duration}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "duration", e.target.value)
-                }
-                fullWidth
-              />
-              <CustomInput
-                label="Level"
-                value={item.level}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "level", e.target.value)
-                }
-                fullWidth
-              />
-              <CustomInput
-                label="Instructor"
-                value={item.instructor}
-                onChange={(e) =>
-                  handleChangeCurriculum(index, "instructor", e.target.value)
-                }
-                fullWidth
-              />
-              <IconButton
-                edge="end"
-                color="error"
+
+              <CustomButton
+                backgroundColor={theme.palette.primary.light}
                 onClick={() => handleRemoveCurriculumItem(index)}
-                aria-label="remove"
-              >
-                <CloseIcon />
-              </IconButton>
-            </Box>
+                border="1px solid #d1cbcb82"
+                sx={{ mt: 2 }}
+                title="Remove"
+              />
+            </div>
           ))}
           <CustomButton
             backgroundColor={theme.palette.secondary.main}
-            title="Add Curriculum Item"
             onClick={handleAddCurriculumItem}
+            sx={{ mt: 5 }}
             color="white"
+            title="Add Curriculum Item"
           />
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ mr: 4 }}>
           <CustomButton
-            backgroundColor={theme.palette.secondary.main}
-            title="Save"
-            onClick={handleAddOrUpdateCourse}
-            color="white"
+            title="Cancel"
+            backgroundColor={theme.palette.primary.light}
+            onClick={handleCloseDialog}
           />
           <CustomButton
-            backgroundColor={theme.palette.error.main}
-            title="Cancel"
-            onClick={handleCloseDialog}
+            title={editCourse ? "Update Course" : "Add Course"}
+            backgroundColor={theme.palette.secondary.main}
+            onClick={handleAddOrUpdateCourse}
             color="white"
           />
         </DialogActions>
       </Dialog>
 
-      {/* Confirm Delete Dialog */}
+      {/* Delete Confirmation Dialog */}
       <Dialog open={openConfirmDialog} onClose={handleCloseConfirmDialog}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
           <Typography>
-            Are you sure you want to delete the course "{courseTitleToDelete}"?
+            Are you sure you want to delete the course {courseTitleToDelete}?
           </Typography>
         </DialogContent>
         <DialogActions>
           <CustomButton
-            backgroundColor={theme.palette.error.main}
-            title="Delete"
-            onClick={handleDeleteCourse}
-            color="white"
+            title="Cancel"
+            backgroundColor={theme.palette.primary.light}
+            onClick={handleCloseConfirmDialog}
           />
           <CustomButton
-            backgroundColor={theme.palette.secondary.main}
-            title="Cancel"
-            onClick={handleCloseConfirmDialog}
+            title="Delete"
+            backgroundColor={"red"}
+            onClick={handleDeleteCourse}
             color="white"
           />
         </DialogActions>
       </Dialog>
 
-      {/* Course Table */}
+      {/* Courses Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Subtitle</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>Level</TableCell>
-              <TableCell>Instructor</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -394,21 +364,17 @@ const AdminCourses = () => {
               <TableRow key={course._id}>
                 <TableCell>{course.title}</TableCell>
                 <TableCell>{course.subtitle}</TableCell>
-                <TableCell>{course.duration}</TableCell>
-                <TableCell>{course.level}</TableCell>
-                <TableCell>{course.instructor}</TableCell>
-                <TableCell>
+                <TableCell sx={{ display: "inline-flex", gap: 0.5 }}>
                   <CustomButton
-                    backgroundColor={theme.palette.primary.main}
                     title="Edit"
+                    backgroundColor={theme.palette.secondary.main}
                     onClick={() => handleOpenDialog(course)}
                     color="white"
                   />
                   <CustomButton
-                    backgroundColor={theme.palette.error.main}
                     title="Delete"
+                    backgroundColor={theme.palette.primary.light}
                     onClick={() => handleOpenConfirmDialog(course)}
-                    color="white"
                   />
                 </TableCell>
               </TableRow>
