@@ -4,6 +4,7 @@ import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "@/components/shared/CustomButton";
 import Course1 from "../../../../public/Image/course1.png";
+import { MainUrl } from "@/lib/api/constants";
 
 const CourseCard = ({
   _id,
@@ -14,6 +15,7 @@ const CourseCard = ({
   description,
   subtitle,
   addToCart,
+  photo,
 }) => {
   const handleAddToCart = () => {
     addToCart({
@@ -24,6 +26,7 @@ const CourseCard = ({
       instructor,
       description,
       subtitle,
+      photo,
       quantity: 1,
     });
   };
@@ -46,7 +49,7 @@ const CourseCard = ({
           }}
         >
           <Image
-            src={Course1}
+            src={`${MainUrl}${photo}`}
             alt="courseimage"
             layout="fill"
             objectFit="cover"

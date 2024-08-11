@@ -6,8 +6,9 @@ import Course2 from "../../../../public/Image/course2.png";
 import Course3 from "../../../../public/Image/course3.png";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
+import { MainUrl } from "@/lib/api/constants";
 
-const ImageGrid = ({ duration, level, instructor }) => {
+const ImageGrid = ({ duration, level, instructor, photo }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Box
@@ -19,7 +20,7 @@ const ImageGrid = ({ duration, level, instructor }) => {
       >
         <Box sx={{ flex: 1 }}>
           <Image
-            src={Course1}
+            src={`${MainUrl}${photo}`}
             width={300}
             height={300}
             layout="responsive"

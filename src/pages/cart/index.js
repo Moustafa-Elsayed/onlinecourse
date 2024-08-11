@@ -1,10 +1,25 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Typography, Card, CardContent, CardActions, IconButton, Button, Divider, Grid } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  CardActions,
+  IconButton,
+  Button,
+  Divider,
+  Grid,
+} from "@mui/material";
 import { Add, Remove, Delete } from "@mui/icons-material";
-import { removeItem, incrementQuantity, decrementQuantity } from "@/redux/slices/cartSlice";
+import {
+  removeItem,
+  incrementQuantity,
+  decrementQuantity,
+} from "@/redux/slices/cartSlice";
 import Course1 from "../../../public/Image/course1.png";
 import Image from "next/image";
+import { MainUrl } from "@/lib/api/constants";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -21,14 +36,30 @@ const Index = () => {
         </Typography>
       ) : (
         cartItems.map((item) => (
-          <Card key={item._id} sx={{ marginBottom: 2, borderRadius: 4, boxShadow: 3 }}>
+          <Card
+            key={item._id}
+            sx={{ marginBottom: 2, borderRadius: 4, boxShadow: 3 }}
+          >
             <Grid container alignItems="center">
               <Grid item xs={12} md={4}>
-                <Box sx={{ padding: 2,display:"flex",alignItems:"center",justifyContent:"center" }}>
-                  {/* <img src={item.image} alt={item.title} style={{ width: "100%", borderRadius: 4 }} /> */}
-                  <Image  src={Course1} alt={item.title} width={"100%"} height={"100%"} style={{
-                    borderRadius:"10px"
-                  }} /> 
+                <Box
+                  sx={{
+                    padding: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Image
+                    src={`${MainUrl}${item.photo}`}
+                    alt={item.title}
+                    layout="responsive"
+                    width={200}
+                    height={200}
+                    style={{
+                      borderRadius: "10px",
+                    }}
+                  />
                 </Box>
               </Grid>
               <Grid item xs={12} md={8}>
@@ -36,11 +67,20 @@ const Index = () => {
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", mb: 2 }}
+                  >
                     Price: ${item.price}
                   </Typography>
                   <Divider sx={{ mb: 2 }} />
-                  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <IconButton
                         onClick={() => dispatch(decrementQuantity(item._id))}

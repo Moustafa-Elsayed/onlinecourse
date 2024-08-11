@@ -44,7 +44,6 @@ const NavBar = () => {
     setAnchorEl(null);
   };
   const userData = useSelector((state) => state?.user);
-
   const token = Cookies.get("token");
   const role = Cookies.get("role");
 
@@ -191,13 +190,13 @@ const NavBar = () => {
                         : ""}
                     </Avatar> */}
                     <Avatar
-                      sx={{ width: 32, height: 32 }}
+                      sx={{ width: 50, height: 50 }}
                       src={
                         userData?.avatar
-                        // http://localhost:3000/uploads/ninga.jpg
-                          ? `http://localhost:3000/${userData?.avatar}`
+                          ? // http://localhost:3000/uploads/ninga.jpg
+                            `http://localhost:3000/${userData?.avatar}`
                           : undefined
-                      } 
+                      }
                       alt={userData?.username}
                     >
                       {!userData?.photo &&

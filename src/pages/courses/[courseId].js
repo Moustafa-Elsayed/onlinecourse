@@ -8,6 +8,7 @@ import CourseCard from "@/components/courses/courseSinglePage/CourseCard";
 import Image from "next/image";
 import CourseImage from "../../../public/Image/Container.png";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
+import { MainUrl } from "@/lib/api/constants";
 const CourseDetail = () => {
   const coursess = [
     {
@@ -102,11 +103,11 @@ const CourseDetail = () => {
     <>
       <PageTitle title={course.title} subTitle={course.subtitle} />
       <Image
-        src={CourseImage} 
+        src={`${MainUrl}${course.photo}`}
         alt="Course Image"
-        layout="responsive" 
-        width={700} 
-        height={475} 
+        layout="responsive"
+        width={200}
+        height={200}
       />
       <Grid container spacing={2} mt={5}>
         {coursess.map((course, index) => (
