@@ -61,7 +61,7 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
-        photo: course.photo || "", // Set the photo if available
+        photo: course.photo || null,
       });
     } else {
       setEditCourse(null);
@@ -72,7 +72,7 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
-        photo: "", // Reset the photo
+        photo: null,
       });
     }
     setOpenDialog(true);
@@ -92,6 +92,16 @@ const AdminCourses = () => {
   };
 
   const handleAddOrUpdateCourse = () => {
+    const formData = new FormData();
+    formData.append("title", newCourse.title);
+    formData.append("subtitle", newCourse.subtitle);
+    formData.append("duration", newCourse.duration);
+    formData.append("level", newCourse.level);
+    formData.append("instructor", newCourse.instructor);
+    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
+    if (newCourse.photo) {
+      formData.append("photo", newCourse.photo);
+    }
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: newCourse }))
         .then(() => {
@@ -258,12 +268,18 @@ const AdminCourses = () => {
             }
             fullWidth
           />
-          <input
-            accept="image/*"
-            type="file"
-            onChange={handleImageChange}
-            style={{ marginBottom: "10px" }}
-          />
+          <Box sx={{ mb: 2 }}>
+            <Button variant="contained" component="label" color="secondary">
+              Upload Photo
+              <input
+                type="file"
+                hidden
+                onChange={(e) =>
+                  setNewCourse({ ...newCourse, photo: e.target.files[0] })
+                }
+              />
+            </Button>
+          </Box>
           {newCourse.photo && (
             <Box sx={{ mb: 2 }}>
               <img
