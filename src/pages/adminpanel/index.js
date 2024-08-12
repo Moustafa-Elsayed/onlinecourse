@@ -92,27 +92,8 @@ const AdminCourses = () => {
   };
 
   const handleAddOrUpdateCourse = () => {
-    const formData = new FormData();
-
-    // Append the course data
-    formData.append("title", newCourse.title);
-    formData.append("subtitle", newCourse.subtitle);
-    formData.append("duration", newCourse.duration);
-    formData.append("level", newCourse.level);
-    formData.append("instructor", newCourse.instructor);
-
-    // Append the photo if it exists
-    if (newCourse.photo) {
-      // Assuming photo is a File object; otherwise, adjust accordingly
-      formData.append("photo", newCourse.photo);
-    }
-
-    // Append the curriculum data as a JSON string
-    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
-
     if (editCourse) {
-      // If updating an existing course
-      dispatch(updateCourse({ id: editCourse._id, formData }))
+      dispatch(updateCourse({ id: editCourse._id, updatedData: newCourse }))
         .then(() => {
           showToast("Update course successful!");
           handleCloseDialog();
@@ -124,8 +105,7 @@ const AdminCourses = () => {
           dispatch(fetchCourses());
         });
     } else {
-      // If adding a new course
-      dispatch(addcourses(formData))
+      dispatch(addcourses(newCourse))
         .then(() => {
           showToast("Add course successful!");
           handleCloseDialog();
@@ -195,36 +175,20 @@ const AdminCourses = () => {
     });
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append("photo", file);
-
-      const imagename = file.name; // Use the original file name
-
-      try {
-        const response = await fetch(
-          `http://localhost:3000/uploads/${imagename}`,
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Upload successful:", data); // Log the response data
-          setNewCourse((prevCourse) => ({
-            ...prevCourse,
-            photo: data.filePath, // Use the returned file path from the server
-          }));
-        } else {
-          console.error("Failed to upload image: ", response.statusText); // Log response status text if upload fails
-        }
-      } catch (error) {
-        console.error("Error uploading image:", error); // Log any errors that occur
-      }
+      // Here, you should upload the image to your server or a service like Cloudinary
+      // and set the image URL in the newCourse state.
+      // For demonstration purposes, we'll just use the local file URL.
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewCourse((prevCourse) => ({
+          ...prevCourse,
+          photo: reader.result, // This will be the image URL
+        }));
+      };
+      reader.readAsDataURL(file);
     }
   };
 

@@ -14,7 +14,7 @@ import CustomButton from "../shared/CustomButton";
 import useToggle from "@/hooks/useToggle";
 import Logo from "../../../public/Image/Logo.png";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { showToast } from "../shared/showToast";
 import Box from "@mui/material/Box";
@@ -23,6 +23,7 @@ import Menu from "@mui/material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import CartButton from "../shared/CartButton";
+import { clearUserData } from "@/redux/slices/userSlice";
 const pages = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
@@ -32,9 +33,12 @@ const pages = [
 ];
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleDashboard = useButtonClickHandler("/adminpanel");
   const handleCartPage = useButtonClickHandler("/cart");
+  const handleLoginRoute = useButtonClickHandler("/login");
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -47,11 +51,11 @@ const NavBar = () => {
   const token = Cookies.get("token");
   const role = Cookies.get("role");
 
-  const handleLoginRoute = useButtonClickHandler("/login");
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("role");
     handleLoginRoute();
+    dispatch(clearUserData());
     showToast("Logout successful!", "success");
     setAnchorEl(null);
   };
