@@ -1,50 +1,39 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import Course1 from "../../../../public/Image/course1.png";
-import Course2 from "../../../../public/Image/course2.png";
-import Course3 from "../../../../public/Image/course3.png";
 import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import { MainUrl } from "@/lib/api/constants";
 
-const ImageGrid = ({ duration, level, instructor, photo }) => {
+const ImageGrid = ({ duration, level, instructor, photos }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Box
         sx={{
           display: "flex",
-          flexWrap: "wrap",
+          flexDirection: "row",
+          overflowX: "auto", // Allows horizontal scrolling if needed
           gap: 1,
+          flexWrap: "nowrap", // Prevents wrapping of images
         }}
       >
-        <Box sx={{ flex: 1 }}>
-          <Image
-            src={`${MainUrl}${photo}`}
-            width={300}
-            height={300}
-            layout="responsive"
-            alt="Course 1"
-          />
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          <Image
-            src={Course2}
-            width={300}
-            height={300}
-            layout="responsive"
-            alt="Course 2"
-          />
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          <Image
-            src={Course3}
-            width={300}
-            height={300}
-            layout="responsive"
-            alt="Course 3"
-          />
-        </Box>
+        {photos.map((photo, index) => (
+          <Box
+            key={index}
+            sx={{
+              flex: "1 0 300px", // Adjusts the width of each image box
+              position: "relative", // Needed for Image component
+              height: 300, // Fixed height to match the aspect ratio
+            }}
+          >
+            <Image
+              src={`${MainUrl}${photo}`}
+              layout="fill" // Ensures image fills the parent Box
+              objectFit="cover" // Maintains the aspect ratio of the image
+              alt={`Course Image ${index + 1}`}
+            />
+          </Box>
+        ))}
       </Box>
       <Box
         sx={{

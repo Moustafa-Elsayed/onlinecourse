@@ -51,7 +51,7 @@ const Index = () => {
                   }}
                 >
                   <Image
-                    src={`${MainUrl}${item.photo}`}
+                    src={`${MainUrl}${item.photos}`}
                     alt={item.title}
                     layout="responsive"
                     width={200}

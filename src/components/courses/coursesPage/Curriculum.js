@@ -3,6 +3,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import theme from "@/styles/theme";
 
 const Curriculum = ({ curriculum }) => {
+  
   return (
     <Box
       sx={{

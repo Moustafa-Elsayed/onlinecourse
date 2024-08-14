@@ -2,15 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // Ensure this is configured if you're serving images from a domain
-    domains: ['localhost'],
-    // Use this option if you need to allow images from certain paths
-    // You might not need this if images are served from the public directory
+    domains: ['localhost', 'onlinecourses.up.railway.app'],
+    // Uncomment and configure this if you need to allow images from specific paths
     // remotePatterns: [
     //   {
-    //     protocol: 'http',
-    //     hostname: 'localhost',
-    //     port: '3000',
+    //     protocol: 'https',
+    //     hostname: 'onlinecourses.up.railway.app',
+    //     port: '',
     //     pathname: '/uploads/**',
     //   },
     // ],

@@ -15,7 +15,7 @@ const CourseCard = ({
   description,
   subtitle,
   addToCart,
-  photo,
+  photos,
 }) => {
   const handleAddToCart = () => {
     addToCart({
@@ -26,7 +26,7 @@ const CourseCard = ({
       instructor,
       description,
       subtitle,
-      photo,
+      photos,
       quantity: 1,
     });
   };
@@ -49,7 +49,7 @@ const CourseCard = ({
           }}
         >
           <Image
-            src={`${MainUrl}${photo}`}
+            src={`${MainUrl}${photos[0]}`}
             alt="courseimage"
             layout="fill"
             objectFit="cover"
