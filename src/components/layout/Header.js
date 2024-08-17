@@ -17,7 +17,7 @@ const Header = () => {
         borderRadius: 2,
       }}
     >
-      <Typography sx={{ color: "white" }}>
+      <Typography sx={{ color: "white",fontSize:{xs:"10px",md:"16px"} }}>
         Free Courses 🌟 Sale Ends Soon, Get It Now
       </Typography>
       <ArrowForwardIcon sx={{ color: "white" }} />

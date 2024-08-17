@@ -53,7 +53,7 @@ const PricingPlan = () => {
       </Box>
       <Box sx={{ backgroundColor: "white", borderRadius: 2, mt: 4 }}>
         {activeTab === "yearly" ? (
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, pb: 2 }}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6} md={6} lg={4}>
                 <CustomCard
@@ -74,7 +74,7 @@ const PricingPlan = () => {
             </Grid>
           </Box>
         ) : (
-          <Box sx={{ flexGrow: 1, p: 2 }}>
+          <Box sx={{ flexGrow: 1, pb: 2 }}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6} md={5} lg={4}>
                 <CustomCard

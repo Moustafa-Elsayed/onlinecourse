@@ -20,7 +20,7 @@ const index = () => {
       <Box>
         <PricingPlan />
       </Box>
-      <Box>
+      <Box sx={{backgroundColor: "white",  borderRadius: 2,mt:10}}>
         <FAQs />
       </Box>
     </>

@@ -55,12 +55,12 @@ const FAQs = () => {
     <Container
       sx={{
         mt: 5,
-        backgroundColor: "white",
+
         maxWidth: "550px",
         height: "100%",
         maxHeight: "auto",
         pb: 5,
-        borderRadius:2
+      
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
