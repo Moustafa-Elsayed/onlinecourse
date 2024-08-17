@@ -99,7 +99,7 @@ const NavBar = () => {
 
   return (
     <AppBar position="static" elevation={0} sx={{ backgroundColor: 'transparent' }}>
-      <Container maxWidth="xxl" sx={{ backgroundColor: 'transparent' }}>
+      <Container  sx={{ backgroundColor: 'transparent' }}>
         <Toolbar disableGutters>
           <Image src={Logo} alt="logo" width={50} height={50} />
           <Typography

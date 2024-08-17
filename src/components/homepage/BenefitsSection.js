@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
@@ -46,28 +46,35 @@ const benefits = [
 
 const BenefitsSection = () => {
   return (
-    <Box style={{ padding: "2rem", maxWidth: "1200px", margin: "auto" }}>
+    <Container>
       <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
+        style={{
+          maxWidth: "1200px",
+          margin: "auto",
         }}
       >
-        <Box sx={{ flexGrow: 1, maxWidth: "80%", mb: 3 }}>
-          <Typography variant="h3" sx={{ fontWeight: "bold", mb: 1 }}>
-            Benefits
-          </Typography>
-          <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget
-            elit id imperdiet et. Cras eu sit dignissim lorem nibh et. Ac cum
-            eget habitasse in velit fringilla feugiat senectus in.
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Box sx={{ flexGrow: 1, maxWidth: "80%", mb: 3 }}>
+            <Typography variant="h3" sx={{ fontWeight: "bold", mb: 1 }}>
+              Benefits
+            </Typography>
+            <Typography variant="body2">
+              Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam
+              eget elit id imperdiet et. Cras eu sit dignissim lorem nibh et. Ac
+              cum eget habitasse in velit fringilla feugiat senectus in.
+            </Typography>
+          </Box>
         </Box>
+        <BenefitCards benefits={benefits} />
       </Box>
-      <BenefitCards benefits={benefits} />
-    </Box>
+    </Container>
   );
 };
 

@@ -14,7 +14,6 @@ import Image from "next/image";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 
 const Banner = () => {
-
   const handleCoursesRoute = useButtonClickHandler("/courses");
   const handlePricingRoute = useButtonClickHandler("/pricing");
 
@@ -40,17 +39,19 @@ const Banner = () => {
             backgroundColor: "#FFF9F0",
             borderRadius: 1,
             border: "1px solid #FFEACC",
-            p:1
+            p: {sm:0,md:1},
           }}
         >
           <ElectricBoltIcon />
         </Box>
-        <Typography sx={{fontWeight:"bold"}} variant="h4">Unlock Your Creative Potential</Typography>
+        <Typography sx={{ fontWeight: "bold" }} variant="h4">
+          Unlock Your Creative Potential
+        </Typography>
       </Box>
-      <Typography variant="h3" sx={{ mb: 2 }}>
+      <Typography variant="h4" sx={{ mb: 2 }}>
         with Online Design and Development Courses.
       </Typography>
-      <Typography variant="h6" color="textSecondary" gutterBottom>
+      <Typography variant="h4" color="textSecondary" gutterBottom>
         Learn from Industry Experts and Enhance Your Skills.
       </Typography>
       <Box mt={2} gap={2} display={"flex"} justifyContent={"center"}>
@@ -60,9 +61,10 @@ const Banner = () => {
           onClick={handleCoursesRoute}
           color="white"
         />
-        <CustomButton title={"View Pricing"} backgroundColor={"white"} 
+        <CustomButton
+          title={"View Pricing"}
+          backgroundColor={"white"}
           onClick={handlePricingRoute}
-
         />
       </Box>
       <Grid

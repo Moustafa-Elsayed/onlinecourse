@@ -14,26 +14,25 @@ const CustomButton = ({
   imagePosition = "start",
   width,
   endIcon,
-  onClick, 
+  onClick,
   startIcon,
   fontSize,
   ...props
 }) => {
   const icon = imageUrl ? (
-    <Image
-      src={imageUrl}
-      alt={imageAlt}
-      width={24}
-      height={24}
-    />
-  ) : imagePosition === "end" ? endIcon : startIcon;
+    <Image src={imageUrl} alt={imageAlt} width={24} height={24} />
+  ) : imagePosition === "end" ? (
+    endIcon
+  ) : (
+    startIcon
+  );
 
   return (
     <Button
       {...props}
       sx={{
         backgroundColor: backgroundColor,
-        color:  color,
+        color: color,
         padding: "8px 16px",
         borderRadius: borderRadius || "8px",
         textTransform: "capitalize",
@@ -41,14 +40,14 @@ const CustomButton = ({
         transition: "background-color 0.3s, color 0.3s, border 0.3s",
         width: width,
         fontWeight: fontWeight,
-        fontSize:fontSize,
+        fontSize: { xs: "11px", md: "16px" },
         "&:hover": {
           backgroundColor: backgroundColor,
         },
       }}
       startIcon={imagePosition === "start" ? icon : null}
       endIcon={imagePosition === "end" ? icon : null}
-      onClick={onClick} 
+      onClick={onClick}
     >
       {title}
     </Button>
