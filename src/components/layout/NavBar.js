@@ -82,7 +82,7 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+ 
   const handleNavItemClick = (path) => {
     handleCloseNavMenu();
     router.push(path);
@@ -103,7 +103,7 @@ const NavBar = () => {
         <Toolbar disableGutters>
           <Image src={Logo} alt="logo" width={50} height={50} />
           <Typography
-            variant="h5"
+            variant="h4"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
