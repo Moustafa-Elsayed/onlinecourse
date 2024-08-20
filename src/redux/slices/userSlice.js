@@ -3,21 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    username: null,
-    avatar: null,
-    token: null,
-    role: null,
+    data: {},
   },
   reducers: {
     setUserData: (state, action) => {
-      return { ...state, ...action.payload };
+      state.data = action.payload;
     },
-    clearUserData: () => ({
-      username: null,
-      avatar: null,
-      token: null,
-      role: null,
-    }),
+    clearUserData: (state) => {
+      state.data = {};
+    },
   },
 });
 

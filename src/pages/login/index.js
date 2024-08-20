@@ -29,6 +29,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [avatar, setAvatar] = useState(null); // Avatar state
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("email");
@@ -53,6 +54,10 @@ const AuthPage = () => {
     localStorage.setItem("email", value);
   };
 
+  const handleAvatarChange = (e) => {
+    setAvatar(e.target.files[0]);
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -66,16 +71,24 @@ const AuthPage = () => {
 
       if (response.ok) {
         const data = await response.json();
+        // Save token and role in cookies
         Cookies.set("token", data?.data?.token, { expires: 7 });
         Cookies.set("role", data?.data?.role);
 
         showToast("Login successful!", "success");
+
+        // Dispatch user data to Redux store
         dispatch(setUserData(data?.data));
-        window.location.href = "/";
+
+        // Redirect after Redux store is updated
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 50);
       } else {
         const errorData = await response.json();
         showToast(
-          errorData.message || "Login failed. Please try again.",
+          errorData.message ||
+            "username or password incorect  Please try again.",
           "error"
         );
       }
@@ -88,19 +101,23 @@ const AuthPage = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    if (avatar) {
+      formData.append("avatar", avatar);
+    }
+
     try {
       const response = await fetch(`${BaseUrl}/users/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
+        body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
-        Cookies.set("token", data?.data?.token, { expires: 7 });
-        Cookies.set("role", data?.data?.role);
+
         showToast("Registration successful!", "success");
         dispatch(setUserData(data?.data));
         window.location.href = "/login";
@@ -284,77 +301,31 @@ const AuthPage = () => {
             }
           />
           {!isLogin && (
-            <Typography
-              style={{
-                textAlign: "center",
-                marginTop: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              I agree with{" "}
-              <Link
-                style={{
-                  textDecoration: "underline",
-                  marginRight: "8px",
-                }}
-                href="/terms"
-              >
-                Terms of Use
-              </Link>
-              and
-              <Link
-                style={{
-                  textDecoration: "underline",
-                  marginLeft: "8px",
-                }}
-                href="/privacy"
-              >
-                Privacy Policy
-              </Link>
-            </Typography>
+            <CustomInput
+              type="file"
+              label="Profile Avatar"
+              onChange={handleAvatarChange}
+              accept="image/*"
+            />
           )}
-          {isLogin && (
-            <Link
-              href="/forgot-password"
-              style={{ textAlign: "right", marginTop: "8px" }}
-            >
-              Forgot Password?
-            </Link>
-          )}
-          {isLogin && <RememberMeCheckbox />}
+          <Box>
+            <RememberMeCheckbox />
+          </Box>
           <CustomButton
-            type="submit"
             title={isLogin ? "Login" : "Sign Up"}
-            color="white"
-            backgroundColor={theme.palette.secondary.main}
+            backgroundColor={theme.palette.primary.light}
+            type="submit"
           />
         </form>
-        <DividerWithText text="OR" />
-        <CustomButton
-          title={isLogin ? "Login with Google" : "Sign Up with Google"}
-          backgroundColor={theme.palette.primary.light}
-          imageUrl={GoogleIcon}
-          imageAlt="Google logo"
-          imagePosition="start"
-        />
         <Typography>
-          {isLogin ? "Don’t have an account?" : "Already have an account?"}
-          <button
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+          <Link
+            href="#"
             onClick={() => setIsLogin(!isLogin)}
-            style={{
-              textDecoration: "underline",
-              marginLeft: "5px",
-              cursor: "pointer",
-              background: "none",
-              border: "none",
-              color: theme.palette.primary.main,
-              display: "inline",
-              fontSize: "inherit",
-            }}
+            style={{ color: "blue", textDecoration: "underline" }}
           >
             {isLogin ? "Sign Up" : "Login"}
-          </button>
-          <ArrowOutwardIcon />
+          </Link>
         </Typography>
       </Box>
     </Box>

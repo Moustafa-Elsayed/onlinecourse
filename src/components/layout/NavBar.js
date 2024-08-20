@@ -51,7 +51,9 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  const userData = useSelector((state) => state?.user);
+  const userData = useSelector((state) => state?.user?.data);
+  console.log("userData",userData);
+  
   const token = Cookies.get('token');
   const role = Cookies.get('role');
 
@@ -188,7 +190,7 @@ const NavBar = () => {
                       sx={{ width: 50, height: 50 }}
                       src={
                         userData?.avatar
-                          ? `http://localhost:3000/${userData.avatar}`
+                          ? `http://localhost:4000/${userData.avatar}`
                           : undefined
                       }
                       alt={userData?.username}
