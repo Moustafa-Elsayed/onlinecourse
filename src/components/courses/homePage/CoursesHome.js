@@ -13,8 +13,8 @@ const CoursesHome = () => {
   const handleCoursesRoute = useButtonClickHandler("/courses");
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
-  const coursesData = courses?.data;
-
+  console.log("courses",courses);
+  
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
@@ -53,7 +53,7 @@ const CoursesHome = () => {
         />
       </Box>
       <Grid container spacing={4}>
-        {coursesData?.map((course, index) => (
+        {courses?.map((course, index) => (
           <Grid item key={index} xs={12} sm={6} md={6}>
             <CourseCard {...course} addToCart={handleAddToCart} />
           </Grid>
