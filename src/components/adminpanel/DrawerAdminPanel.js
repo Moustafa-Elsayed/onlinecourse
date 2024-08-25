@@ -128,26 +128,38 @@ export default function MiniDrawer() {
           backgroundColor: theme.palette.primary.lightgrey,
         }}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "center",
+          }}
+        >
+          <Box
             sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Admin Dashboard
-          </Typography>
-          <Button
-            sx={{ color: "white", textAlign: "left" }}
-            onClick={handleWebsiteRoutes}
-          >
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h4" noWrap component="div">
+              Admin Dashboard
+            </Typography>
+          </Box>
+          <Box sx={{flex:1}}>  </Box>
+          <Button sx={{ fontWeight:"bold",textTransform:"capitalize",backgroundColor:"red" }} onClick={handleWebsiteRoutes}>
             Back To Website
           </Button>
         </Toolbar>
