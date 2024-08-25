@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 const CoursesPage = () => {
   const dispatch = useDispatch();
   const { courses, status, error } = useSelector((state) => state.courses);
+  console.log("courses",courses);
+  
   const coursesData = courses?.data;
-  console.log("coursesData",coursesData);
   
 
   useEffect(() => {

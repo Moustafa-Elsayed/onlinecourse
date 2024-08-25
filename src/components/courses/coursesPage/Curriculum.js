@@ -3,7 +3,6 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import theme from "@/styles/theme";
 
 const Curriculum = ({ curriculum }) => {
-  
   return (
     <Box
       sx={{
@@ -26,8 +25,7 @@ const Curriculum = ({ curriculum }) => {
                 textAlign: { xs: "left", sm: "left", md: "center" },
                 borderRadius: "8px",
                 border: "1px solid #e9e3e3",
-                height:"120px"
-               
+                height: "120px",
               }}
             >
               <Typography
@@ -35,9 +33,9 @@ const Curriculum = ({ curriculum }) => {
                 gutterBottom
                 style={{ fontWeight: "bold" }}
               >
-                0{course.number}
+                0{index + 1}
               </Typography>
-              <Typography variant="body1">{course.title}</Typography>
+              <Typography variant="body1">{course}</Typography>
             </Paper>
           </Grid>
         ))}

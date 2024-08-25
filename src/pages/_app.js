@@ -34,16 +34,22 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
+  const getLayout = Component.noLayout
+    ? (page) => page
+    : (page) => <MainLayout>{page}</MainLayout>;
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <MainLayout>
-            <Component {...pageProps} />
-            <ToastContainer />
-            <LoadingSpinner isLoading={isLoading} />
-          </MainLayout>
+          {getLayout(
+            <>
+              <Component {...pageProps} />
+              <ToastContainer />
+              <LoadingSpinner isLoading={isLoading} />
+            </>
+          )}
         </ThemeProvider>
       </PersistGate>
     </Provider>
