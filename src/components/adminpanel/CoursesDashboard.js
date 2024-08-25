@@ -98,12 +98,17 @@ const AdminCourses = () => {
     formData.append("duration", newCourse.duration);
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
-    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
+
+    // Convert curriculum objects to an array of titles (strings)
+    const curriculumTitles = newCourse.curriculum.map((item) => item.title);
+    formData.append("curriculum", JSON.stringify(curriculumTitles));
+
     if (newCourse.photo) {
       formData.append("photo", newCourse.photo);
     }
+
     if (editCourse) {
-      dispatch(updateCourse({ id: editCourse._id, updatedData: newCourse }))
+      dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
           showToast("Update course successful!");
           handleCloseDialog();
@@ -115,7 +120,7 @@ const AdminCourses = () => {
           dispatch(fetchCourses());
         });
     } else {
-      dispatch(addcourses(newCourse))
+      dispatch(addcourses(formData))
         .then(() => {
           showToast("Add course successful!");
           handleCloseDialog();
@@ -162,11 +167,7 @@ const AdminCourses = () => {
       curriculum: [
         ...prevCourse.curriculum,
         {
-          number: prevCourse.curriculum.length + 1, // Set number based on the length of the curriculum array
           title: "",
-          duration: "",
-          level: "",
-          instructor: "",
         },
       ],
     }));
@@ -292,13 +293,6 @@ const AdminCourses = () => {
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <Typography variant="h6">Curriculum Item {index + 1}</Typography>
-
-              <CustomInput
-                label="Number"
-                value={item.number}
-                type="number"
-                disabled // The number is automatically handled, so make it read-only
-              />
 
               <CustomInput
                 label="Title"
