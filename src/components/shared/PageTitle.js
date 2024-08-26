@@ -12,11 +12,11 @@ const PageTitle = ({ title, subTitle }) => {
       }}
     >
       <Typography
-        variant="h1"
+        variant="title"
         sx={{
           fontWeight: "bold",
           mb: 2,
-          maxWidth: "50%",
+          maxWidth: "100%",
          
         }}
       >

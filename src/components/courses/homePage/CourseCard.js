@@ -17,7 +17,6 @@ const CourseCard = ({
   addToCart,
   photos,
 }) => {
-
   const handleAddToCart = () => {
     addToCart({
       _id,

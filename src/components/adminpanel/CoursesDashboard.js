@@ -38,7 +38,8 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
-    photo: "", // Add photo field
+    photos: [], // Change to null initially
+    photoPreview: [], // For displaying preview
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -61,7 +62,8 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
-        photo: course.photo || null,
+        photos: course.photos || [],
+        photoPreview: course.photos || [], // Set preview URL
       });
     } else {
       setEditCourse(null);
@@ -72,7 +74,8 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
-        photo: null,
+        photos: [],
+        photoPreview: [],
       });
     }
     setOpenDialog(true);
@@ -99,13 +102,12 @@ const AdminCourses = () => {
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
 
-    // Convert curriculum objects to an array of titles (strings)
     const curriculumTitles = newCourse.curriculum.map((item) => item.title);
     formData.append("curriculum", JSON.stringify(curriculumTitles));
 
-    if (newCourse.photo) {
-      formData.append("photo", newCourse.photo);
-    }
+    newCourse.photos.forEach((photo) => {
+      formData.append("photos", photo); // Append each photo file
+    });
 
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
@@ -125,7 +127,6 @@ const AdminCourses = () => {
           showToast("Add course successful!");
           handleCloseDialog();
           dispatch(fetchCourses());
-          console.log("newCourse", newCourse);
         })
         .catch(() => {
           showToast("Failed to add course.");
@@ -187,19 +188,26 @@ const AdminCourses = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Here, you should upload the image to your server or a service like Cloudinary
-      // and set the image URL in the newCourse state.
-      // For demonstration purposes, we'll just use the local file URL.
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setNewCourse((prevCourse) => ({
-          ...prevCourse,
-          photo: reader.result, // This will be the image URL
-        }));
-      };
-      reader.readAsDataURL(file);
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      // Update state with new files
+      setNewCourse((prevCourse) => ({
+        ...prevCourse,
+        photos: files, // Store the file objects for FormData
+      }));
+
+      // Create previews
+      const previews = files.map((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setNewCourse((prevCourse) => ({
+            ...prevCourse,
+            photoPreview: (prevCourse.photoPreview || []).concat(reader.result),
+          }));
+        };
+        reader.readAsDataURL(file);
+        return reader;
+      });
     }
   };
 
@@ -269,27 +277,21 @@ const AdminCourses = () => {
             }
             fullWidth
           />
-          <Box sx={{ mb: 2 }}>
-            <Button variant="contained" component="label" color="secondary">
-              Upload Photo
-              <input
-                type="file"
-                hidden
-                onChange={(e) =>
-                  setNewCourse({ ...newCourse, photo: e.target.files[0] })
-                }
-              />
-            </Button>
-          </Box>
-          {newCourse.photo && (
-            <Box sx={{ mb: 2 }}>
+          <Button variant="contained" component="label" color="secondary">
+            Upload Photos
+            <input type="file" hidden multiple onChange={handleImageChange} />
+          </Button>
+
+          {newCourse.photoPreview.map((preview, index) => (
+            <Box key={index} sx={{ mb: 2 }}>
               <img
-                src={newCourse.photo}
-                alt="Course"
+                src={preview}
+                alt={`Course preview ${index + 1}`}
                 style={{ maxWidth: "100%", height: "auto" }}
               />
             </Box>
-          )}
+          ))}
+
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <Typography variant="h6">Curriculum Item {index + 1}</Typography>

@@ -29,7 +29,7 @@ const Curriculum = ({ curriculum }) => {
               }}
             >
               <Typography
-                variant="h4"
+                variant="h2"
                 gutterBottom
                 style={{ fontWeight: "bold" }}
               >
