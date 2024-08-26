@@ -190,25 +190,37 @@ const AdminCourses = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     if (files.length > 0) {
-      // Update state with new files
-      setNewCourse((prevCourse) => ({
-        ...prevCourse,
-        photos: files, // Store the file objects for FormData
-      }));
-
-      // Create previews
-      const previews = files.map((file) => {
+      const newPreviews = files.map((file) => {
         const reader = new FileReader();
         reader.onloadend = () => {
           setNewCourse((prevCourse) => ({
             ...prevCourse,
-            photoPreview: (prevCourse.photoPreview || []).concat(reader.result),
+            photoPreview: [...prevCourse.photoPreview, reader.result],
           }));
         };
         reader.readAsDataURL(file);
         return reader;
       });
+
+      setNewCourse((prevCourse) => ({
+        ...prevCourse,
+        photos: [...prevCourse.photos, ...files], // Append new files to the existing list
+      }));
     }
+  };
+  const handleRemovePhoto = (index) => {
+    setNewCourse((prevCourse) => {
+      const updatedPreviews = prevCourse.photoPreview.filter(
+        (_, i) => i !== index
+      );
+      const updatedPhotos = prevCourse.photos.filter((_, i) => i !== index);
+
+      return {
+        ...prevCourse,
+        photoPreview: updatedPreviews,
+        photos: updatedPhotos,
+      };
+    });
   };
 
   return (
@@ -282,22 +294,23 @@ const AdminCourses = () => {
             <input type="file" hidden multiple onChange={handleImageChange} />
           </Button>
           {newCourse.photoPreview.map((preview, index) => (
-            <Box key={index} sx={{ mb: 2 }}>
+            <Box key={index} sx={{ mb: 2, position: "relative" }}>
               <img
                 src={preview}
                 alt={`Course preview ${index + 1}`}
                 style={{ maxWidth: "100%", height: "auto" }}
               />
+              <IconButton
+                sx={{ position: "absolute", top: 0, right: 0 }}
+                onClick={() => handleRemovePhoto(index)}
+              >
+                <CloseIcon />
+              </IconButton>
             </Box>
           ))}
-          <Box sx={{mb:3}}></Box>
-          <CustomButton
-            backgroundColor={theme.palette.secondary.main}
-            onClick={handleAddCurriculumItem}
-            sx={{ mt: 5 }}
-            color="white"
-            title="Add Curriculum Item"
-          />
+
+          <Box sx={{ mb: 3 }}></Box>
+
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <Typography variant="h6">Curriculum Item {index + 1}</Typography>
@@ -320,6 +333,13 @@ const AdminCourses = () => {
               />
             </div>
           ))}
+          <CustomButton
+            backgroundColor={theme.palette.secondary.main}
+            onClick={handleAddCurriculumItem}
+            sx={{ mt: 5 }}
+            color="white"
+            title="Add Curriculum Item"
+          />
         </DialogContent>
         <DialogActions sx={{ mr: 4 }}>
           <CustomButton
