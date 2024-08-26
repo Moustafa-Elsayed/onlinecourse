@@ -82,7 +82,6 @@ const CourseDetail = () => {
 
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses.data);
-  console.log("courses", courses);
 
   const [course, setCourse] = useState(null);
 
