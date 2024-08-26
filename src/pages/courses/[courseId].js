@@ -82,6 +82,7 @@ const CourseDetail = () => {
 
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses.data);
+console.log("courses",courses);
 
   const [course, setCourse] = useState(null);
 
@@ -103,13 +104,8 @@ const CourseDetail = () => {
   return (
     <>
       <PageTitle title={course.title} subTitle={course.subtitle} />
-      {course?.curriculum?.map((item, index) => (
-        <Typography key={index} sx={{ color: "black" }}>
-          {item.title}sdsd
-        </Typography>
-      ))}
       <Image
-        src={`${MainUrl}${course.photo}`}
+        src={`${MainUrl}${course.photos[0]}`}
         alt="Course Image"
         layout="responsive"
         width={200}

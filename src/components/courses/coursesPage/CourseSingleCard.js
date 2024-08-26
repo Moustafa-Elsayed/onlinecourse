@@ -28,12 +28,12 @@ const CourseSingleCard = ({
           <CourseTitle title={title} subtitle={subtitle} _id={_id} />
         </Box>
         <Box>
-          {/* <ImageGrid
+          <ImageGrid
             instructor={instructor}
             duration={duration}
             level={level}
             photos={photos}
-          /> */}
+          />
         </Box>
         <Box>
           <Curriculum curriculum={curriculum} />

@@ -17,6 +17,8 @@ const CourseCard = ({
   addToCart,
   photos,
 }) => {
+  console.log("photos", photos[0]);
+
   const handleAddToCart = () => {
     addToCart({
       _id,
@@ -49,7 +51,7 @@ const CourseCard = ({
           }}
         >
           <Image
-            src={`https://i.ibb.co/bHL7jDJ/course7.webp`}
+            src={`${MainUrl}${photos[0]}`}
             alt="courseimage"
             layout="fill"
             objectFit="cover"
