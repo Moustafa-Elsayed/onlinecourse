@@ -35,7 +35,7 @@ const Curriculum = ({ curriculum }) => {
               >
                 0{index + 1}
               </Typography>
-              <Typography variant="body1">{course}</Typography>
+              <Typography variant="body1">{course.title}</Typography>
             </Paper>
           </Grid>
         ))}

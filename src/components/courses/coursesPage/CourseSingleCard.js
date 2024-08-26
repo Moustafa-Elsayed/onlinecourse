@@ -15,6 +15,7 @@ const CourseSingleCard = ({
   _id,
   photos,
 }) => {
+  console.log("curriculum",curriculum);
   
   return (
     <Box

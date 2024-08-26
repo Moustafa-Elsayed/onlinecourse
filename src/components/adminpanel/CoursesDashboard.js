@@ -38,8 +38,8 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
-    photos: [], // Change to null initially
-    photoPreview: [], // For displaying preview
+    photos: [],
+    photoPreview: [],
   });
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
@@ -63,7 +63,7 @@ const AdminCourses = () => {
         level: course.level,
         instructor: course.instructor,
         photos: course.photos || [],
-        photoPreview: course.photos || [], // Set preview URL
+        photoPreview: course.photos || [],
       });
     } else {
       setEditCourse(null);
@@ -101,14 +101,10 @@ const AdminCourses = () => {
     formData.append("duration", newCourse.duration);
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
-
-    const curriculumTitles = newCourse.curriculum.map((item) => item.title);
-    formData.append("curriculum", JSON.stringify(curriculumTitles));
-
+    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
     newCourse.photos.forEach((photo) => {
-      formData.append("photos", photo); // Append each photo file
+      formData.append("photos", photo);
     });
-
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
@@ -133,7 +129,6 @@ const AdminCourses = () => {
         });
     }
   };
-
   const handleDeleteCourse = async () => {
     if (courseToDelete) {
       try {
@@ -150,7 +145,6 @@ const AdminCourses = () => {
       handleCloseConfirmDialog();
     }
   };
-
   const handleChangeCurriculum = (index, field, value) => {
     const updatedCurriculum = newCourse.curriculum.map((item, i) =>
       i === index ? { ...item, [field]: value } : item
@@ -169,16 +163,64 @@ const AdminCourses = () => {
         ...prevCourse.curriculum,
         {
           title: "",
+          details: [{ title: "", duration: "" }],
         },
       ],
     }));
   };
 
+  const handleAddDetail = (itemIndex) => {
+    const updatedCurriculum = newCourse.curriculum.map((item, index) =>
+      index === itemIndex
+        ? { ...item, details: [...item.details, { title: "", duration: "" }] }
+        : item
+    );
+    setNewCourse((prevCourse) => ({
+      ...prevCourse,
+      curriculum: updatedCurriculum,
+    }));
+  };
+
+  const handleChangeDetail = (itemIndex, detailIndex, field, value) => {
+    const updatedCurriculum = newCourse.curriculum.map((item, i) =>
+      i === itemIndex
+        ? {
+            ...item,
+            details: item.details.map((detail, j) =>
+              j === detailIndex ? { ...detail, [field]: value } : detail
+            ),
+          }
+        : item
+    );
+    setNewCourse((prevCourse) => ({
+      ...prevCourse,
+      curriculum: updatedCurriculum,
+    }));
+  };
+
   const handleRemoveCurriculumItem = (index) => {
     setNewCourse((prevCourse) => {
-      const updatedCurriculum = prevCourse.curriculum
-        .filter((_, i) => i !== index)
-        .map((item, i) => ({ ...item, number: i + 1 })); // Update numbers after removal
+      const updatedCurriculum = prevCourse.curriculum.filter(
+        (_, i) => i !== index
+      );
+
+      return {
+        ...prevCourse,
+        curriculum: updatedCurriculum,
+      };
+    });
+  };
+
+  const handleRemoveDetail = (itemIndex, detailIndex) => {
+    setNewCourse((prevCourse) => {
+      const updatedCurriculum = prevCourse.curriculum.map((item, i) =>
+        i === itemIndex
+          ? {
+              ...item,
+              details: item.details.filter((_, j) => j !== detailIndex),
+            }
+          : item
+      );
 
       return {
         ...prevCourse,
@@ -204,10 +246,11 @@ const AdminCourses = () => {
 
       setNewCourse((prevCourse) => ({
         ...prevCourse,
-        photos: [...prevCourse.photos, ...files], // Append new files to the existing list
+        photos: [...prevCourse.photos, ...files],
       }));
     }
   };
+
   const handleRemovePhoto = (index) => {
     setNewCourse((prevCourse) => {
       const updatedPreviews = prevCourse.photoPreview.filter(
@@ -323,13 +366,56 @@ const AdminCourses = () => {
                 }
                 fullWidth
               />
-
+              {item.details.map((detail, detailIndex) => (
+                <div key={detailIndex} style={{ marginBottom: "10px" }}>
+                  <CustomInput
+                    label="Detail Title"
+                    value={detail.title}
+                    onChange={(e) =>
+                      handleChangeDetail(
+                        index,
+                        detailIndex,
+                        "title",
+                        e.target.value
+                      )
+                    }
+                    fullWidth
+                  />
+                  <CustomInput
+                    label="Detail Duration"
+                    value={detail.duration}
+                    onChange={(e) =>
+                      handleChangeDetail(
+                        index,
+                        detailIndex,
+                        "duration",
+                        e.target.value
+                      )
+                    }
+                    fullWidth
+                  />
+                  <CustomButton
+                    backgroundColor={theme.palette.primary.light}
+                    onClick={() => handleRemoveDetail(index, detailIndex)}
+                    border="1px solid #d1cbcb82"
+                    sx={{ mt: 2 }}
+                    title="Remove Detail"
+                  />
+                </div>
+              ))}
+              <CustomButton
+                backgroundColor={theme.palette.primary.light}
+                onClick={() => handleAddDetail(index)}
+                border="1px solid #d1cbcb82"
+                sx={{ mt: 2 }}
+                title="Add Detail"
+              />
               <CustomButton
                 backgroundColor={theme.palette.primary.light}
                 onClick={() => handleRemoveCurriculumItem(index)}
                 border="1px solid #d1cbcb82"
                 sx={{ mt: 2 }}
-                title="Remove"
+                title="Remove Curriculum Item"
               />
             </div>
           ))}

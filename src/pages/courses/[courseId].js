@@ -9,6 +9,7 @@ import Image from "next/image";
 import CourseImage from "../../../public/Image/Container.png";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { MainUrl } from "@/lib/api/constants";
+import { Typography } from "@mui/material";
 const CourseDetail = () => {
   const coursess = [
     {
@@ -81,6 +82,7 @@ const CourseDetail = () => {
 
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses.data);
+  console.log("courses", courses);
 
   const [course, setCourse] = useState(null);
 
@@ -102,6 +104,11 @@ const CourseDetail = () => {
   return (
     <>
       <PageTitle title={course.title} subTitle={course.subtitle} />
+      {course?.curriculum?.map((item, index) => (
+        <Typography key={index} sx={{ color: "black" }}>
+          {item.title}sdsd
+        </Typography>
+      ))}
       <Image
         src={`${MainUrl}${course.photo}`}
         alt="Course Image"
