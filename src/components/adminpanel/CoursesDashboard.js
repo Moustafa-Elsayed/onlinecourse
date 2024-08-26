@@ -281,7 +281,6 @@ const AdminCourses = () => {
             Upload Photos
             <input type="file" hidden multiple onChange={handleImageChange} />
           </Button>
-
           {newCourse.photoPreview.map((preview, index) => (
             <Box key={index} sx={{ mb: 2 }}>
               <img
@@ -291,7 +290,14 @@ const AdminCourses = () => {
               />
             </Box>
           ))}
-
+          <Box sx={{mb:3}}></Box>
+          <CustomButton
+            backgroundColor={theme.palette.secondary.main}
+            onClick={handleAddCurriculumItem}
+            sx={{ mt: 5 }}
+            color="white"
+            title="Add Curriculum Item"
+          />
           {newCourse.curriculum.map((item, index) => (
             <div key={index} style={{ marginBottom: "10px" }}>
               <Typography variant="h6">Curriculum Item {index + 1}</Typography>
@@ -314,13 +320,6 @@ const AdminCourses = () => {
               />
             </div>
           ))}
-          <CustomButton
-            backgroundColor={theme.palette.secondary.main}
-            onClick={handleAddCurriculumItem}
-            sx={{ mt: 5 }}
-            color="white"
-            title="Add Curriculum Item"
-          />
         </DialogContent>
         <DialogActions sx={{ mr: 4 }}>
           <CustomButton
