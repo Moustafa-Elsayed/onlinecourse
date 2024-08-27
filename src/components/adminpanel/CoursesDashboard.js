@@ -94,6 +94,42 @@ const AdminCourses = () => {
     setOpenConfirmDialog(false);
   };
 
+  // const handleAddOrUpdateCourse = () => {
+  //   const formData = new FormData();
+  //   formData.append("title", newCourse.title);
+  //   formData.append("subtitle", newCourse.subtitle);
+  //   formData.append("duration", newCourse.duration);
+  //   formData.append("level", newCourse.level);
+  //   formData.append("instructor", newCourse.instructor);
+  //   formData.append("curriculum", JSON.stringify(newCourse.curriculum));
+  //   newCourse.photos.forEach((photo) => {
+  //     formData.append("photos", photo);
+  //   });
+
+  //   if (editCourse) {
+  //     dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
+  //       .then(() => {
+  //         showToast("Update course successful!");
+  //         handleCloseDialog();
+  //         dispatch(fetchCourses());
+  //       })
+  //       .catch(() => {
+  //         showToast("Update course failed.");
+  //         handleCloseDialog();
+  //         dispatch(fetchCourses());
+  //       });
+  //   } else {
+  //     dispatch(addcourses(formData))
+  //       .then(() => {
+  //         showToast("Add course successful!");
+  //         handleCloseDialog();
+  //         dispatch(fetchCourses());
+  //       })
+  //       .catch(() => {
+  //         showToast("Failed to add course.");
+  //       });
+  //   }
+  // };
   const handleAddOrUpdateCourse = () => {
     const formData = new FormData();
     formData.append("title", newCourse.title);
@@ -101,10 +137,12 @@ const AdminCourses = () => {
     formData.append("duration", newCourse.duration);
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
-    formData.append("curriculum", JSON.stringify(newCourse.curriculum));
+    formData.append("curriculum", JSON.stringify(newCourse.curriculum)); // Stringify the curriculum array
+    
     newCourse.photos.forEach((photo) => {
       formData.append("photos", photo);
     });
+  
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
@@ -129,22 +167,40 @@ const AdminCourses = () => {
         });
     }
   };
+  
+  // const handleDeleteCourse = async () => {
+  //   if (courseToDelete) {
+  //     try {
+  //       await dispatch(deleteCourse(courseToDelete._id)).unwrap();
+  //       showToast("Delete course successful!");
+  //       handleCloseConfirmDialog();
+  //       dispatch(fetchCourses());
+  //     } catch (error) {
+  //       showToast("Failed to delete course.");
+  //       dispatch(fetchCourses());
+  //       handleCloseConfirmDialog();
+  //     }
+  //   } else {
+  //     handleCloseConfirmDialog();
+  //   }
+  // };
   const handleDeleteCourse = async () => {
     if (courseToDelete) {
       try {
         await dispatch(deleteCourse(courseToDelete._id)).unwrap();
         showToast("Delete course successful!");
-        handleCloseConfirmDialog();
-        dispatch(fetchCourses());
       } catch (error) {
+        console.error("Error in handleDeleteCourse:", error); // Detailed logging
         showToast("Failed to delete course.");
-        dispatch(fetchCourses());
+      } finally {
         handleCloseConfirmDialog();
+        dispatch(fetchCourses());
       }
     } else {
       handleCloseConfirmDialog();
     }
   };
+  
   const handleChangeCurriculum = (index, field, value) => {
     const updatedCurriculum = newCourse.curriculum.map((item, i) =>
       i === index ? { ...item, [field]: value } : item

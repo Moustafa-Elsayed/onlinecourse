@@ -8,11 +8,9 @@ export const deleteCourse = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const token = Cookies.get("token");
-
       if (!token) {
         throw new Error("No token found");
       }
-
 
       const response = await axios.delete(`${BaseUrl}/courses/${id}`, {
         headers: {
@@ -22,12 +20,12 @@ export const deleteCourse = createAsyncThunk(
 
       return id;
     } catch (error) {
-      // Log the full error object for debugging
-      console.error("Delete course failed:", error);
+      console.error("Delete course failed:", error); // Log the full error
       return rejectWithValue(error.response?.data || "An unexpected error occurred");
     }
   }
 );
+
 
 export const DeleteCoursesRequestHandler = (builder) => {
   builder
@@ -36,12 +34,17 @@ export const DeleteCoursesRequestHandler = (builder) => {
     })
     .addCase(deleteCourse.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.courses = state.courses.filter(
-        (course) => course.id !== action.payload
-      );
+      if (Array.isArray(state.courses)) {
+        state.courses = state.courses.filter(
+          (course) => course.id !== action.payload
+        );
+      } else {
+        console.error("Expected state.courses to be an array, but it is not.");
+      }
     })
     .addCase(deleteCourse.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.payload;
     });
 };
+
