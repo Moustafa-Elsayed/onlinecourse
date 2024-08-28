@@ -15,6 +15,7 @@ import {
   DialogTitle,
   Button,
   Typography,
+  Box,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "@/redux/users/GetAllUsersRequest";
@@ -22,6 +23,11 @@ import { deleteUsers } from "@/redux/users/DeleteCoursesRequest";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
 import { showToast } from "../shared/showToast";
+import { BaseUrl } from "@/lib/api/constants";
+import Cookies from "js-cookie";
+import { Grid } from "react-loader-spinner";
+import UserTable from "./UserTable";
+
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const { users, status, error } = useSelector((state) => state.users);
@@ -29,6 +35,8 @@ const UserDashboard = () => {
   // State for handling the dialog visibility and selected user
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [editedUser, setEditedUser] = useState(null);
+  const [newRole, setNewRole] = useState("");
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -64,39 +72,61 @@ const UserDashboard = () => {
     }
   };
 
+  // Function to handle role editing
+  const handleEditRole = (user) => {
+    setEditedUser(user);
+    setNewRole(user.role);
+  };
+
+  // Function to handle the role update
+
+  const handleUpdateRole = async () => {
+    if (editedUser) {
+      try {
+        const token = Cookies.get("token"); // Retrieve the token from cookies
+        const response = await fetch(
+          `${BaseUrl}/users/role/${editedUser._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Use the token from cookies
+            },
+            body: JSON.stringify({ role: newRole }),
+          }
+        );
+
+        if (response.ok) {
+          showToast("Role updated successfully!");
+          dispatch(fetchUsers()); // Refresh the user list
+        } else {
+          showToast("Failed to update role.");
+        }
+      } catch (error) {
+        console.error("Error in handleUpdateRole:", error);
+        showToast("Server error, please try again.");
+      } finally {
+        setEditedUser(null);
+        setNewRole("");
+      }
+    }
+  };
+
   return (
     <>
-      <Typography variant="h4">Admin Panel: Manage Users</Typography>
+      <Typography variant="h4" mb={5}>
+        Admin Panel: Manage Users
+      </Typography>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users?.map((user) => (
-              <TableRow key={user._id}>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell sx={{ display: "inline-flex", gap: 0.5 }}>
-                  <CustomButton
-                    title="Delete"
-                    backgroundColor={"red"}
-                    color={"white"}
-                    onClick={() => handleOpenConfirmDialog(user)}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <UserTable
+        users={users}
+        editedUser={editedUser}
+        newRole={newRole}
+        setNewRole={setNewRole}
+        handleUpdateRole={handleUpdateRole}
+        handleEditRole={handleEditRole}
+        handleOpenConfirmDialog={handleOpenConfirmDialog}
+      />
 
       {/* Confirmation Dialog */}
       <Dialog open={openConfirmDialog} onClose={handleCloseConfirmDialog}>
