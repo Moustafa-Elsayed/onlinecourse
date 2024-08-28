@@ -10,6 +10,7 @@ import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
 import { addcourses } from "@/redux/courses/AddNewCourseRequest";
 import { showToast } from "../shared/showToast";
+import { updateCourse } from "@/redux/courses/UpdateCourseRequest";
 
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);

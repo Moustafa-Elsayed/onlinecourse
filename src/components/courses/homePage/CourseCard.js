@@ -123,6 +123,7 @@ const CourseCard = ({
           fontWeight={"bold"}
           sx={{ mt: 2 }}
           onClick={handleAddToCart}
+          loading={true}
         />
       </Box>
     </Card>

@@ -25,7 +25,7 @@ const ImageGrid = ({ duration, level, instructor, photos }) => {
             sx={{
               flex: "1 0 300px", // Adjusts the width of each image box
               position: "relative", // Needed for Image component
-              height: 300, // Fixed height to match the aspect ratio
+              height: 300,
             }}
           >
             <Image
@@ -33,6 +33,7 @@ const ImageGrid = ({ duration, level, instructor, photos }) => {
               layout="fill" // Ensures image fills the parent Box
               objectFit="cover" // Maintains the aspect ratio of the image
               alt={`Course Image ${index + 1}`}
+              style={{borderRadius:"10px"}}
             />
           </Box>
         ))}
