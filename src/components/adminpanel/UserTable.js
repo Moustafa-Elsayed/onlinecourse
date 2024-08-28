@@ -12,8 +12,8 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@mui/material/styles";
 
@@ -33,18 +33,10 @@ function UserTable({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="center">
-              <Typography variant="h4" sx={{ textAlign: "center" }}>Username</Typography>
-            </TableCell>
-            <TableCell align="center">
-              <Typography variant="h4" sx={{ textAlign: "center" }}>Email</Typography>
-            </TableCell>
-            <TableCell align="center">
-              <Typography variant="h4" sx={{ textAlign: "center" }}>Role</Typography>
-            </TableCell>
-            <TableCell align="center">
-              <Typography variant="h4" sx={{ textAlign: "center" }}>Actions</Typography>
-            </TableCell>
+            <TableCell sx={{ fontWeight: "bold" ,textAlign:"center"}}>Title</TableCell>
+            <TableCell sx={{ fontWeight: "bold" ,textAlign:"center"}}>Email</TableCell>
+            <TableCell sx={{ fontWeight: "bold" ,textAlign:"center"}}>Role</TableCell>
+            <TableCell sx={{ fontWeight: "bold" ,textAlign:"center"}}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,7 +50,7 @@ function UserTable({
                 transition: "transform 0.2s",
               }}
             >
-              <TableCell align="center" >{user.username}</TableCell>
+              <TableCell align="center">{user.username}</TableCell>
               <TableCell align="center">{user.email}</TableCell>
               <TableCell align="center">
                 {editedUser && editedUser._id === user._id ? (
@@ -73,7 +65,10 @@ function UserTable({
                     <option value="ADMIN">ADMIN</option>
                   </TextField>
                 ) : (
-                  <Typography variant="body2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: "bold", textAlign: "center" }}
+                  >
                     {user.role}
                   </Typography>
                 )}
@@ -97,10 +92,10 @@ function UserTable({
                     <Tooltip title="Edit Role">
                       <IconButton
                         sx={{
-                          backgroundColor: theme.palette.primary.main,
+                          backgroundColor: "secondary.main",
                           color: "white",
                           "&:hover": {
-                            backgroundColor: theme.palette.primary.dark,
+                            backgroundColor: "secondary.main",
                           },
                         }}
                         onClick={() => handleEditRole(user)}

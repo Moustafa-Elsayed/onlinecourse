@@ -121,24 +121,20 @@ export default function MiniDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{
-          backgroundColor: theme.palette.primary.lightgrey,
-        }}
-      >
+      <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
             display: "flex",
-            justifyContent: "start",
+            justifyContent: "space-between",
             alignItems: "center",
+            backgroundColor: "primary.main", // Adds a background color
+            padding: "0 2rem", // Adds padding for spacing
+            backgroundColor: "#f5f5f5",
           }}
         >
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               alignItems: "center",
             }}
           >
@@ -148,20 +144,48 @@ export default function MiniDrawer() {
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
-                marginRight: 5,
+                marginRight: 2,
                 ...(open && { display: "none" }),
+                transition: "transform 0.3s", // Adds a transition effect
+                "&:hover": {
+                  transform: "scale(1.1)", // Scales up on hover
+                },
               }}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: "black" }} />
             </IconButton>
-            <Typography variant="h4" noWrap component="div">
+            <Typography
+              variant="h4"
+              noWrap
+              component="div"
+              sx={{ color: "black" }}
+            >
               Admin Dashboard
             </Typography>
           </Box>
-          <Box sx={{flex:1}}>  </Box>
-          <Button sx={{ fontWeight:"bold",textTransform:"capitalize",backgroundColor:"red" }} onClick={handleWebsiteRoutes}>
-            Back To Website
-          </Button>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              sx={{
+                fontWeight: "bold",
+                textTransform: "capitalize",
+                backgroundColor: "secondary.main", // Updates button color
+                color: "white", // Updates text color
+                "&:hover": {
+                  backgroundColor: "secondary.dark", // Darkens button on hover
+                },
+                padding: "0.5rem 1.5rem", // Adds padding to button
+                borderRadius: 4, // Rounds the button corners
+              }}
+              onClick={handleWebsiteRoutes}
+            >
+              Back To Website
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
