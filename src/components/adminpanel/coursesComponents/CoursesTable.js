@@ -9,44 +9,45 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import CustomButton from "@/components/shared/CustomButton";
-import theme from "@/styles/theme";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import theme from "@/styles/theme";
+
 const CoursesTable = ({
   courses,
   handleOpenDialog,
   handleOpenConfirmDialog,
 }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}  sx={{ overflowX: "auto", boxShadow: 3 }}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell sx={{fontWeight:"bold"}}>Title</TableCell>
-            <TableCell sx={{fontWeight:"bold"}}>Subtitle</TableCell>
-            <TableCell sx={{fontWeight:"bold"}}>Actions</TableCell>
+            <TableCell sx={{ fontWeight: "bold",textAlign:"center"}}>Title</TableCell>
+            <TableCell sx={{ fontWeight: "bold",textAlign:"center"}}>Subtitle</TableCell>
+            <TableCell sx={{ fontWeight: "bold"}}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {courses?.map((course) => (
-            <TableRow key={course._id}>
-              <TableCell >{course.title}</TableCell>
-              <TableCell sx={{width:"70%"}}>{course.subtitle}</TableCell>
-              <TableCell sx={{ display: "inline-flex", gap: 0.5 }}>
-                {/* <CustomButton
-                  title="Edit"
-                  backgroundColor={theme.palette.secondary.main}
-                  onClick={() => handleOpenDialog(course)}
-                  color="white"
-                /> */}
-                <Tooltip title="Edit ">
+            <TableRow key={course._id}  sx={{
+              "&:nth-of-type(odd)": {
+                backgroundColor: theme.palette.action.hover,
+              }            }} >
+              <TableCell sx={{textAlign:"center"}}>
+                {course.title}
+              </TableCell>
+              <TableCell sx={{ width: "70%",textAlign:"center" }}>
+                {course.subtitle}
+              </TableCell>
+              <TableCell sx={{ display: "inline-flex", gap: 0.5}}>
+                <Tooltip title="Edit">
                   <IconButton
                     sx={{
-                      backgroundColor: "secondary.main",
+                      backgroundColor: theme.palette.secondary.main,
                       color: "white",
                       "&:hover": {
-                        backgroundColor: "secondary.main",
+                        backgroundColor: theme.palette.secondary.dark,
                       },
                     }}
                     onClick={() => handleOpenDialog(course)}
@@ -54,17 +55,12 @@ const CoursesTable = ({
                     <EditIcon />
                   </IconButton>
                 </Tooltip>
-                {/* <CustomButton
-                  title="Delete"
-                  backgroundColor={theme.palette.primary.light}
-                  onClick={() => handleOpenConfirmDialog(course)}
-                /> */}
                 <Tooltip title="Delete">
                   <IconButton
                     sx={{
-                      backgroundColor: "red",
+                      backgroundColor: theme.palette.error.main,
                       color: "white",
-                      "&:hover": { backgroundColor: "darkred" },
+                      "&:hover": { backgroundColor: theme.palette.error.dark },
                     }}
                     onClick={() => handleOpenConfirmDialog(course)}
                   >
