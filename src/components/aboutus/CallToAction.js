@@ -5,13 +5,13 @@ import CustomButton from "../shared/CustomButton";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 
 const CallToAction = () => {
-  const handleJoin=useButtonClickHandler("/login")
+  const handleJoin = useButtonClickHandler("/login");
   return (
     <Box
       sx={{
         textAlign: "center",
         p: { xs: 0, sm: 0, md: theme.spacing(4) },
-        mt:4
+        mt: 4,
       }}
     >
       <Box
@@ -43,7 +43,7 @@ const CallToAction = () => {
               >
                 Together
               </Typography>
-              , let's shape the future of digital innovation
+              , let&apos;s shape the future of digital innovation
             </Typography>
           </Box>
           <Typography

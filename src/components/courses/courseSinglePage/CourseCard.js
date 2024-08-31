@@ -1,7 +1,8 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Box } from "@mui/material";
 import theme from "@/styles/theme";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 const CourseCard = ({ number, title, lessons }) => {
   return (
     <Card sx={{ borderRadius: 2, backgroundColor: "white" }} elevation={1}>
@@ -23,6 +24,7 @@ const CourseCard = ({ number, title, lessons }) => {
         </Typography>
         {lessons.map((lesson, index) => (
           <Box
+            key={index}  
             sx={{
               border: "1px solid #e4e2e2",
               p: 2,

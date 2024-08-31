@@ -1,10 +1,26 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Box, Typography, Button } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Box,
+  Typography,
+  Button,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CustomButton from "@/components/shared/CustomButton";
 import CustomInput from "@/components/shared/CustomInput";
 import theme from "@/styles/theme";
 
-const CourseDialog = ({ open, handleClose, newCourse, setNewCourse, editCourse, handleAddOrUpdateCourse }) => {
+const CourseDialog = ({
+  open,
+  handleClose,
+  newCourse,
+  setNewCourse,
+  editCourse,
+  handleAddOrUpdateCourse,
+}) => {
   const handleChangeCurriculum = (index, field, value) => {
     const updatedCurriculum = newCourse.curriculum.map((item, i) =>
       i === index ? { ...item, [field]: value } : item
