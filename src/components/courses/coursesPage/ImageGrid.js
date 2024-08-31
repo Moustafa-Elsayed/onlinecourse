@@ -31,11 +31,11 @@ const ImageGrid = ({ duration, level, instructor, photos }) => {
               fill
               alt={`Course Image ${index + 1}`}
               sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ 
+              style={{
                 borderRadius: "10px",
-                objectFit: "cover", // Added in style prop
-                height: '100%', // Ensure it fills the container
-                width: '100%', // Ensure it fills the container
+                objectFit: "cover", 
+                height: "100%", 
+                width: "100%", 
               }}
             />
           </Box>
