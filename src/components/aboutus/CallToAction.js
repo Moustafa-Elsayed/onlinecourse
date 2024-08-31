@@ -41,6 +41,7 @@ const CallToAction = () => {
                 component="span"
                 sx={{ color: theme.palette.secondary.main, fontWeight: "bold" }}
               >
+                {/* Together */}
                 Together
               </Typography>
               , let&apos;s shape the future of digital innovation
