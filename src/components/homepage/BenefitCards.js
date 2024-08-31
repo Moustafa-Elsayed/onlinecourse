@@ -35,8 +35,19 @@ const BenefitCards = ({ benefits }) => {
       <Grid container spacing={3}>
         {benefits.map((benefit, index) => (
           <Grid item xs={12} md={4} key={index}>
-            <Card elevation={0} onClick={() => handleClickOpen(benefit)}>
-              <CardContent>
+            <Card
+              elevation={0}
+              onClick={() => handleClickOpen(benefit)}
+              sx={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                p:2
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1 }}>
                 <Typography
                   variant="h2"
                   component="div"
@@ -55,31 +66,31 @@ const BenefitCards = ({ benefits }) => {
                 <Typography variant="h4" color="textSecondary">
                   {benefit.description}
                 </Typography>
-                <Box sx={{ textAlign: "right", mt: 2 }}>
-                  <Button
-                    sx={{
-                      backgroundColor: "transparent",
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                    aria-label="Navigate outwards" // Added aria-label here
-                    endIcon={
-                      <Box
-                        sx={{
-                          backgroundColor: theme.palette.primary.light,
-                          borderRadius: 1,
-                          border: "1px solid #FFEACC",
-                        }}
-                      >
-                        <ArrowOutwardIcon
-                          sx={{ color: theme.palette.secondary.main }}
-                        />
-                      </Box>
-                    }
-                  />
-                </Box>
               </CardContent>
+              <Box sx={{ textAlign: "right", mt: 2 }}>
+                <Button
+                  sx={{
+                    backgroundColor: "transparent",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                  aria-label="Navigate outwards"
+                  endIcon={
+                    <Box
+                      sx={{
+                        backgroundColor: theme.palette.primary.light,
+                        borderRadius: 1,
+                        border: "1px solid #FFEACC",
+                      }}
+                    >
+                      <ArrowOutwardIcon
+                        sx={{ color: theme.palette.secondary.main }}
+                      />
+                    </Box>
+                  }
+                />
+              </Box>
             </Card>
           </Grid>
         ))}
