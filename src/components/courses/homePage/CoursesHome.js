@@ -24,7 +24,7 @@ const CoursesHome = () => {
   };
 
   return (
-    <Container>
+    <>
       <Box
         sx={{
           display: "flex",
@@ -59,7 +59,7 @@ const CoursesHome = () => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </>
   );
 };
 

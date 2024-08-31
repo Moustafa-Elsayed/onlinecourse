@@ -6,9 +6,9 @@ const Curriculum = ({ curriculum }) => {
   return (
     <Box
       sx={{
-        p: { xs: 0, sm: 0, md: theme.spacing(4) },
+        p: { xs: 0.5, sm: 0.8, md: theme.spacing(4) },
         mt: 2,
-        border: "1px solid #e9e3e3",
+        border: { xs: "none", sm: "1px solid #e9e3e3" },
         borderRadius: 2,
       }}
     >
@@ -17,7 +17,7 @@ const Curriculum = ({ curriculum }) => {
       </Typography>
       <Grid container spacing={2}>
         {curriculum.map((course, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
+          <Grid item xs={12} sm={4} md={4} lg={2.4} key={index}>
             <Paper
               elevation={0}
               style={{
@@ -25,7 +25,7 @@ const Curriculum = ({ curriculum }) => {
                 textAlign: { xs: "left", sm: "left", md: "center" },
                 borderRadius: "8px",
                 border: "1px solid #e9e3e3",
-                height: "120px",
+                height: "140px",
               }}
             >
               <Typography

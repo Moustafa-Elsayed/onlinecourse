@@ -12,31 +12,25 @@ const ImageGrid = ({ duration, level, instructor, photos }) => {
         sx={{
           display: "flex",
           flexDirection: "row",
-          overflowX: "auto",
+          overflowX: "auto", // Allows horizontal scrolling if needed
           gap: 1,
-          flexWrap: "nowrap",
+          flexWrap: "nowrap", // Prevents wrapping of images
         }}
       >
         {photos.map((photo, index) => (
           <Box
             key={index}
             sx={{
-              flex: "1 0 300px",
-              position: "relative",
-              height: 300,
+              flex: "1 0 300px", // Adjusts the width of each image box
+              position: "relative", // Needed for Image component
+              height: 300, // Fixed height to match the aspect ratio
             }}
           >
             <Image
               src={`${MainUrl}${photo}`}
-              fill
+              layout="fill" // Ensures image fills the parent Box
+              objectFit="cover" // Maintains the aspect ratio of the image
               alt={`Course Image ${index + 1}`}
-              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{
-                borderRadius: "10px",
-                objectFit: "cover", 
-                height: "100%", 
-                width: "100%", 
-              }}
             />
           </Box>
         ))}

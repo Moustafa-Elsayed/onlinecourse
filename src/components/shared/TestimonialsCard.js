@@ -27,7 +27,11 @@ const TestimonialsCard = ({ testimonial }) => {
   return (
     <>
       <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
-        <Typography variant="h4" color="textSecondary" sx={{ mb: 3, minHeight: "100px" }}>
+        <Typography
+          variant="h4"
+          color="textSecondary"
+          sx={{ mb: 3, minHeight: "100px" }}
+        >
           {testimonial.text}
         </Typography>
         <DividerWithText />
@@ -65,16 +69,61 @@ const TestimonialsCard = ({ testimonial }) => {
         </Box>
       </Box>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{testimonial.name}</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="sm"
+        fullWidth
+        sx={{ p: 2 }}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: "bold",
+            fontSize: "1.25rem",
+            color: "text.primary",
+            borderBottom: "1px solid",
+            borderColor: "divider",
+          }}
+        >
+          {testimonial.name}
+        </DialogTitle>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 2,
+            mb: 2,
+          }}
+        >
+          <Image
+            src={testimonial.image}
+            alt="personImage"
+            width={80}
+            height={80}
+            style={{ borderRadius: "50%" }}
+          />
+        </Box>
         <DialogContent>
-          <Typography>{testimonial.text}</Typography>
-          {/* Add more content as needed */}
+          <Typography
+            variant="body1"
+            sx={{ color: "text.secondary", lineHeight: 1.5 }}
+          >
+            {testimonial.text}
+          </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
+
+
+
+          <CustomButton 
+          title="Close"
+          onClick={handleClose}
+          color="white"
+          backgroundColor={theme.palette.secondary.main}
+
+          />
+        
+            
         </DialogActions>
       </Dialog>
     </>

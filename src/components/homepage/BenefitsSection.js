@@ -46,7 +46,7 @@ const benefits = [
 
 const BenefitsSection = () => {
   return (
-    <Container>
+    <>
       <Box
         style={{
           maxWidth: "1200px",
@@ -74,7 +74,7 @@ const BenefitsSection = () => {
         </Box>
         <BenefitCards benefits={benefits} />
       </Box>
-    </Container>
+    </>
   );
 };
 

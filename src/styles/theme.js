@@ -20,7 +20,7 @@ const theme = createTheme({
       fontSize: "28px",
     },
     h3: {
-      fontSize: "48px",
+      fontSize: "30px",
        '@media (max-width:1440px)': {
         fontSize: '28px',
       },
@@ -50,12 +50,12 @@ const theme = createTheme({
       fontSize: "14px",
     },
     title: {
-      fontSize: "24px",
+      fontSize: "20px",
       "@media (max-width:1440px)": {
-        fontSize: "20px",
+        fontSize: "18px",
       },
       "@media (max-width:600px)": {
-        fontSize: "20px",
+        fontSize: "16px",
       },
     },
     subtitle1: {

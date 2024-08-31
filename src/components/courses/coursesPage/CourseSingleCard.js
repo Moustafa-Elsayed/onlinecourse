@@ -22,7 +22,7 @@ const CourseSingleCard = ({
         borderRadius: 3,
       }}
     >
-      <Box sx={{ p: 4 }}>
+      <Box sx={{ p: 2 }}>
         <Box>
           <CourseTitle title={title} subtitle={subtitle} _id={_id} />
         </Box>

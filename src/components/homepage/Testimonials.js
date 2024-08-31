@@ -3,10 +3,11 @@ import { Box, Container, Typography } from "@mui/material";
 import React from "react";
 import { Grid } from "react-loader-spinner";
 import TestimonialsCard from "../shared/TestimonialsCard";
+import TestimonialsSection from "./TestimonialsSection ";
 const testimonials = loginData;
 const Testimonials = () => {
   return (
-    <Container>
+    <>
       <Box
         sx={{
           display: "flex",
@@ -27,17 +28,10 @@ const Testimonials = () => {
           </Typography>
         </Box>
       </Box>
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-        {testimonials.map((testimonial, index) => (
-          <Box
-            key={index}
-            sx={{ flex: "1 1 calc(50% - 16px)", boxSizing: "border-box" }}
-          >
-            <TestimonialsCard testimonial={testimonial} />
-          </Box>
-        ))}
-      </Box>
-    </Container>
+      
+            <TestimonialsSection testimonials={testimonials} />
+       
+    </>
   );
 };
 

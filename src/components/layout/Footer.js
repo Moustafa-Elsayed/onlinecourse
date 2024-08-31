@@ -11,159 +11,96 @@ import { Facebook, Twitter, LinkedIn } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PlaceIcon from "@mui/icons-material/Place";
-import Logo from "../../../public/Image/Logo.webp";
 import Image from "next/image";
+import Logo from "../../../public/Image/Logo.webp";
+
+const iconStyles = {
+  mr: 1,
+};
+
+const iconButtonStyles = {
+  backgroundColor: "#c4c4c442",
+  borderRadius: 1,
+  p: 1,
+};
 
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ py: 10, bgcolor: "background.paper", mt: 5 }}>
-      <Container maxWidth="lg" >
-        <Grid container spacing={10}>
-          <Grid item xs={12} sm={3}>
+    <Box component="footer" sx={{ py: { xs: 5, sm: 8, md: 10 }, bgcolor: "background.paper", mt: 5 }}>
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Box display="flex" flexDirection="column" alignItems="start">
               <Box mb={2}>
                 <Image src={Logo} width={45} height={45} alt="logo" />
               </Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-              >
-                <Box display="flex" alignItems="center" mb={1}>
-                  <EmailIcon sx={{ mr: 1 }} />
-                  <Typography variant="body2">hello@skillbridge.com</Typography>
-                </Box>
-                <Box display="flex" alignItems="center" mb={1}>
-                  <PhoneIcon sx={{ mr: 1 }} />
-                  <Typography variant="body2">+91 91813 23 2309</Typography>
-                </Box>
-                <Box display="flex" alignItems="center">
-                  <PlaceIcon sx={{ mr: 1 }} />
-                  <Typography variant="body2">
-                    Somewhere in the World
-                  </Typography>
-                </Box>
+              <Box display="flex" flexDirection="column" alignItems="flex-start">
+                <ContactItem icon={<EmailIcon sx={iconStyles} />} text="hello@skillbridge.com" />
+                <ContactItem icon={<PhoneIcon sx={iconStyles} />} text="+91 91813 23 2309" />
+                <ContactItem icon={<PlaceIcon sx={iconStyles} />} text="Somewhere in the World" />
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <Typography variant="h4" fontWeight={"bold"} gutterBottom>
-              Home
-            </Typography>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-              gutterBottom
-            >
-              Benefits
-            </Link>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-              gutterBottom
-            >
-              Our Courses
-            </Link>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-              gutterBottom
-            >
-              Our Testimonials
-            </Link>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-            >
-              Our FAQ
-            </Link>
+          <Grid item xs={12} sm={6} md={3}>
+            <FooterLinkSection title="Home" links={[
+              { text: "Benefits", href: "#" },
+              { text: "Our Courses", href: "#" },
+              { text: "Our Testimonials", href: "#" },
+              { text: "Our FAQ", href: "#" },
+            ]} />
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <Typography variant="h4" fontWeight={"bold"}  gutterBottom>
-              About Us
-            </Typography>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-              gutterBottom
-            >
-              Company
-            </Link>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-              gutterBottom
-            >
-              Achievements
-            </Link>
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="#"
-              variant="body2"
-              display="block"
-              color="inherit"
-            >
-              Our Goals
-            </Link>
+          <Grid item xs={12} sm={6} md={3}>
+            <FooterLinkSection title="About Us" links={[
+              { text: "Company", href: "#" },
+              { text: "Achievements", href: "#" },
+              { text: "Our Goals", href: "#" },
+            ]} />
           </Grid>
-          <Grid item xs={12} sm={3}  >
-            <Typography variant="h4" fontWeight={"bold"}  gutterBottom>
+          <Grid item xs={12} sm={6} md={3}>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
               Social Profiles
             </Typography>
             <Box display="flex" gap={1}>
-      <IconButton
-        href="#"
-        color="inherit"
-        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-        aria-label="Facebook"
-      >
-        <Facebook />
-      </IconButton>
-      <IconButton
-        href="#"
-        color="inherit"
-        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-        aria-label="Twitter"
-      >
-        <Twitter />
-      </IconButton>
-      <IconButton
-        href="#"
-        color="inherit"
-        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-        aria-label="LinkedIn"
-      >
-        <LinkedIn />
-      </IconButton>
-    </Box>
+              <IconButton href="#" color="inherit" sx={iconButtonStyles} aria-label="Facebook">
+                <Facebook />
+              </IconButton>
+              <IconButton href="#" color="inherit" sx={iconButtonStyles} aria-label="Twitter">
+                <Twitter />
+              </IconButton>
+              <IconButton href="#" color="inherit" sx={iconButtonStyles} aria-label="LinkedIn">
+                <LinkedIn />
+              </IconButton>
+            </Box>
           </Grid>
         </Grid>
         <Box mt={4} textAlign="center">
           <Typography variant="body2" color="textSecondary">
-            &copy; 2023 Skillbridge. All rights reserved.
+            &copy; {new Date().getFullYear()} Skillbridge. All rights reserved.
           </Typography>
         </Box>
       </Container>
     </Box>
   );
 };
+
+const ContactItem = ({ icon, text }) => (
+  <Box display="flex" alignItems="center" mb={1}>
+    {icon}
+    <Typography variant="body2">{text}</Typography>
+  </Box>
+);
+
+const FooterLinkSection = ({ title, links }) => (
+  <>
+    <Typography variant="h6" fontWeight="bold" gutterBottom>
+      {title}
+    </Typography>
+    {links.map((link, index) => (
+      <Link key={index} sx={{ textDecoration: "none" }} href={link.href} variant="body2" display="block" color="inherit" gutterBottom={index < links.length - 1}>
+        {link.text}
+      </Link>
+    ))}
+  </>
+);
 
 export default Footer;

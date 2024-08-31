@@ -12,18 +12,18 @@ const PageTitle = ({ title, subTitle }) => {
       }}
     >
       <Typography
-        variant="title"
+        variant="h3"
         sx={{
           fontWeight: "bold",
           mb: 2,
           maxWidth: "100%",
-         
         }}
       >
         {title}
       </Typography>
       <Typography
-        variant="subtitle1"
+        variant="title"
+        color="textSecondary"
         sx={{
           maxWidth: "600px",
           mb: 2,

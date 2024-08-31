@@ -37,7 +37,8 @@ const NavBar = () => {
       <Container sx={{ backgroundColor: "transparent" }}>
         <Toolbar disableGutters sx={{ display: "flex", alignItems: "center" }}>
           <Image src={Logo} alt="logo" width={50} height={50} />
-          <Box sx={{ flexGrow: 1 }} /> {/* This will push the rest of the content to the right */}
+          <Box sx={{ flexGrow: 1 }} />{" "}
+          {/* This will push the rest of the content to the right */}
           {/* Show NavMenu only if not on mobile */}
           {!isMobile && <NavMenu router={router} />}
           <Box sx={{ mr: 2 }}>

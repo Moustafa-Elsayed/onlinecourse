@@ -24,7 +24,7 @@ const CourseTitle = ({ title, subtitle, _id }) => {
         <Typography variant="h3" sx={{ fontWeight: "bold", mb: 1 }}>
           {title}
         </Typography>
-        <Typography variant="body2">{subtitle}</Typography>
+        <Typography variant="body2" color="textSecondary">{subtitle}</Typography>
       </Box>
       <CustomButton
         title={"View Course"}

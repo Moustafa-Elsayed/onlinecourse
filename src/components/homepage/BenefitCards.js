@@ -34,7 +34,7 @@ const BenefitCards = ({ benefits }) => {
     <div>
       <Grid container spacing={3}>
         {benefits.map((benefit, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid item xs={12} sm={6} md={6}  key={index}>
             <Card
               elevation={0}
               onClick={() => handleClickOpen(benefit)}
@@ -44,7 +44,6 @@ const BenefitCards = ({ benefits }) => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                p:2
               }}
             >
               <CardContent sx={{ flexGrow: 1 }}>

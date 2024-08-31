@@ -31,7 +31,7 @@ const CourseCard = ({
   };
 
   return (
-    <Card sx={{ maxWidth: "100%", height: "580px", p: 2, display: "flex", flexDirection: "column" }}>
+    <Card sx={{ maxWidth: "100%", height: "100%", p: 2, display: "flex", flexDirection: "column" }}>
       <Box
         sx={{
           display: "flex",
@@ -109,16 +109,13 @@ const CourseCard = ({
         </Box>
 
         {/* Content Section with flexGrow to take up remaining space */}
-        <Box sx={{ flexGrow: 1, mt: 1, mb: 3 }}>
+        <Box sx={{ flexGrow: 1, justifyContent:"center", mt: 1, mb: 3 }}>
           <Typography variant="title" sx={{ fontWeight: "bold", mb: 1 }}>
             {title}
           </Typography>
           <Typography variant="h4" color="text.secondary">
             {subtitle}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
+          </Typography>   
         </Box>
 
         {/* Button aligned at the bottom */}

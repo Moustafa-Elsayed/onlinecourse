@@ -15,6 +15,7 @@ import CustomButton from "@/components/shared/CustomButton";
 import ProfileDialog from "@/components/profile/ProfileDialog";
 import { Router } from "next/router";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
+import { MainUrl } from "@/lib/api/constants";
 
 const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
                 <CustomButton
                   backgroundColor={theme.palette.secondary.main}
                   color="white"
-                  title="Admin Dashboard"
+                  title=" Dashboard"
                   onClick={handleDashboard}
                 />
               </Box>
@@ -91,7 +92,7 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
               <Avatar
                 src={
                   userData?.avatar
-                    ? `http://localhost:4000/${userData.avatar}`
+                    ? `${MainUrl}${userData.avatar}`
                     : undefined
                 }
                 alt={userData?.username}
