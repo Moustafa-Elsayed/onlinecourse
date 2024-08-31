@@ -11,7 +11,6 @@ import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
 import { addcourses } from "@/redux/courses/AddNewCourseRequest";
 import { showToast } from "../shared/showToast";
 import { updateCourse } from "@/redux/courses/UpdateCourseRequest";
-
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -28,14 +27,11 @@ const AdminCourses = () => {
   const [editCourse, setEditCourse] = useState(null);
   const [courseToDelete, setCourseToDelete] = useState(null);
   const [courseTitleToDelete, setCourseTitleToDelete] = useState("");
-
   const dispatch = useDispatch();
   const { courses } = useSelector((state) => state.courses);
-
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
-
   const handleOpenDialog = (course = null) => {
     if (course) {
       setEditCourse(course);
@@ -64,20 +60,16 @@ const AdminCourses = () => {
     }
     setOpenDialog(true);
   };
-
   const handleCloseDialog = () => setOpenDialog(false);
-
   const handleOpenConfirmDialog = (course) => {
     setCourseToDelete(course);
     setCourseTitleToDelete(course.title);
     setOpenConfirmDialog(true);
   };
-
   const handleCloseConfirmDialog = () => {
     setCourseToDelete(null);
     setOpenConfirmDialog(false);
   };
-
   const handleAddOrUpdateCourse = () => {
     const formData = new FormData();
     formData.append("title", newCourse.title);
@@ -86,11 +78,9 @@ const AdminCourses = () => {
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
     formData.append("curriculum", JSON.stringify(newCourse.curriculum));
-
     newCourse.photos.forEach((photo) => {
       formData.append("photos", photo);
     });
-
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
@@ -115,7 +105,6 @@ const AdminCourses = () => {
         });
     }
   };
-
   const handleDeleteCourse = async () => {
     if (courseToDelete) {
       try {
@@ -132,7 +121,6 @@ const AdminCourses = () => {
       handleCloseConfirmDialog();
     }
   };
-
   return (
     <>
       <Typography variant="h4">Admin Panel: Manage Courses</Typography>
@@ -144,7 +132,6 @@ const AdminCourses = () => {
           color="white"
         />
       </Box>
-
       <CourseDialog
         open={openDialog}
         handleClose={handleCloseDialog}
@@ -153,14 +140,12 @@ const AdminCourses = () => {
         editCourse={editCourse}
         handleAddOrUpdateCourse={handleAddOrUpdateCourse}
       />
-
       <DeleteConfirmDialog
         open={openConfirmDialog}
         handleClose={handleCloseConfirmDialog}
         courseTitleToDelete={courseTitleToDelete}
         handleDeleteCourse={handleDeleteCourse}
       />
-
       <CoursesTable
         courses={courses?.data}
         handleOpenDialog={handleOpenDialog}
@@ -169,5 +154,4 @@ const AdminCourses = () => {
     </>
   );
 };
-
 export default AdminCourses;

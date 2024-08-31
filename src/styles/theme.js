@@ -20,13 +20,22 @@ const theme = createTheme({
       fontSize: "28px",
     },
     h3: {
-      fontSize: "24px",
+      fontSize: "48px",
+       '@media (max-width:1440px)': {
+        fontSize: '28px',
+      },
+       '@media (max-width:600px)': {
+        fontSize: '28px',
+      },
     },
     h4: {
-      fontSize: "20px",
-      // '@media (max-width:600px)': {
-      //   fontSize: '12px',
-      // },
+      fontSize: "18px",
+      '@media (max-width:1440px)': {
+        fontSize: '16px',
+      },
+      '@media (max-width:1440px)': {
+        fontSize: '14px',
+      },
     },
     h5: {
       fontSize: "16px",
@@ -41,12 +50,12 @@ const theme = createTheme({
       fontSize: "14px",
     },
     title: {
-      fontSize: "35px",
-      "@media (max-width:900px)": {
-        fontSize: "30px",
+      fontSize: "24px",
+      "@media (max-width:1440px)": {
+        fontSize: "20px",
       },
       "@media (max-width:600px)": {
-        fontSize: "25px",
+        fontSize: "20px",
       },
     },
     subtitle1: {

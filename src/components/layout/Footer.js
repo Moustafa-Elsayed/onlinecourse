@@ -11,9 +11,8 @@ import { Facebook, Twitter, LinkedIn } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PlaceIcon from "@mui/icons-material/Place";
-import Logo from "../../../public/Image/Logo.png";
+import Logo from "../../../public/Image/Logo.webp";
 import Image from "next/image";
-import theme from "@/styles/theme";
 
 const Footer = () => {
   return (
@@ -130,26 +129,31 @@ const Footer = () => {
               Social Profiles
             </Typography>
             <Box display="flex" gap={1}>
-              <IconButton
-                href="#"
-                color="inherit"
-                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-              >
-                <Facebook />
-              </IconButton>
-              <IconButton
-                href="#"
-                color="inherit"
-                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-              >                <Twitter />
-              </IconButton>
-              <IconButton
-                href="#"
-                color="inherit"
-                sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
-              >                <LinkedIn />
-              </IconButton>
-            </Box>
+      <IconButton
+        href="#"
+        color="inherit"
+        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+        aria-label="Facebook"
+      >
+        <Facebook />
+      </IconButton>
+      <IconButton
+        href="#"
+        color="inherit"
+        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+        aria-label="Twitter"
+      >
+        <Twitter />
+      </IconButton>
+      <IconButton
+        href="#"
+        color="inherit"
+        sx={{ backgroundColor: "#c4c4c442", borderRadius: 1 }}
+        aria-label="LinkedIn"
+      >
+        <LinkedIn />
+      </IconButton>
+    </Box>
           </Grid>
         </Grid>
         <Box mt={4} textAlign="center">

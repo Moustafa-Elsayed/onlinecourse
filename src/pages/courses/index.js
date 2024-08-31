@@ -34,8 +34,8 @@ const CoursesPage = () => {
         }
       />
       <Box sx={{ display: "flex", gap: 3, flexDirection: "column" }}>
-        {coursesData?.map((course) => (
-          <CourseSingleCard key={course.id} {...course} />
+        {coursesData?.map((course, index) => (
+          <CourseSingleCard key={`${course.id}-${index}`} {...course} />
         ))}
       </Box>
     </>

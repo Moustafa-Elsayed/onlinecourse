@@ -6,10 +6,8 @@ import PageTitle from "@/components/shared/PageTitle";
 import Grid from "@mui/material/Grid";
 import CourseCard from "@/components/courses/courseSinglePage/CourseCard";
 import Image from "next/image";
-import CourseImage from "../../../public/Image/Container.png";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
-import { MainUrl } from "@/lib/api/constants";
-import { Typography } from "@mui/material";
+import ContainerImage from "../../../public/Image/Container.webp";
 const CourseDetail = () => {
   const coursess = [
     {
@@ -82,7 +80,6 @@ const CourseDetail = () => {
 
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses.data);
-console.log("courses",courses);
 
   const [course, setCourse] = useState(null);
 
@@ -105,7 +102,7 @@ console.log("courses",courses);
     <>
       <PageTitle title={course.title} subTitle={course.subtitle} />
       <Image
-        src={`${MainUrl}${course.photos[0]}`}
+        src={ContainerImage}
         alt="Course Image"
         layout="responsive"
         width={200}

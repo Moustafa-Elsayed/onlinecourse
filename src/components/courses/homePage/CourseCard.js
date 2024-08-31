@@ -3,7 +3,6 @@ import { Card, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "@/components/shared/CustomButton";
-import Course1 from "../../../../public/Image/course1.png";
 import { MainUrl } from "@/lib/api/constants";
 
 const CourseCard = ({
@@ -17,8 +16,6 @@ const CourseCard = ({
   addToCart,
   photos,
 }) => {
-  console.log("photos", photos[0]);
-
   const handleAddToCart = () => {
     addToCart({
       _id,
@@ -32,14 +29,16 @@ const CourseCard = ({
       quantity: 1,
     });
   };
+
   return (
-    <Card sx={{ maxWidth: "100%", height: "auto", p: 2, height: "550px" }}>
+    <Card sx={{ maxWidth: "100%", height: "580px", p: 2, display: "flex", flexDirection: "column" }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
           width: "100%",
+          height: "100%",
         }}
       >
         <Box
@@ -48,19 +47,21 @@ const CourseCard = ({
             width: "100%",
             height: "auto",
             aspectRatio: "16/9",
+            mb: 1,
           }}
         >
           <Image
             src={`${MainUrl}${photos[0]}`}
             alt="courseimage"
             layout="fill"
-            objectFit="cover"
             priority
             style={{
               borderRadius: "10px",
+              objectFit: "cover",
             }}
           />
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -80,7 +81,6 @@ const CourseCard = ({
               gap: 0.4,
               flexDirection: "row",
               mb: 1,
-              mt: 1,
             }}
           >
             <CustomButton
@@ -107,21 +107,27 @@ const CourseCard = ({
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ mt: 1, mb: 3 }}>
-          <Typography sx={{ fontWeight: "bold", mb: 1 }}>{title}</Typography>
-          <Typography variant="body2" color="text.secondary">
+
+        {/* Content Section with flexGrow to take up remaining space */}
+        <Box sx={{ flexGrow: 1, mt: 1, mb: 3 }}>
+          <Typography variant="title" sx={{ fontWeight: "bold", mb: 1 }}>
+            {title}
+          </Typography>
+          <Typography variant="h4" color="text.secondary">
             {subtitle}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
         </Box>
+
+        {/* Button aligned at the bottom */}
         <CustomButton
           title={"Get It Now"}
           backgroundColor={theme.palette.primary.light}
           width="100%"
           fontWeight={"bold"}
-          sx={{ mt: 2 }}
+          sx={{ mt: "auto" }} // Aligns the button to the bottom of the card
           onClick={handleAddToCart}
           loading={true}
         />

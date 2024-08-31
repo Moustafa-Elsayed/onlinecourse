@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
 import Curriculum from "./Curriculum";
-import { useRouter } from "next/router";
 
 const CourseSingleCard = ({
   title,

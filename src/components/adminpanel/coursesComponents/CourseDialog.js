@@ -286,6 +286,7 @@ const CourseDialog = ({ open, handleClose, newCourse, setNewCourse, editCourse, 
           backgroundColor={theme.palette.secondary.main}
           onClick={handleAddOrUpdateCourse}
           color="white"
+          loading={true}
         />
       </DialogActions>
     </Dialog>

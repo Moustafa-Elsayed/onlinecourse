@@ -6,34 +6,37 @@ import theme from "@/styles/theme";
 import { MainUrl } from "@/lib/api/constants";
 
 const ImageGrid = ({ duration, level, instructor, photos }) => {
-  console.log("photos", `${MainUrl}photos`);
-
   return (
     <Box sx={{ mt: 2 }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          overflowX: "auto", // Allows horizontal scrolling if needed
+          overflowX: "auto",
           gap: 1,
-          flexWrap: "nowrap", // Prevents wrapping of images
+          flexWrap: "nowrap",
         }}
       >
         {photos.map((photo, index) => (
           <Box
             key={index}
             sx={{
-              flex: "1 0 300px", // Adjusts the width of each image box
-              position: "relative", // Needed for Image component
+              flex: "1 0 300px",
+              position: "relative",
               height: 300,
             }}
           >
             <Image
               src={`${MainUrl}${photo}`}
-              layout="fill" // Ensures image fills the parent Box
-              objectFit="cover" // Maintains the aspect ratio of the image
+              fill
               alt={`Course Image ${index + 1}`}
-              style={{borderRadius:"10px"}}
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ 
+                borderRadius: "10px",
+                objectFit: "cover", // Added in style prop
+                height: '100%', // Ensure it fills the container
+                width: '100%', // Ensure it fills the container
+              }}
             />
           </Box>
         ))}

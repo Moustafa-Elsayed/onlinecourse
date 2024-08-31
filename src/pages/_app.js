@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@/redux/store"; // Adjust the path as needed
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +44,10 @@ export default function App({ Component, pageProps }) {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Head>
+            <title>skillbridge</title>
+            <meta name="description" content="A brief description of the site" />
+          </Head>
           {getLayout(
             <>
               <Component {...pageProps} />

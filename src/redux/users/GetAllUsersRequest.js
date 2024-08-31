@@ -7,13 +7,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, { rejectWithValue }) => {
-    console.log("FetchUsers thunk started"); // Add this log
-
     try {
       const token = Cookies.get("token");
 
       if (!token) {
-        console.log("No token found"); // Add this log
         throw new Error("No token found");
       }
       const response = await axios.get(`${BaseUrl}/users/all`, {
@@ -21,9 +18,6 @@ export const fetchUsers = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log("Response data:", response.data);
-
       return response.data;
     } catch (error) {
       console.error(

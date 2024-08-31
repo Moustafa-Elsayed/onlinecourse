@@ -7,8 +7,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { loginData } from "@/lib/dummyData/loginData/loginData";
 import theme from "@/styles/theme";
 import CustomInput from "@/components/shared/CustomInput";
-import GoogleIcon from "../../../public/Image/Icon.png";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Link from "next/link";
 import RememberMeCheckbox from "@/components/shared/RememberMeCheckbox";
 import DividerWithText from "@/components/shared/DividerWithText";
@@ -308,13 +306,22 @@ const AuthPage = () => {
               accept="image/*"
             />
           )}
+          <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:"baseline" }}>
           <Box>
-            <RememberMeCheckbox />
+              <RememberMeCheckbox />
+            </Box>
+           {
+            isLogin ?   <Link  href={""} style={{textDecoration: "underline"}}>
+            forget password
+          </Link>:""
+           }
+           
           </Box>
           <CustomButton
             title={isLogin ? "Login" : "Sign Up"}
-            backgroundColor={theme.palette.primary.light}
+            backgroundColor={theme.palette.secondary.main}
             type="submit"
+            color={"white"}
           />
         </form>
         <Typography>

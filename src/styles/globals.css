@@ -6,7 +6,65 @@ body {
   background-color: #f9f9f9;
   min-height: 100vh;
 }
-.css-zf0iqh{
+.css-zf0iqh {
   background-color: #c8c5c52e;
-  color:black;
+  color: black;
+}
+.image-wrapper {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+}
+/* SplashPage.module.css or global CSS file */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #8ba7f3; /* Change this to your desired color */
+  color: #090909;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  animation: fadeIn 2s ease-in-out, fadeOut 2s ease-in-out 13s forwards;
+}
+
+.message {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out, fadeOut 2s ease-in-out 13s forwards;
+  font-weight: "bold";
+}
+
+.loading {
+  font-size: 1.8rem;
+  /* animation: fadeIn 2s ease-in-out 1s, fadeOut 2s ease-in-out 13s forwards; */
+  font-weight: "bold";
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 }

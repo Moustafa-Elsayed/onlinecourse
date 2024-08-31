@@ -27,7 +27,7 @@ const TestimonialsCard = ({ testimonial }) => {
   return (
     <>
       <Box sx={{ mt: 4, backgroundColor: "white", p: 2, borderRadius: 2 }}>
-        <Typography sx={{ mb: 3, minHeight: "100px" }}>
+        <Typography variant="h4" color="textSecondary" sx={{ mb: 3, minHeight: "100px" }}>
           {testimonial.text}
         </Typography>
         <DividerWithText />

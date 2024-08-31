@@ -46,13 +46,13 @@ const BenefitCards = ({ benefits }) => {
                   {benefit.number}
                 </Typography>
                 <Typography
-                  variant="h5"
+                  variant="title"
                   component="div"
                   sx={{ fontWeight: "bold", mb: 1 }}
                 >
                   {benefit.title}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="h4" color="textSecondary">
                   {benefit.description}
                 </Typography>
                 <Box sx={{ textAlign: "right", mt: 2 }}>
@@ -63,6 +63,7 @@ const BenefitCards = ({ benefits }) => {
                         backgroundColor: "transparent",
                       },
                     }}
+                    aria-label="Navigate outwards" // Added aria-label here
                     endIcon={
                       <Box
                         sx={{

@@ -1,5 +1,5 @@
-import Person from "../../../../public/Image/Image.png";
-import Emly from "../../../../public/Image/emly.png";
+import Person from "../../../../public/Image/Image~1.webp";
+import Emly from "../../../../public/Image/emly.webp";
 
 export const loginData = [
   {

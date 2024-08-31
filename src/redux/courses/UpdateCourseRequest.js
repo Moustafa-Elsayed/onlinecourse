@@ -8,21 +8,16 @@ export const updateCourse = createAsyncThunk(
   async ({ id, updatedData }, { rejectWithValue }) => {
     try {
       const token = Cookies.get("token");
-      console.log("Retrieved token from cookies:", token);
-
       if (!token) {
         throw new Error("No token found");
       }
-
-      console.log("Making PUT request to:", `${BaseUrl}/courses/${id}`);
-
       const response = await axios.put(
         `${BaseUrl}/courses/${id}`,
         updatedData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );

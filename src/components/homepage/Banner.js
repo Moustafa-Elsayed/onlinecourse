@@ -3,13 +3,13 @@ import { Container, Typography, Button, Grid, Box } from "@mui/material";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
-import Adobe from "../../../public/Image/adobe.png";
-import Amazon from "../../../public/Image/amazon.png";
-import Netflix from "../../../public/Image/netflix.png";
-import Notion from "../../../public/Image/notion.png";
-import Spotify from "../../../public/Image/spotify.png";
-import Zapier from "../../../public/Image/zapier.png";
-import Zoom from "../../../public/Image/zoom.png";
+import Adobe from "../../../public/Image/adobe.webp";
+import Amazon from "../../../public/Image/amazon.webp";
+import Netflix from "../../../public/Image/netflix.webp";
+import Notion from "../../../public/Image/notion.webp";
+import Spotify from "../../../public/Image/spotify.webp";
+import Zapier from "../../../public/Image/zapier.webp";
+import Zoom from "../../../public/Image/zoom.webp";
 import Image from "next/image";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 
@@ -21,7 +21,6 @@ const Banner = () => {
     <Container
       sx={{
         textAlign: "center",
-        padding: 4,
         backgroundColor: "#f7f7f7",
       }}
     >
@@ -31,7 +30,6 @@ const Banner = () => {
           justifyContent: "center",
           alignItems: "center",
           gap: 1,
-          mb: 2,
         }}
       >
         <Box
@@ -39,19 +37,30 @@ const Banner = () => {
             backgroundColor: "#FFF9F0",
             borderRadius: 1,
             border: "1px solid #FFEACC",
-            p: {sm:0,md:1},
+            p: { sm: 0, md: 1 },
           }}
         >
           <ElectricBoltIcon />
         </Box>
-        <Typography sx={{ fontWeight: "bold" }} variant="h4">
+        <Typography
+          sx={{
+            fontWeight: "bold",
+            fontSize: { sm: "16px", md: "28px", lg: "38px" },
+          }}
+        >
           Unlock Your Creative Potential
         </Typography>
       </Box>
-      <Typography variant="h4" sx={{ mb: 2 }}>
+      <Typography
+        sx={{ mb: 2, fontSize: { sm: "16px", md: "18px", lg: "28px" } }}
+      >
         with Online Design and Development Courses.
       </Typography>
-      <Typography variant="h4" color="textSecondary" gutterBottom>
+      <Typography
+        color="textSecondary"
+        sx={{ fontSize: { sm: "14px", md: "16px", lg: "16px" } }}
+        gutterBottom
+      >
         Learn from Industry Experts and Enhance Your Skills.
       </Typography>
       <Box mt={2} gap={2} display={"flex"} justifyContent={"center"}>
@@ -79,25 +88,39 @@ const Banner = () => {
         }}
       >
         <Grid item>
-          <Image src={Adobe} width={140} height={140} alt="Adobe" />
+          <div className="image-wrapper">
+            <Image src={Adobe} width={140} height={140} alt="Adobe" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Amazon} width={140} height={140} alt="Amazon" />
+          <div className="image-wrapper">
+            <Image src={Amazon} width={140} height={140} alt="Amazon" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Netflix} width={140} height={140} alt="Netflix" />
+          <div className="image-wrapper">
+            <Image src={Netflix} width={140} height={140} alt="Netflix" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Notion} width={140} height={140} alt="Notion" />
+          <div className="image-wrapper">
+            <Image src={Notion} width={140} height={140} alt="Notion" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Spotify} width={140} height={140} alt="Spotify" />
+          <div className="image-wrapper">
+            <Image src={Spotify} width={140} height={140} alt="Spotify" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Zapier} width={140} height={140} alt="Zapier" />
+          <div className="image-wrapper">
+            <Image src={Zapier} width={140} height={140} alt="Zapier" />
+          </div>
         </Grid>
         <Grid item>
-          <Image src={Zoom} width={140} height={140} alt="Zoom" />
+          <div className="image-wrapper">
+            <Image src={Zoom} width={140} height={140} alt="Zoom" />
+          </div>
         </Grid>
       </Grid>
     </Container>
