@@ -15,6 +15,7 @@ const CourseCard = ({
   subtitle,
   addToCart,
   photos,
+  price
 }) => {
   const handleAddToCart = () => {
     addToCart({
@@ -26,6 +27,7 @@ const CourseCard = ({
       description,
       subtitle,
       photos,
+      price,
       quantity: 1,
     });
   };
@@ -95,6 +97,12 @@ const CourseCard = ({
               backgroundColor={theme.palette.primary.light}
               fontSize="12px"
             />
+            <CustomButton
+            title={`$ ${price}`}
+            border="1px solid #e9e3e3"
+              backgroundColor={theme.palette.primary.light}
+              fontSize="12px"
+            />
           </Box>
           <Box>
             <Typography
@@ -124,7 +132,7 @@ const CourseCard = ({
           backgroundColor={theme.palette.primary.light}
           width="100%"
           fontWeight={"bold"}
-          sx={{ mt: "auto" }} // Aligns the button to the bottom of the card
+          sx={{ mt: "auto" }} 
           onClick={handleAddToCart}
           loading={true}
         />

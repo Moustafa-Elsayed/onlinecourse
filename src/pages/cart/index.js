@@ -17,7 +17,6 @@ import {
   incrementQuantity,
   decrementQuantity,
 } from "@/redux/slices/cartSlice";
-import Course1 from "../../../public/Image/course1.png";
 import Image from "next/image";
 import { MainUrl } from "@/lib/api/constants";
 

@@ -68,6 +68,11 @@ const ImageGrid = ({ duration, level, instructor, photos,price }) => {
             border="1px solid #e9e3e3"
             backgroundColor={theme.palette.primary.light}
           />
+          <CustomButton
+            title={`$ ${price}`}
+            border="1px solid #e9e3e3"
+            backgroundColor={theme.palette.primary.light}
+          />
         </Box>
         <Box>
           <Typography>By {instructor}</Typography>
