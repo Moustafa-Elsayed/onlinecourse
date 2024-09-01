@@ -10,7 +10,7 @@ export const addcourses = createAsyncThunk(
       const token = Cookies.get("token");
       if (!token) {
         throw new Error("No token found");
-      }
+      } 
       // Send POST request to add the course
       const response = await axios.post(`${BaseUrl}/courses`, courseData, {
         headers: {

@@ -16,6 +16,7 @@ import ProfileDialog from "@/components/profile/ProfileDialog";
 import { Router } from "next/router";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 import { MainUrl } from "@/lib/api/constants";
+import PersonIcon from "@mui/icons-material/Person";
 
 const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
   const dispatch = useDispatch();
@@ -139,7 +140,7 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
           >
             <MenuItem onClick={handleOpenProfileDialog}>
               <ListItemIcon>
-                <Logout fontSize="small" />
+                <PersonIcon fontSize="small" />
               </ListItemIcon>
               Profile
             </MenuItem>

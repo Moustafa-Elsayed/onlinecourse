@@ -21,6 +21,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WebIcon from "@mui/icons-material/Web";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { MainUrl } from "@/lib/api/constants";
+import DividerWithText from "../shared/DividerWithText";
+import { showToast } from "../shared/showToast";
 
 const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -42,14 +45,14 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
       .unwrap()
       .then(() => {
         setIsEditing(false);
-        onClose(); 
+        onClose();
+        showToast("Success! Your profile has been updated.", "success");
         if (onRefetch) {
-          onRefetch(); 
+          onRefetch();
         }
       })
       .catch((error) => {
-        console.error("Failed to update user profile:", error);
-        // Optionally, handle error (e.g., show a notification)
+        showToast("Failed to update your profile. Please try again.", "error");
       })
       .finally(() => {
         setIsLoading(false);
@@ -64,16 +67,28 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
       fullWidth
       sx={{ textAlign: "center", borderRadius: 2 }}
     >
-      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.25rem' }}>
+      <DialogTitle sx={{ fontWeight: "bold", fontSize: "1.25rem" }}>
         {isEditing ? (
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography>Edit Profile</Typography>
             <IconButton onClick={onClose} color="inherit">
               <CancelIcon />
             </IconButton>
           </Box>
         ) : (
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography>Profile</Typography>
             <IconButton onClick={() => setIsEditing(true)} color="inherit">
               <EditOutlinedIcon />
@@ -81,33 +96,42 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
           </Box>
         )}
       </DialogTitle>
-      <DialogContent sx={{ p: 3 }}>
+      <DialogContent
+        sx={{
+          p: 3,
+          backgroundColor: "#f9f9f9",
+          borderRadius: "10px",
+          boxShadow: 1,
+        }}
+      >
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             mb: 3,
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           <Avatar
             sx={{
               width: 120,
               height: 120,
-              border: "2px solid orange",
+              border: "2px solid transparent",
               boxShadow: 3,
+              background:
+                "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)",
+              backgroundOrigin: "border-box",
+              backgroundClip: "content-box, border-box",
             }}
-            src={
-              editData?.avatar
-                ? `http://localhost:4000/${editData.avatar}`
-                : undefined
-            }
+            src={editData?.avatar ? `${MainUrl}${editData.avatar}` : undefined}
             alt={editData?.username}
           >
             {!editData?.avatar && editData?.username?.charAt(0).toUpperCase()}
           </Avatar>
         </Box>
+
+        <DividerWithText />
         {isEditing ? (
           <>
             <TextField
@@ -118,11 +142,19 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <PersonIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <PersonIcon sx={{ mr: 1 }} />,
               }}
             />
             <TextField
@@ -133,11 +165,19 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <EmailIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <EmailIcon sx={{ mr: 1 }} />,
               }}
             />
             <TextField
@@ -148,11 +188,19 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <EditIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <EditIcon sx={{ mr: 1 }} />,
               }}
             />
             <TextField
@@ -163,11 +211,19 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <LocationOnIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <LocationOnIcon sx={{ mr: 1 }} />,
               }}
             />
             <TextField
@@ -178,11 +234,19 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <WebIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <WebIcon sx={{ mr: 1 }} />,
               }}
             />
             <TextField
@@ -193,61 +257,129 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               onChange={handleChange}
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                borderRadius: "5px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "5px",
+                  boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiInputAdornment-root": {
+                  color: "orange",
+                },
+              }}
               InputProps={{
-                startAdornment: (
-                  <PhoneIcon sx={{ mr: 1 }} />
-                ),
+                startAdornment: <PhoneIcon sx={{ mr: 1 }} />,
               }}
             />
           </>
         ) : (
           <>
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", color: "#333" }}
+              gutterBottom
+            >
               {editData?.username}
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography
+              variant="body2"
+              sx={{ color: "gray", mb: 1.5 }}
+              gutterBottom
+            >
               Email: {editData?.email}
             </Typography>
             {editData?.bio && (
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Bio: {editData.bio}
+              <Typography
+                variant="body2"
+                sx={{ color: "gray", mb: 1.5 }}
+                gutterBottom
+              >
+                Bio: {editData?.bio}
               </Typography>
             )}
             {editData?.location && (
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Location: {editData.location}
+              <Typography
+                variant="body2"
+                sx={{ color: "gray", mb: 1.5 }}
+                gutterBottom
+              >
+                Location: {editData?.location}
               </Typography>
             )}
             {editData?.website && (
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Website: <a href={editData.website} target="_blank" rel="noopener noreferrer">{editData.website}</a>
+              <Typography
+                variant="body2"
+                sx={{ color: "gray", mb: 1.5 }}
+                gutterBottom
+              >
+                Website: {editData?.website}
               </Typography>
             )}
             {editData?.phoneNumber && (
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                 Phone: {editData.phoneNumber}
+              <Typography
+                variant="body2"
+                sx={{ color: "gray", mb: 1.5 }}
+                gutterBottom
+              >
+                Phone Number: {editData?.phoneNumber}
               </Typography>
             )}
           </>
         )}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary" variant="outlined" startIcon={<CancelIcon />}>
-          {isEditing ? "Cancel" : "Close"}
-        </Button>
+      <DialogActions sx={{ justifyContent: "center", mb: 2 }}>
         {isEditing ? (
-          <Button
-            onClick={handleSave}
-            color="primary"
-            variant="contained"
-            disabled={isLoading}
-            startIcon={isLoading ? <CircularProgress size={24} color="inherit" /> : <SaveIcon />}
-          >
-            {isLoading ? "Saving..." : "Save"}
-          </Button>
+          <>
+            <Button
+              onClick={handleSave}
+              variant="contained"
+              color="primary"
+              startIcon={<SaveIcon />}
+              disabled={isLoading}
+              sx={{
+                borderRadius: "8px",
+                padding: "6px 16px",
+                background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+                "&:hover": {
+                  background: "linear-gradient(to right, #feb47b, #ff7e5f)",
+                },
+              }}
+            >
+              {isLoading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Save"
+              )}
+            </Button>
+            <Button
+              onClick={() => setIsEditing(false)}
+              variant="outlined"
+              color="secondary"
+              startIcon={<CancelIcon />}
+              sx={{
+                borderRadius: "8px",
+                padding: "6px 16px",
+              }}
+            >
+              Cancel
+            </Button>
+          </>
         ) : (
-          <Button onClick={() => setIsEditing(true)} color="primary" variant="contained" startIcon={<EditOutlinedIcon />}>
+          <Button
+            onClick={() => setIsEditing(true)}
+            variant="contained"
+            color="primary"
+            startIcon={<EditIcon />}
+            sx={{
+              borderRadius: "8px",
+              padding: "6px 16px",
+              background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+              "&:hover": {
+                background: "linear-gradient(to right, #feb47b, #ff7e5f)",
+              },
+            }}
+          >
             Edit
           </Button>
         )}

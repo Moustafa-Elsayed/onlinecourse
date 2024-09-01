@@ -5,32 +5,35 @@ import CustomButton from "@/components/shared/CustomButton";
 import theme from "@/styles/theme";
 import { MainUrl } from "@/lib/api/constants";
 
-const ImageGrid = ({ duration, level, instructor, photos }) => {
+const ImageGrid = ({ duration, level, instructor, photos,price }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          overflowX: "auto", // Allows horizontal scrolling if needed
+          overflowX: "auto", 
           gap: 1,
-          flexWrap: "nowrap", // Prevents wrapping of images
+          flexWrap: "wrap", 
         }}
       >
         {photos.map((photo, index) => (
           <Box
             key={index}
             sx={{
-              flex: "1 0 300px", // Adjusts the width of each image box
-              position: "relative", // Needed for Image component
-              height: 300, // Fixed height to match the aspect ratio
+              flex: "1 0 300px", 
+              position: "relative",
+              height: 300,
             }}
           >
             <Image
               src={`${MainUrl}${photo}`}
-              layout="fill" // Ensures image fills the parent Box
-              objectFit="cover" // Maintains the aspect ratio of the image
+              layout="fill" 
+              objectFit="cover"
               alt={`Course Image ${index + 1}`}
+              style={{
+                borderRadius: "10px",
+              }}
             />
           </Box>
         ))}
@@ -69,6 +72,7 @@ const ImageGrid = ({ duration, level, instructor, photos }) => {
         <Box>
           <Typography>By {instructor}</Typography>
         </Box>
+       
       </Box>
     </Box>
   );

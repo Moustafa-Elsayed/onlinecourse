@@ -51,7 +51,7 @@ const PricingPlan = () => {
           />
         </Box>
       </Box>
-      <Box sx={{ backgroundColor: "white", borderRadius: 2, mt: 4 }}>
+      <Box sx={{ backgroundColor: "white", borderRadius: 2, mt: 4 ,pt:3,p:3}}>
         {activeTab === "yearly" ? (
           <Box sx={{ flexGrow: 1, pb: 2 }}>
             <Grid container spacing={2} justifyContent="center">

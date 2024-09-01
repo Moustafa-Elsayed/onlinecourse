@@ -16,7 +16,8 @@ const HomePage = () => {
         width={16}
         height={9}
         alt="Banner Logo"
-      />{" "}
+        priority={false}
+      />
       <Box sx={{ mt: 10, mb: 5 }}>
         <BenefitsSection />
       </Box>

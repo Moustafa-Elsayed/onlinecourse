@@ -20,18 +20,9 @@ const ContactDetails = () => {
         borderLeft: { xs: "none", sm: "none", md: "1px solid #c4c4c442" },
       }}
     >
-      <ContactInfo
-        icon={<EmailIcon />}
-        text="support@skillbridge.com"
-      />
-      <ContactInfo
-        icon={<PhoneIcon />}
-        text="+91 00000 00000"
-      />
-      <ContactInfo
-        icon={<LocationOnIcon />}
-        text="Somewhere in the World"
-      />
+      <ContactInfo icon={<EmailIcon />} text="support@skillbridge.com" />
+      <ContactInfo icon={<PhoneIcon />} text="+91 00000 00000" />
+      <ContactInfo icon={<LocationOnIcon />} text="Somewhere in the World" />
       <SocialProfiles />
     </Box>
   );

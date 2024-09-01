@@ -196,6 +196,14 @@ const CourseDialog = ({
           }
           fullWidth
         />
+        <CustomInput
+          label="Price"
+          value={newCourse.price}
+          onChange={(e) =>
+            setNewCourse({ ...newCourse, price: e.target.value })
+          }
+          fullWidth
+        />
         <Button variant="contained" component="label" color="secondary">
           Upload Photos
           <input type="file" hidden multiple onChange={handleImageChange} />
@@ -298,11 +306,9 @@ const CourseDialog = ({
           onClick={handleClose}
         />
         <CustomButton
-          title={editCourse ? "Update Course" : "Add Course"}
+          title="Save"
           backgroundColor={theme.palette.secondary.main}
           onClick={handleAddOrUpdateCourse}
-          color="white"
-          loading={true}
         />
       </DialogActions>
     </Dialog>

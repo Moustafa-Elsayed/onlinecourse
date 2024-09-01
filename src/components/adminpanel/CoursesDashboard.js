@@ -11,6 +11,7 @@ import { deleteCourse } from "@/redux/courses/DeleteCoursesRequest";
 import { addcourses } from "@/redux/courses/AddNewCourseRequest";
 import { showToast } from "../shared/showToast";
 import { updateCourse } from "@/redux/courses/UpdateCourseRequest";
+
 const AdminCourses = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -21,6 +22,7 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
+    price: "", // Added price field
     photos: [],
     photoPreview: [],
   });
@@ -29,9 +31,11 @@ const AdminCourses = () => {
   const [courseTitleToDelete, setCourseTitleToDelete] = useState("");
   const dispatch = useDispatch();
   const { courses } = useSelector((state) => state.courses);
+
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
+
   const handleOpenDialog = (course = null) => {
     if (course) {
       setEditCourse(course);
@@ -42,6 +46,7 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
+        price: course.price || "", // Added price field
         photos: course.photos || [],
         photoPreview: course.photos || [],
       });
@@ -54,22 +59,27 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
+        price: "", // Added price field
         photos: [],
         photoPreview: [],
       });
     }
     setOpenDialog(true);
   };
+
   const handleCloseDialog = () => setOpenDialog(false);
+
   const handleOpenConfirmDialog = (course) => {
     setCourseToDelete(course);
     setCourseTitleToDelete(course.title);
     setOpenConfirmDialog(true);
   };
+
   const handleCloseConfirmDialog = () => {
     setCourseToDelete(null);
     setOpenConfirmDialog(false);
   };
+
   const handleAddOrUpdateCourse = () => {
     const formData = new FormData();
     formData.append("title", newCourse.title);
@@ -77,10 +87,12 @@ const AdminCourses = () => {
     formData.append("duration", newCourse.duration);
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
+    formData.append("price", newCourse.price); // Added price field
     formData.append("curriculum", JSON.stringify(newCourse.curriculum));
     newCourse.photos.forEach((photo) => {
       formData.append("photos", photo);
     });
+
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
@@ -105,6 +117,7 @@ const AdminCourses = () => {
         });
     }
   };
+
   const handleDeleteCourse = async () => {
     if (courseToDelete) {
       try {
@@ -121,6 +134,8 @@ const AdminCourses = () => {
       handleCloseConfirmDialog();
     }
   };
+  console.log("newCourse", newCourse);
+
   return (
     <>
       <Typography variant="h4">Admin Panel: Manage Courses</Typography>
@@ -154,4 +169,5 @@ const AdminCourses = () => {
     </>
   );
 };
+
 export default AdminCourses;
