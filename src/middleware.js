@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = ['/courses']; // Add the protected routes here
+const protectedRoutes = ['/courses','/cart']; // Add the protected routes here
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -20,5 +20,5 @@ export function middleware(request) {
 
 // Configure which routes the middleware applies to
 export const config = {
-  matcher: ['/courses'], // Apply middleware to these routes
+  matcher: ['/courses','/cart'], // Apply middleware to these routes
 };
