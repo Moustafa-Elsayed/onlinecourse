@@ -91,11 +91,7 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
               aria-expanded={open ? "true" : undefined}
             >
               <Avatar
-                src={
-                  userData?.avatar
-                    ? `${MainUrl}${userData.avatar}`
-                    : undefined
-                }
+                src={userData?.avatar ? userData?.avatar : undefined}
                 alt={userData?.username}
               >
                 {!userData?.avatar &&

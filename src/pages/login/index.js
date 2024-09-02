@@ -86,7 +86,7 @@ const AuthPage = () => {
         const errorData = await response.json();
         showToast(
           errorData.message ||
-            "username or password incorect  Please try again.",
+            "username or password incorrect. Please try again.",
           "error"
         );
       }
@@ -306,16 +306,13 @@ const AuthPage = () => {
               accept="image/*"
             />
           )}
-          <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:"baseline" }}>
-          <Box>
-              <RememberMeCheckbox />
-            </Box>
-           {
-            isLogin ?   <Link  href={""} style={{textDecoration: "underline"}}>
-            forget password
-          </Link>:""
-           }
-           
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+            <RememberMeCheckbox />
+            {isLogin && (
+              <Link href="#" style={{ textDecoration: "underline" }}>
+                Forget password
+              </Link>
+            )}
           </Box>
           <CustomButton
             title={isLogin ? "Login" : "Sign Up"}
@@ -326,13 +323,15 @@ const AuthPage = () => {
         </form>
         <Typography>
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <Link
-            href="#"
-            onClick={() => setIsLogin(!isLogin)}
+          <Button
+            onClick={() => {
+              console.log("Toggling auth mode");
+              setIsLogin(!isLogin);
+            }}
             style={{ color: "blue", textDecoration: "underline" }}
           >
             {isLogin ? "Sign Up" : "Login"}
-          </Link>
+          </Button>
         </Typography>
       </Box>
     </Box>
