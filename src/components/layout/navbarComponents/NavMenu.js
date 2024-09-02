@@ -39,7 +39,7 @@ const NavMenu = ({ router }) => {
           flexGrow: 1,
           ml: 5,
           alignItems: "center",
-          display: { xs: "none", md: "flex" },
+          display: { sm: "none", md: "flex" },
         }}
       >
         {pages.map((page) => (

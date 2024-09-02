@@ -11,7 +11,6 @@ import CartButton from "../shared/CartButton";
 import NavMenu from "./navbarComponents/NavMenu";
 import ProfileMenu from "./navbarComponents/ProfileMenu";
 import { useMediaQuery } from "@mui/material";
-
 const NavBar = () => {
   const router = useRouter();
   const [isLogin, toggleIsLogin] = useToggle(true);
