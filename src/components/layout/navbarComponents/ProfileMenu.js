@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import IconButton from "@mui/material/IconButton";
@@ -9,13 +9,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import theme from "@/styles/theme";
-import { clearUserData } from "@/redux/slices/userSlice";
+import { clearUserData, fetchUserData } from "@/redux/slices/userSlice";
 import { showToast } from "@/components/shared/showToast";
 import CustomButton from "@/components/shared/CustomButton";
 import ProfileDialog from "@/components/profile/ProfileDialog";
-import { Router } from "next/router";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
-import { MainUrl } from "@/lib/api/constants";
 import PersonIcon from "@mui/icons-material/Person";
 
 const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
@@ -26,8 +24,16 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
 
   const open = Boolean(anchorEl);
 
-  const userData = useSelector((state) => state?.user?.data);
+  const userData = useSelector((state) => state.user.data);
   const role = Cookies.get("role");
+
+  // Fetch user data on mount or when token changes
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      // dispatch(fetchUserData()); // Make sure fetchUserData is defined in your userSlice
+    }
+  }, [dispatch]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,7 +83,7 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
                 <CustomButton
                   backgroundColor={theme.palette.secondary.main}
                   color="white"
-                  title=" Dashboard"
+                  title="Dashboard"
                   onClick={handleDashboard}
                 />
               </Box>

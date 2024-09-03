@@ -325,7 +325,6 @@ const AuthPage = () => {
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <Button
             onClick={() => {
-              console.log("Toggling auth mode");
               setIsLogin(!isLogin);
             }}
             style={{ color: "blue", textDecoration: "underline" }}

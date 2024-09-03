@@ -15,7 +15,6 @@ const CoursesHome = () => {
   const handleCoursesRoute = useButtonClickHandler("/courses");
   const { courses, status, error } = useSelector((state) => state.courses);
   const coursesData = courses?.data;
-  console.log("coursesData", coursesData[0]?._id);
 
   useEffect(() => {
     dispatch(fetchCourses());

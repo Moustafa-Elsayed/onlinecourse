@@ -20,14 +20,14 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WebIcon from "@mui/icons-material/Web";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { MainUrl } from "@/lib/api/constants";
-import DividerWithText from "../shared/DividerWithText";
 import { showToast } from "../shared/showToast";
+import DividerWithText from "../shared/DividerWithText";
 
 const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ ...userData });
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -38,9 +38,24 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   const handleSave = () => {
     setIsLoading(true);
-    dispatch(UpdateUserProfile({ id: userData.id, updatedData: editData }))
+    const formData = new FormData();
+    formData.append("username", editData.username);
+    formData.append("email", editData.email);
+    formData.append("bio", editData.bio || "");
+    formData.append("location", editData.location || "");
+    formData.append("website", editData.website || "");
+    formData.append("phoneNumber", editData.phoneNumber || "");
+    if (selectedFile) {
+      formData.append("avatar", selectedFile);
+    }
+
+    dispatch(UpdateUserProfile({ id: userData.id, updatedData: formData }))
       .unwrap()
       .then(() => {
         setIsEditing(false);
@@ -57,6 +72,11 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
         setIsLoading(false);
       });
   };
+
+  // Add a timestamp to the avatar URL to prevent caching issues
+  const avatarSrc = editData?.avatar
+    ? `${editData.avatar}?${new Date().getTime()}`
+    : undefined;
 
   return (
     <Dialog
@@ -123,7 +143,7 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               backgroundOrigin: "border-box",
               backgroundClip: "content-box, border-box",
             }}
-            src={editData?.avatar ? editData?.avatar : undefined}
+            src={avatarSrc}
             alt={editData?.username}
           >
             {!editData?.avatar && editData?.username?.charAt(0).toUpperCase()}
@@ -133,6 +153,12 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
         <DividerWithText />
         {isEditing ? (
           <>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ marginBottom: "16px" }}
+            />
             <TextField
               margin="dense"
               label="Username"
@@ -274,95 +300,54 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
             />
           </>
         ) : (
-          <>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#333" }}
-              gutterBottom
-            >
-              {editData?.username}
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              {editData.username}
             </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: "gray", mb: 1.5 }}
-              gutterBottom
-            >
-              Email: {editData?.email}
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <EmailIcon sx={{ mr: 1 }} />
+              {editData.email}
             </Typography>
-            {editData?.bio && (
-              <Typography
-                variant="body2"
-                sx={{ color: "gray", mb: 1.5 }}
-                gutterBottom
-              >
-                Bio: {editData?.bio}
-              </Typography>
-            )}
-            {editData?.location && (
-              <Typography
-                variant="body2"
-                sx={{ color: "gray", mb: 1.5 }}
-                gutterBottom
-              >
-                Location: {editData?.location}
-              </Typography>
-            )}
-            {editData?.website && (
-              <Typography
-                variant="body2"
-                sx={{ color: "gray", mb: 1.5 }}
-                gutterBottom
-              >
-                Website: {editData?.website}
-              </Typography>
-            )}
-            {editData?.phoneNumber && (
-              <Typography
-                variant="body2"
-                sx={{ color: "gray", mb: 1.5 }}
-                gutterBottom
-              >
-                Phone Number: {editData?.phoneNumber}
-              </Typography>
-            )}
-          </>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <PersonIcon sx={{ mr: 1 }} />
+              {editData.bio || "N/A"}
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <LocationOnIcon sx={{ mr: 1 }} />
+              {editData.location || "N/A"}
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              <WebIcon sx={{ mr: 1 }} />
+              {editData.website || "N/A"}
+            </Typography>
+            <Typography variant="body2">
+              <PhoneIcon sx={{ mr: 1 }} />
+              {editData.phoneNumber || "N/A"}
+            </Typography>
+          </Box>
         )}
       </DialogContent>
-      <DialogActions sx={{ justifyContent: "center", mb: 2 }}>
+      <DialogActions>
         {isEditing ? (
           <>
+            <Button
+              onClick={() => setIsEditing(false)}
+              variant="outlined"
+              color="inherit"
+              startIcon={<CancelIcon />}
+            >
+              Cancel
+            </Button>
             <Button
               onClick={handleSave}
               variant="contained"
               color="primary"
-              startIcon={<SaveIcon />}
+              endIcon={
+                isLoading ? <CircularProgress size={24} /> : <SaveIcon />
+              }
               disabled={isLoading}
-              sx={{
-                borderRadius: "8px",
-                padding: "6px 16px",
-                background: "linear-gradient(to right, #ff7e5f, #feb47b)",
-                "&:hover": {
-                  background: "linear-gradient(to right, #feb47b, #ff7e5f)",
-                },
-              }}
             >
-              {isLoading ? (
-                <CircularProgress size={24} color="inherit" />
-              ) : (
-                "Save"
-              )}
-            </Button>
-            <Button
-              onClick={() => setIsEditing(false)}
-              variant="outlined"
-              color="secondary"
-              startIcon={<CancelIcon />}
-              sx={{
-                borderRadius: "8px",
-                padding: "6px 16px",
-              }}
-            >
-              Cancel
+              Save
             </Button>
           </>
         ) : (
@@ -371,14 +356,6 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
             variant="contained"
             color="primary"
             startIcon={<EditIcon />}
-            sx={{
-              borderRadius: "8px",
-              padding: "6px 16px",
-              background: "linear-gradient(to right, #ff7e5f, #feb47b)",
-              "&:hover": {
-                background: "linear-gradient(to right, #feb47b, #ff7e5f)",
-              },
-            }}
           >
             Edit
           </Button>

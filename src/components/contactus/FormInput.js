@@ -22,7 +22,6 @@ const FormInput = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
     showToast("Message sent successfully!", "success");
     setFormData({
       firstName: "",

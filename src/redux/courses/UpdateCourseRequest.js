@@ -23,9 +23,6 @@ export const updateCourse = createAsyncThunk(
         }
       );
 
-      // Log successful response for debugging
-      console.log("Update course response:", response.data);
-
       return response.data;
     } catch (error) {
       // Log detailed error

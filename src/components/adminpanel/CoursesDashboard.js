@@ -133,7 +133,6 @@ const AdminCourses = () => {
       handleCloseConfirmDialog();
     }
   };
-  console.log("newCourse", newCourse);
 
   return (
     <>
