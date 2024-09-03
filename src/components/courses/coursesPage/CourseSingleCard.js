@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
 import Curriculum from "./Curriculum";
@@ -20,7 +20,6 @@ const CourseSingleCard = ({
   price,
 }) => {
   const dispatch = useDispatch();
-
   const handleAdd = () => {
     dispatch(
       addItem({

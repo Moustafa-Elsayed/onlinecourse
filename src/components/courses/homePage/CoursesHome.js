@@ -7,12 +7,15 @@ import useButtonClickHandler from "@/hooks/useButtonClickHandler";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
 import { addItem } from "@/redux/slices/cartSlice";
+import { useRouter } from "next/router";
 
 const CoursesHome = () => {
-  const handleCoursesRoute = useButtonClickHandler("/courses");
   const dispatch = useDispatch();
+  const router = useRouter();
+  const handleCoursesRoute = useButtonClickHandler("/courses");
   const { courses, status, error } = useSelector((state) => state.courses);
   const coursesData = courses?.data;
+  console.log("coursesData", coursesData[0]?._id);
 
   useEffect(() => {
     dispatch(fetchCourses());
@@ -20,6 +23,9 @@ const CoursesHome = () => {
 
   const handleAddToCart = (course) => {
     dispatch(addItem(course));
+  };
+  const handleViewDetails = (courseId) => {
+    router.push(`/courses/${courseId}`);
   };
 
   return (
@@ -50,24 +56,25 @@ const CoursesHome = () => {
           onClick={handleCoursesRoute}
         />
       </Box>
-
       {status === "loading" && (
         <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
           <CircularProgress />
         </Box>
       )}
-
       {status === "failed" && (
         <Box sx={{ my: 4 }}>
           <Alert severity="error">{error}</Alert>
         </Box>
       )}
-
       {status === "succeeded" && (
         <Grid container spacing={4}>
           {coursesData?.map((course, index) => (
             <Grid item key={index} xs={12} sm={6} md={6}>
-              <CourseCard {...course} addToCart={handleAddToCart} />
+              <CourseCard
+                {...course}
+                addToCart={handleAddToCart}
+                handleViewDetails={() => handleViewDetails(course._id)} // Pass course ID dynamically
+              />
             </Grid>
           ))}
         </Grid>

@@ -77,17 +77,13 @@ const CourseDetail = () => {
 
   const router = useRouter();
   const { courseId } = router.query;
-
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses.courses.data);
-
   const [course, setCourse] = useState(null);
-
   useEffect(() => {
     if (!courses) {
       dispatch(fetchCourses());
     }
-
     if (courseId && courses?.length > 0) {
       const selectedCourse = courses.find((course) => course._id === courseId);
       setCourse(selectedCourse || null);
@@ -100,7 +96,9 @@ const CourseDetail = () => {
 
   return (
     <>
+
       <PageTitle title={course.title} subTitle={course.subtitle} />
+      
       <Image
         src={ContainerImage}
         alt="Course Image"
@@ -108,10 +106,11 @@ const CourseDetail = () => {
         width={200}
         height={200}
       />
+      
       <Grid container spacing={2} mt={5}>
         {coursess.map((course, index) => (
           <Grid item xs={12} sm={6} key={index}>
-            <CourseCard {...course} />
+            <CourseCard {...course}  />
           </Grid>
         ))}
       </Grid>

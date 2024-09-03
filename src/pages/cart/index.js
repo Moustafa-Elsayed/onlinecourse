@@ -23,11 +23,11 @@ const Index = () => {
 
   return (
     <Box sx={{ padding: 2, maxWidth: "800px", margin: "auto" }}>
-      <Typography variant="h4" gutterBottom align="center">
+      <Typography variant="h2" gutterBottom align="center" mb={5}>
         Your Shopping Cart
       </Typography>
       {cartItems.length === 0 ? (
-        <Typography variant="h6" align="center">
+        <Typography variant="h2" align="center" mb={5}>
           Your cart is empty
         </Typography>
       ) : (
@@ -54,12 +54,13 @@ const Index = () => {
                   <Typography variant="body2" color="text.secondary" mb={2}>
                     Price: ${item.price}
                   </Typography>
-                  <Divider mb={2} />
+                  <Divider />
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      mt: 3,
                     }}
                   >
                     <Box sx={{ display: "flex", alignItems: "center" }}>

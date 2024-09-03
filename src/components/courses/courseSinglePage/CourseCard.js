@@ -6,6 +6,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 const CourseCard = ({ number, title, lessons }) => {
   return (
     <Card sx={{ borderRadius: 2, backgroundColor: "white" }} elevation={1}>
+     
       <CardContent>
         <Typography
           variant="h4"
@@ -72,6 +73,7 @@ const CourseCard = ({ number, title, lessons }) => {
             </Typography>
           </Box>
         ))}
+         
       </CardContent>
     </Card>
   );

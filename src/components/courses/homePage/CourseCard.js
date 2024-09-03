@@ -3,7 +3,6 @@ import { Card, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import theme from "@/styles/theme";
 import CustomButton from "@/components/shared/CustomButton";
-import { MainUrl } from "@/lib/api/constants";
 
 const CourseCard = ({
   _id,
@@ -15,11 +14,11 @@ const CourseCard = ({
   subtitle,
   addToCart,
   photos,
-  price
+  price,
+  handleViewDetails
 }) => {
-  console.log("photos",photos);
-  
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); 
     addToCart({
       _id,
       title,
@@ -35,7 +34,17 @@ const CourseCard = ({
   };
 
   return (
-    <Card sx={{ maxWidth: "100%", height: "100%", p: 2, display: "flex", flexDirection: "column" }}>
+    <Card
+      sx={{
+        maxWidth: "100%",
+        height: "100%",
+        p: 2,
+        display: "flex",
+        flexDirection: "column",
+        cursor: "pointer",
+      }}
+      onClick={handleViewDetails}
+    >
       <Box
         sx={{
           display: "flex",
@@ -100,8 +109,8 @@ const CourseCard = ({
               fontSize="12px"
             />
             <CustomButton
-            title={`$ ${price}`}
-            border="1px solid #e9e3e3"
+              title={`$ ${price}`}
+              border="1px solid #e9e3e3"
               backgroundColor={theme.palette.primary.light}
               fontSize="12px"
             />
@@ -119,13 +128,13 @@ const CourseCard = ({
         </Box>
 
         {/* Content Section with flexGrow to take up remaining space */}
-        <Box sx={{ flexGrow: 1, justifyContent:"center", mt: 1, mb: 3 }}>
+        <Box sx={{ flexGrow: 1, justifyContent: "center", mt: 1, mb: 3 }}>
           <Typography variant="title" sx={{ fontWeight: "bold", mb: 1 }}>
             {title}
           </Typography>
           <Typography variant="h4" color="text.secondary">
             {subtitle}
-          </Typography>   
+          </Typography>
         </Box>
 
         {/* Button aligned at the bottom */}
@@ -134,7 +143,7 @@ const CourseCard = ({
           backgroundColor={theme.palette.primary.light}
           width="100%"
           fontWeight={"bold"}
-          sx={{ mt: "auto" }} 
+          sx={{ mt: "auto" }}
           onClick={handleAddToCart}
           loading={true}
         />
