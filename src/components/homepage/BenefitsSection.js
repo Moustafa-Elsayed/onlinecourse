@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Container } from "@mui/material";
 import BenefitCards from "./BenefitCards";
-import { benefitsData } from "@/lib/dummyData/homepage/Homepage";
+import { benefitsData } from "@/lib/dummyData/homepage/homepage";
 
 const benefits = benefitsData;
 
