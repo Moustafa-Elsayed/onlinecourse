@@ -56,17 +56,8 @@ const CoursesHome = () => {
           onClick={handleCoursesRoute}
         />
       </Box>
-      {status === "loading" && (
-        <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
-          <CircularProgress />
-        </Box>
-      )}
-      {status === "failed" && (
-        <Box sx={{ my: 4 }}>
-          <Alert severity="error">{error}</Alert>
-        </Box>
-      )}
-      {status === "succeeded" && (
+     
+      
         <Grid container spacing={4}>
           {coursesData?.map((course, index) => (
             <Grid item key={index} xs={12} sm={6} md={6}>
@@ -78,7 +69,7 @@ const CoursesHome = () => {
             </Grid>
           ))}
         </Grid>
-      )}
+      
     </Box>
   );
 };
