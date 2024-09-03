@@ -20,7 +20,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WebIcon from "@mui/icons-material/Web";
 import PhoneIcon from "@mui/icons-material/Phone";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { MainUrl } from "@/lib/api/constants";
 import DividerWithText from "../shared/DividerWithText";
 import { showToast } from "../shared/showToast";
@@ -90,8 +89,8 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
             }}
           >
             <Typography>Profile</Typography>
-            <IconButton onClick={() => setIsEditing(true)} color="inherit">
-              <EditOutlinedIcon />
+            <IconButton onClick={onClose} color="inherit">
+              <CancelIcon />
             </IconButton>
           </Box>
         )}
@@ -124,7 +123,7 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
               backgroundOrigin: "border-box",
               backgroundClip: "content-box, border-box",
             }}
-            src={editData?.avatar ? `${MainUrl}${editData.avatar}` : undefined}
+            src={editData?.avatar ? editData?.avatar : undefined}
             alt={editData?.username}
           >
             {!editData?.avatar && editData?.username?.charAt(0).toUpperCase()}
@@ -154,9 +153,10 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
                 },
               }}
               InputProps={{
-                startAdornment: <PersonIcon sx={{ mr: 1 }} />,
+                startAdornment: <EmailIcon sx={{ mr: 1 }} />,
               }}
             />
+
             <TextField
               margin="dense"
               label="Email"

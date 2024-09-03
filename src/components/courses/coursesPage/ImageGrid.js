@@ -27,7 +27,7 @@ const ImageGrid = ({ duration, level, instructor, photos,price }) => {
             }}
           >
             <Image
-              src={`${MainUrl}${photo}`}
+              src={photo}
               layout="fill" 
               objectFit="cover"
               alt={`Course Image ${index + 1}`}

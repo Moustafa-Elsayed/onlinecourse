@@ -96,24 +96,24 @@ const AdminCourses = () => {
     if (editCourse) {
       dispatch(updateCourse({ id: editCourse._id, updatedData: formData }))
         .then(() => {
-          showToast("Update course successful!");
+          showToast("Update course successful!", "success");
           handleCloseDialog();
           dispatch(fetchCourses());
         })
-        .catch(() => {
-          showToast("Update course failed.");
+        .catch((error) => {
+          showToast("Update course failed.", "error");
           handleCloseDialog();
           dispatch(fetchCourses());
         });
     } else {
       dispatch(addcourses(formData))
         .then(() => {
-          showToast("Add course successful!");
+          showToast("Add course successful!","success");
           handleCloseDialog();
           dispatch(fetchCourses());
         })
         .catch(() => {
-          showToast("Failed to add course.");
+          showToast("Failed to add course.","error");
         });
     }
   };
@@ -124,7 +124,6 @@ const AdminCourses = () => {
         await dispatch(deleteCourse(courseToDelete._id)).unwrap();
         showToast("Delete course successful!");
       } catch (error) {
-        console.error("Error in handleDeleteCourse:", error);
         showToast("Failed to delete course.");
       } finally {
         handleCloseConfirmDialog();

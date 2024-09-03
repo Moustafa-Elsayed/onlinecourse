@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import CourseTitle from "./CourseTitle";
 import ImageGrid from "./ImageGrid";
 import Curriculum from "./Curriculum";
+import CustomButton from "@/components/shared/CustomButton";
+import theme from "@/styles/theme";
+import { useDispatch } from "react-redux";
+import { addItem } from "@/redux/slices/cartSlice";
 
 const CourseSingleCard = ({
   title,
@@ -13,9 +17,26 @@ const CourseSingleCard = ({
   instructor,
   _id,
   photos,
-  price
+  price,
 }) => {
-  
+  const dispatch = useDispatch();
+
+  const handleAdd = () => {
+    dispatch(
+      addItem({
+        _id,
+        title,
+        duration,
+        level,
+        instructor,
+        subtitle,
+        photos,
+        price,
+        quantity: 1,
+      })
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -38,6 +59,18 @@ const CourseSingleCard = ({
         </Box>
         <Box>
           <Curriculum curriculum={curriculum} />
+        </Box>
+        <Box sx={{ textAlign: "center", mt:2 }}>
+          <CustomButton
+            title={"Get It Now"}
+            backgroundColor={theme.palette.primary.light}
+            width="100%"
+            fontWeight={"bold"}
+            sx={{ mt: "auto" }}
+            onClick={handleAdd}
+            loading={true}
+            border={"1px solid #e9e3e3"}
+          />
         </Box>
       </Box>
     </Box>

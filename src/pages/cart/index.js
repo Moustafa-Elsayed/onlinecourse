@@ -5,7 +5,6 @@ import {
   Typography,
   Card,
   CardContent,
-  CardActions,
   IconButton,
   Button,
   Divider,
@@ -18,66 +17,49 @@ import {
   decrementQuantity,
 } from "@/redux/slices/cartSlice";
 import Image from "next/image";
-import { MainUrl } from "@/lib/api/constants";
-
 const Index = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
   return (
     <Box sx={{ padding: 2, maxWidth: "800px", margin: "auto" }}>
-      <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
+      <Typography variant="h4" gutterBottom align="center">
         Your Shopping Cart
       </Typography>
       {cartItems.length === 0 ? (
-        <Typography variant="h6" sx={{ textAlign: "center" }}>
+        <Typography variant="h6" align="center">
           Your cart is empty
         </Typography>
       ) : (
         cartItems.map((item) => (
-          <Card
-            key={item._id}
-            sx={{ marginBottom: 2, borderRadius: 4, boxShadow: 3 }}
-          >
+          <Card key={item._id} sx={{ mb: 2, borderRadius: 4, boxShadow: 3 }}>
             <Grid container alignItems="center">
               <Grid item xs={12} md={4}>
-                <Box
-                  sx={{
-                    padding: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+                <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
                   <Image
-                    src={`${MainUrl}${item.photos[0]}`}
+                    src={item.photos[0]}
                     alt={item.title}
                     layout="responsive"
                     width={200}
                     height={200}
-                    style={{
-                      borderRadius: "10px",
-                    }}
+                    style={{ borderRadius: "10px" }}
                   />
                 </Box>
               </Grid>
               <Grid item xs={12} md={8}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="h6" fontWeight="bold">
                     {item.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary", mb: 2 }}
-                  >
+                  <Typography variant="body2" color="text.secondary" mb={2}>
                     Price: ${item.price}
                   </Typography>
-                  <Divider sx={{ mb: 2 }} />
+                  <Divider mb={2} />
                   <Box
                     sx={{
                       display: "flex",
-                      alignItems: "center",
                       justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -85,22 +67,22 @@ const Index = () => {
                         onClick={() => dispatch(decrementQuantity(item._id))}
                         disabled={item.quantity === 1}
                         sx={{
-                          backgroundColor: "#f5f5f5",
+                          bgcolor: "#f5f5f5",
                           borderRadius: 2,
-                          "&:hover": { backgroundColor: "#e0e0e0" },
+                          "&:hover": { bgcolor: "#e0e0e0" },
                         }}
                       >
                         <Remove />
                       </IconButton>
-                      <Typography variant="h6" sx={{ mx: 2 }}>
+                      <Typography variant="h6" mx={2}>
                         {item.quantity}
                       </Typography>
                       <IconButton
                         onClick={() => dispatch(incrementQuantity(item._id))}
                         sx={{
-                          backgroundColor: "#f5f5f5",
+                          bgcolor: "#f5f5f5",
                           borderRadius: 2,
-                          "&:hover": { backgroundColor: "#e0e0e0" },
+                          "&:hover": { bgcolor: "#e0e0e0" },
                         }}
                       >
                         <Add />
@@ -125,5 +107,4 @@ const Index = () => {
     </Box>
   );
 };
-
 export default Index;

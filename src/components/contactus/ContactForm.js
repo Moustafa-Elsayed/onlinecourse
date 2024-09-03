@@ -1,7 +1,5 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
-import CustomButton from "../shared/CustomButton";
-import theme from "@/styles/theme";
 import FormInput from "./FormInput";
 import ContactDetails from "./ContactDetails";
 

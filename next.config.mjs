@@ -8,6 +8,7 @@ const nextConfig = {
       "ibb.co",
       "i.ibb.co",
       "testapi-tau-nine.vercel.app",
+      'res.cloudinary.com'
     ],
     // Uncomment and configure this if you need to allow images from specific paths
     // remotePatterns: [

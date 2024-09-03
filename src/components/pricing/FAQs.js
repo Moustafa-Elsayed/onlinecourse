@@ -3,7 +3,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Button,
   Typography,
   Box,
   Container,
@@ -14,6 +13,7 @@ import theme from "@/styles/theme";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { faqDummyData } from "@/lib/dummyData/faq/faqData";
 const FAQs = () => {
   const [expanded, setExpanded] = useState(false);
 
@@ -21,35 +21,7 @@ const FAQs = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const faqData = [
-    {
-      question: "Can I enroll in multiple courses at once?",
-      answer:
-        "Absolutely! You can enroll in multiple courses simultaneously and access them at your convenience.",
-      buttonText: "Enrollment Process for Different Courses",
-    },
-    {
-      question: "What kind of support can I expect from instructors?",
-      answer:
-        "You can expect various support from instructors, including Q&A sessions, forums, and one-on-one help.",
-    },
-    {
-      question:
-        "Are the courses self-paced or do they have specific start and end dates?",
-      answer:
-        "Our courses are primarily self-paced, allowing you to complete them at your own pace. However, some courses may have specific schedules.",
-    },
-    {
-      question: "Are there any prerequisites for the courses?",
-      answer:
-        "Most of our courses have no prerequisites. Check the course details for specific requirements.",
-    },
-    {
-      question: "Can I download the course materials for offline access?",
-      answer:
-        "Yes, course materials are available for download so you can access them offline.",
-    },
-  ];
+  const faqData = faqDummyData;
 
   return (
     <Container
@@ -60,7 +32,6 @@ const FAQs = () => {
         height: "100%",
         maxHeight: "auto",
         pb: 5,
-      
       }}
     >
       <Box sx={{ flexGrow: 1 }}>

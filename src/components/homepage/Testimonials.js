@@ -1,8 +1,6 @@
 import { loginData } from "@/lib/dummyData/loginData/loginData";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import { Grid } from "react-loader-spinner";
-import TestimonialsCard from "../shared/TestimonialsCard";
 import TestimonialsSection from "./TestimonialsSection ";
 const testimonials = loginData;
 const Testimonials = () => {
@@ -28,9 +26,7 @@ const Testimonials = () => {
           </Typography>
         </Box>
       </Box>
-      
-            <TestimonialsSection testimonials={testimonials} />
-       
+      <TestimonialsSection testimonials={testimonials} />
     </>
   );
 };

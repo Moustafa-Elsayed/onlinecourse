@@ -17,6 +17,8 @@ const CourseCard = ({
   photos,
   price
 }) => {
+  console.log("photos",photos);
+  
   const handleAddToCart = () => {
     addToCart({
       _id,
@@ -53,7 +55,7 @@ const CourseCard = ({
           }}
         >
           <Image
-            src={`${MainUrl}${photos[0]}`}
+            src={photos[0]}
             alt="courseimage"
             layout="fill"
             priority

@@ -5,7 +5,7 @@ const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 960, // Start of medium screens
+      md: 1020, // Start of medium screens
       lg: 1280,
       xl: 1920,
     },

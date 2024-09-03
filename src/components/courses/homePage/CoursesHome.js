@@ -1,5 +1,4 @@
-// CoursesHome.js
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, CircularProgress, Alert } from "@mui/material";
 import React, { useEffect } from "react";
 import CourseCard from "./CourseCard";
 import CustomButton from "@/components/shared/CustomButton";
@@ -24,7 +23,7 @@ const CoursesHome = () => {
   };
 
   return (
-    <>
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -44,22 +43,36 @@ const CoursesHome = () => {
             eget habitasse in velit fringilla feugiat senectus in.
           </Typography>
         </Box>
-
         <CustomButton
-          title={"View Course"}
+          title={"View All Courses"}
           backgroundColor={theme.palette.primary.light}
           border="1px solid #e9e3e3"
           onClick={handleCoursesRoute}
         />
       </Box>
-      <Grid container spacing={4}>
-        {coursesData?.map((course, index) => (
-          <Grid item key={index} xs={12} sm={6} md={6}>
-            <CourseCard {...course} addToCart={handleAddToCart} />
-          </Grid>
-        ))}
-      </Grid>
-    </>
+
+      {status === "loading" && (
+        <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {status === "failed" && (
+        <Box sx={{ my: 4 }}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      )}
+
+      {status === "succeeded" && (
+        <Grid container spacing={4}>
+          {coursesData?.map((course, index) => (
+            <Grid item key={index} xs={12} sm={6} md={6}>
+              <CourseCard {...course} addToCart={handleAddToCart} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Box>
   );
 };
 

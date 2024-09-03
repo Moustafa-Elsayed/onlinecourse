@@ -309,6 +309,7 @@ const CourseDialog = ({
           title="Save"
           backgroundColor={theme.palette.secondary.main}
           onClick={handleAddOrUpdateCourse}
+          loading={true}
         />
       </DialogActions>
     </Dialog>

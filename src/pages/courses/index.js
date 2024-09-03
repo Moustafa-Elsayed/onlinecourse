@@ -3,7 +3,7 @@ import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import PageTitle from "@/components/shared/PageTitle";
 import { CoursesDummyData } from "@/lib/dummyData/courses/courses";
 import { fetchCourses } from "@/redux/courses/GetAllCoursesRequest";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

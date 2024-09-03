@@ -3,117 +3,100 @@ import { Grid, Box } from "@mui/material";
 import CustomInput from "../shared/CustomInput";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
-import { showToast } from "../shared/showToast"; // Import showToast function
+import { showToast } from "../shared/showToast";
 
 const FormInput = () => {
-  // State to manage form inputs
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
-    console.log('Form Data:', formData); // Log form data
-    showToast('Message sent successfully!', 'success'); // Show success toast
-    
-    // Reset form fields
+    e.preventDefault();
+    console.log("Form Data:", formData);
+    showToast("Message sent successfully!", "success");
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}> {/* Wrap the form with <form> */}
+    <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <CustomInput
-            type="text"
-            label="First Name"
-            name="firstName" // Add name attribute
-            placeholder="Enter your First Name"
-            value={formData.firstName} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomInput
-            type="text"
-            label="Last Name"
-            name="lastName" // Add name attribute
-            placeholder="Enter your Last Name"
-            value={formData.lastName} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomInput
-            type="email"
-            label="Email"
-            name="email" // Add name attribute
-            placeholder="Enter your Email"
-            value={formData.email} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomInput
-            type="text"
-            label="Phone"
-            name="phone" // Add name attribute
-            placeholder="Enter Phone Number"
-            value={formData.phone} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <CustomInput
-            type="text"
-            label="Subject"
-            name="subject" // Add name attribute
-            placeholder="Enter your Subject"
-            value={formData.subject} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <CustomInput
-            type="text"
-            label="Message"
-            name="message" // Add name attribute
-            multiline
-            rows={4}
-            placeholder="Enter your Message"
-            value={formData.message} // Bind value
-            onChange={handleInputChange} // Handle input change
-          />
-        </Grid>
+        {[
+          {
+            label: "First Name",
+            name: "firstName",
+            type: "text",
+            placeholder: "Enter your First Name",
+          },
+          {
+            label: "Last Name",
+            name: "lastName",
+            type: "text",
+            placeholder: "Enter your Last Name",
+          },
+          {
+            label: "Email",
+            name: "email",
+            type: "email",
+            placeholder: "Enter your Email",
+          },
+          {
+            label: "Phone",
+            name: "phone",
+            type: "text",
+            placeholder: "Enter Phone Number",
+          },
+          {
+            label: "Subject",
+            name: "subject",
+            type: "text",
+            placeholder: "Enter your Subject",
+          },
+          {
+            label: "Message",
+            name: "message",
+            type: "text",
+            placeholder: "Enter your Message",
+            multiline: true,
+            rows: 4,
+          },
+        ].map(({ label, name, type, placeholder, multiline, rows }) => (
+          <Grid item xs={12} sm={6} key={name}>
+            <CustomInput
+              type={type}
+              label={label}
+              name={name}
+              placeholder={placeholder}
+              value={formData[name]}
+              onChange={handleInputChange}
+              multiline={multiline}
+              rows={rows}
+            />
+          </Grid>
+        ))}
         <Grid item xs={12}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <CustomButton
               title="Send Your Message"
               backgroundColor={theme.palette.secondary.main}
               color="white"
-              type="submit" // Change button type to submit
+              type="submit"
             />
           </Box>
         </Grid>

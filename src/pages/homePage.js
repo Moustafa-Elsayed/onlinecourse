@@ -5,7 +5,6 @@ import Testimonials from "@/components/homepage/Testimonials";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import BannerLogo from "../../public/Image/Container.webp";
-
 const HomePage = () => {
   return (
     <Box>

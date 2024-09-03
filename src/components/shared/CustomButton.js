@@ -56,7 +56,7 @@ const CustomButton = ({
         transition: "background-color 0.3s, color 0.3s, border 0.3s",
         width: width,
         fontWeight: fontWeight,
-        fontSize: { xs: "11px", md: "16px" },
+        fontSize: { xs: "13px", md: "16px" },
         position: "relative",
         "&:hover": {
           backgroundColor: backgroundColor,

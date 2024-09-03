@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { BaseUrl } from "@/lib/api/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { showToast } from "@/components/shared/showToast";
 
 export const updateCourse = createAsyncThunk(
   "courses/updateCourse",
@@ -22,9 +23,14 @@ export const updateCourse = createAsyncThunk(
         }
       );
 
+      // Log successful response for debugging
+      console.log("Update course response:", response.data);
+
       return response.data;
     } catch (error) {
-      console.error("Update course failed:", error.response || error.message);
+      // Log detailed error
+      console.error("Update course failed:", error.response?.data || error.message);
+      console.error("Error details:", error);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -32,17 +38,22 @@ export const updateCourse = createAsyncThunk(
 
 export const UpdateCoursesRequestHandler = (builder) => {
   builder
-    .addCase(updateCourse.pending, (state) => {
-      state.status = "loading";
-    })
     .addCase(updateCourse.fulfilled, (state, action) => {
-      state.status = "succeeded";
-      state.courses = state.courses.map((course) =>
-        course.id === action.payload.id ? action.payload : course
-      );
+      // Ensure state.courses is an array before using map
+      if (Array.isArray(state.courses)) {
+        state.courses = state.courses.map(course =>
+          course.id === action.payload.id ? action.payload : course
+        );
+      } else {
+        console.error("state.courses is not an array:", state.courses);
+      }
+    })
+    .addCase(updateCourse.pending, (state) => {
+      state.loading = true;
     })
     .addCase(updateCourse.rejected, (state, action) => {
-      state.status = "failed";
-      state.error = action.payload;
+      state.loading = false;
+      state.error = action.error.message;
     });
 };
+

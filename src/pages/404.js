@@ -1,7 +1,6 @@
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import theme from "@/styles/theme";
-import Image from "next/image";
 export default function NotFound() {
   const router = useRouter();
   const handleGoHome = () => {
@@ -20,13 +19,6 @@ export default function NotFound() {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      {/* <Image
-        src={NotFoundImage}
-        alt="Not Found"
-        width={100}
-        height={100}
-        style={{ marginBottom: "20px" }} // Adjust size and margin as needed
-      /> */}
       <Typography variant="h1" sx={{ fontSize: "6rem", fontWeight: "bold" }}>
         404
       </Typography>
