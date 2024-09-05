@@ -22,10 +22,23 @@ import theme from "@/styles/theme";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const calculateTotalPrice = (items) =>
-  items.reduce((total, item) => total + item.price * item.quantity, 0);
+const formatPrice = (price) => {
+  const numericPrice = Number(price);
+  if (isNaN(numericPrice)) {
+    console.error("Invalid price value:", price);
+    return "0.00"; 
+  }
+  return numericPrice.toFixed(2);
+};
 
-const formatPrice = (priceInCents) => priceInCents.toFixed(2);
+const calculateTotalPrice = (items) => {
+  const total = items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  return formatPrice(total);
+};
+
 
 const Index = () => {
   const dispatch = useDispatch();

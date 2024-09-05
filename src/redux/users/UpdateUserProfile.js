@@ -21,8 +21,7 @@ export const UpdateUserProfile = createAsyncThunk(
           },
         }
       );
-
-      return response.data; // Return the updated user data
+      return response.data;
     } catch (error) {
       console.error("Update User Profile failed:", error);
       return rejectWithValue(

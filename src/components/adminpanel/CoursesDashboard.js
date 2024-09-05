@@ -22,7 +22,7 @@ const AdminCourses = () => {
     duration: "",
     level: "",
     instructor: "",
-    price: "", // Added price field
+    price: "", 
     photos: [],
     photoPreview: [],
   });
@@ -46,7 +46,7 @@ const AdminCourses = () => {
         duration: course.duration,
         level: course.level,
         instructor: course.instructor,
-        price: course.price || "", // Added price field
+        price: course.price || "", 
         photos: course.photos || [],
         photoPreview: course.photos || [],
       });
@@ -59,7 +59,7 @@ const AdminCourses = () => {
         duration: "",
         level: "",
         instructor: "",
-        price: "", // Added price field
+        price: "",
         photos: [],
         photoPreview: [],
       });
@@ -87,7 +87,7 @@ const AdminCourses = () => {
     formData.append("duration", newCourse.duration);
     formData.append("level", newCourse.level);
     formData.append("instructor", newCourse.instructor);
-    formData.append("price", newCourse.price); // Added price field
+    formData.append("price", newCourse.price);
     formData.append("curriculum", JSON.stringify(newCourse.curriculum));
     newCourse.photos.forEach((photo) => {
       formData.append("photos", photo);
