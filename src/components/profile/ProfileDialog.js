@@ -22,6 +22,7 @@ import WebIcon from "@mui/icons-material/Web";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { showToast } from "../shared/showToast";
 import DividerWithText from "../shared/DividerWithText";
+import theme from "@/styles/theme";
 
 const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -302,6 +303,7 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
         ) : (
           <Box sx={{ textAlign: "center" }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
+            <PersonIcon sx={{ mr: 1 }} />
               {editData.username}
             </Typography>
             <Typography variant="body2" sx={{ mb: 1 }}>
@@ -332,19 +334,29 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
           <>
             <Button
               onClick={() => setIsEditing(false)}
-              variant="outlined"
-              color="inherit"
+              sx={{
+                backgroundColor: theme.palette.primary.light,
+                border:"1px solid #c4c4c4",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              }}
               startIcon={<CancelIcon />}
             >
               Cancel
             </Button>
             <Button
               onClick={handleSave}
-              variant="contained"
-              color="primary"
               endIcon={
                 isLoading ? <CircularProgress size={24} /> : <SaveIcon />
               }
+              sx={{
+                backgroundColor: theme.palette.secondary.main,
+                color:"white",
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.main,
+                },
+              }}
               disabled={isLoading}
             >
               Save
@@ -353,8 +365,13 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
         ) : (
           <Button
             onClick={() => setIsEditing(true)}
-            variant="contained"
-            color="primary"
+            sx={{
+              backgroundColor: theme.palette.primary.light,
+              border:"1px solid #c4c4c4",
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
             startIcon={<EditIcon />}
           >
             Edit

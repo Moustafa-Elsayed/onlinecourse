@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography, Grid, Box } from "@mui/material";
+import {  Typography, Grid, Box } from "@mui/material";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
@@ -11,7 +11,7 @@ const Banner = () => {
   const handlePricingRoute = useButtonClickHandler("/pricing");
 
   return (
-    <Container sx={{ textAlign: "center", backgroundColor: "#f7f7f7" }}>
+    <Box sx={{ textAlign: "center", backgroundColor: "#f7f7f7" }}>
       <Box
         sx={{
           display: "flex",
@@ -65,7 +65,7 @@ const Banner = () => {
         />
       </Box>
       <ImageGrid images={images} />
-    </Container>
+    </Box>
   );
 };
 const ImageGrid = ({ images }) => (
@@ -75,9 +75,10 @@ const ImageGrid = ({ images }) => (
     justifyContent="center"
     sx={{
       marginTop: 10,
-      marginBottom: 8,
+      marginBottom: 10,
       backgroundColor: "white",
       borderRadius: 2,
+    
     }}
   >
     {images.map((img, index) => (

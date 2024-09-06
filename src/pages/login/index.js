@@ -27,7 +27,8 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const [avatar, setAvatar] = useState(null); // Avatar state
+  const [avatar, setAvatar] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("email");
@@ -46,6 +47,15 @@ const AuthPage = () => {
     );
   };
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6; 
+  };
+
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
@@ -56,8 +66,27 @@ const AuthPage = () => {
     setAvatar(e.target.files[0]);
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!validateEmail(email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!validatePassword(password)) {
+      errors.password = "Password must be at least 6 characters";
+    }
+    if (!isLogin && !username) {
+      errors.username = "Username is required";
+    }
+    return errors;
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
     try {
       const response = await fetch(`${BaseUrl}/users/login`, {
         method: "POST",
@@ -69,16 +98,13 @@ const AuthPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Save token and role in cookies
         Cookies.set("token", data?.data?.token, { expires: 7 });
         Cookies.set("role", data?.data?.role);
 
         showToast("Login successful!", "success");
 
-        // Dispatch user data to Redux store
         dispatch(setUserData(data?.data));
 
-        // Redirect after Redux store is updated
         setTimeout(() => {
           window.location.href = "/";
         }, 50);
@@ -86,7 +112,7 @@ const AuthPage = () => {
         const errorData = await response.json();
         showToast(
           errorData.message ||
-            "username or password incorrect. Please try again.",
+            "Username or password incorrect. Please try again.",
           "error"
         );
       }
@@ -99,6 +125,11 @@ const AuthPage = () => {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
@@ -277,6 +308,8 @@ const AuthPage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
+              error={errors.username}
+              helperText={errors.username}
             />
           )}
           <CustomInput
@@ -285,6 +318,8 @@ const AuthPage = () => {
             value={email}
             onChange={handleEmailChange}
             placeholder="Enter your Email"
+            error={errors.email}
+            helperText={errors.email}
           />
           <CustomInput
             type={showPassword ? "text" : "password"}
@@ -297,6 +332,8 @@ const AuthPage = () => {
                 <RemoveRedEyeIcon />
               </IconButton>
             }
+            error={errors.password}
+            helperText={errors.password}
           />
           {!isLogin && (
             <CustomInput
@@ -304,6 +341,8 @@ const AuthPage = () => {
               label="Profile Avatar"
               onChange={handleAvatarChange}
               accept="image/*"
+              error={errors.avatar}
+              helperText={errors.avatar}
             />
           )}
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>

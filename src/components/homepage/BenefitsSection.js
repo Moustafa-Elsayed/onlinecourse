@@ -6,7 +6,7 @@ import { benefitsData } from "@/lib/dummyData/homepage/homepage";
 const benefits = benefitsData;
 
 const BenefitsSection = () => (
-  <Container maxWidth="lg">
+  <>
     <Box sx={{ mb: 3 }}>
       <Typography variant="h3" sx={{ fontWeight: "bold", mb: 1 }}>
         Benefits
@@ -18,7 +18,7 @@ const BenefitsSection = () => (
       </Typography>
     </Box>
     <BenefitCards benefits={benefits} />
-  </Container>
+  </>
 );
 
 export default BenefitsSection;
