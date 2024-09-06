@@ -20,7 +20,7 @@ export const deleteCourse = createAsyncThunk(
 
       return id;
     } catch (error) {
-      console.error("Delete course failed:", error); // Log the full error
+      console.error("Delete course failed:", error); 
       return rejectWithValue(error.response?.data || "An unexpected error occurred");
     }
   }

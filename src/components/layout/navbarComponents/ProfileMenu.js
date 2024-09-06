@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import IconButton from "@mui/material/IconButton";
@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import theme from "@/styles/theme";
-import { clearUserData, fetchUserData } from "@/redux/slices/userSlice";
+import { clearUserData } from "@/redux/slices/userSlice";
 import { showToast } from "@/components/shared/showToast";
 import CustomButton from "@/components/shared/CustomButton";
 import ProfileDialog from "@/components/profile/ProfileDialog";
@@ -27,11 +27,9 @@ const ProfileMenu = ({ isLogin, activeButton, handleLoginRoute }) => {
   const userData = useSelector((state) => state.user.data);
   const role = Cookies.get("role");
 
-  // Fetch user data on mount or when token changes
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
-      // dispatch(fetchUserData()); // Make sure fetchUserData is defined in your userSlice
     }
   }, [dispatch]);
 

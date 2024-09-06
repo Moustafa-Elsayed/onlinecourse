@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, CircularProgress, Alert } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import CourseCard from "./CourseCard";
 import CustomButton from "@/components/shared/CustomButton";
@@ -63,7 +63,7 @@ const CoursesHome = () => {
               <CourseCard
                 {...course}
                 addToCart={handleAddToCart}
-                handleViewDetails={() => handleViewDetails(course._id)} // Pass course ID dynamically
+                handleViewDetails={() => handleViewDetails(course._id)} 
               />
             </Grid>
           ))}

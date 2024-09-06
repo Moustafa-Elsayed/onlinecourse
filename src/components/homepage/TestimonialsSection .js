@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import TestimonialsCard from "../shared/TestimonialsCard";
 
 const TestimonialsSection = ({ testimonials }) => {

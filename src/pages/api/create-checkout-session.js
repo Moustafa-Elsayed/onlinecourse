@@ -16,7 +16,7 @@ export default async function handler(req, res) {
             name: item.title,
             images: [item.photos[0]],
           },
-          unit_amount: item.price * 100, // Stripe expects the amount in cents
+          unit_amount: item.price * 100, 
         },
         quantity: item.quantity,
       })),

@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import theme from "@/styles/theme";
 import CustomButton from "../shared/CustomButton";
 import useButtonClickHandler from "@/hooks/useButtonClickHandler";
-
 const CallToAction = () => {
   const handleJoin = useButtonClickHandler("/login");
   return (
@@ -41,7 +40,6 @@ const CallToAction = () => {
                 component="span"
                 sx={{ color: theme.palette.secondary.main, fontWeight: "bold" }}
               >
-                {/* Together */}
                 Together
               </Typography>
               , let&apos;s shape the future of digital innovation

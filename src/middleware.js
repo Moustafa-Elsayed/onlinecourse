@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = ['/courses','/cart']; // Add the protected routes here
+const protectedRoutes = ['/courses','/cart']; 
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
-  // Check if the route is protected
   if (protectedRoutes.includes(pathname)) {
-    const token = request.cookies.get('token'); // Get the token from cookies
-
-    // Redirect to login page if the token is not present
+    const token = request.cookies.get('token'); 
     if (!token) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
@@ -18,7 +15,6 @@ export function middleware(request) {
   return NextResponse.next();
 }
 
-// Configure which routes the middleware applies to
 export const config = {
-  matcher: ['/courses','/cart'], // Apply middleware to these routes
+  matcher: ['/courses','/cart'], 
 };

@@ -1,38 +1,24 @@
 import React, { useEffect, useState } from "react";
 import {
-  TextField,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Button,
   Typography,
-  Box,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "@/redux/users/GetAllUsersRequest";
 import { deleteUsers } from "@/redux/users/DeleteCoursesRequest";
 import CustomButton from "../shared/CustomButton";
-import theme from "@/styles/theme";
 import { showToast } from "../shared/showToast";
 import { BaseUrl } from "@/lib/api/constants";
 import Cookies from "js-cookie";
-import { Grid } from "react-loader-spinner";
 import UserTable from "./UserTable";
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const { users, status, error } = useSelector((state) => state.users);
-
-  // State for handling the dialog visibility and selected user
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const [editedUser, setEditedUser] = useState(null);
@@ -41,20 +27,14 @@ const UserDashboard = () => {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
-
-  // Function to open the confirmation dialog
   const handleOpenConfirmDialog = (user) => {
     setUserToDelete(user);
     setOpenConfirmDialog(true);
   };
-
-  // Function to close the confirmation dialog
   const handleCloseConfirmDialog = () => {
     setOpenConfirmDialog(false);
     setUserToDelete(null);
   };
-
-  // Function to handle the delete operation
   const handleDeleteUser = async () => {
     if (userToDelete) {
       try {
@@ -72,25 +52,22 @@ const UserDashboard = () => {
     }
   };
 
-  // Function to handle role editing
   const handleEditRole = (user) => {
     setEditedUser(user);
     setNewRole(user.role);
   };
 
-  // Function to handle the role update
-
   const handleUpdateRole = async () => {
     if (editedUser) {
       try {
-        const token = Cookies.get("token"); // Retrieve the token from cookies
+        const token = Cookies.get("token"); 
         const response = await fetch(
           `${BaseUrl}/users/role/${editedUser._id}`,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Use the token from cookies
+              Authorization: `Bearer ${token}`, 
             },
             body: JSON.stringify({ role: newRole }),
           }
@@ -98,7 +75,7 @@ const UserDashboard = () => {
 
         if (response.ok) {
           showToast("Role updated successfully!");
-          dispatch(fetchUsers()); // Refresh the user list
+          dispatch(fetchUsers());
         } else {
           showToast("Failed to update role.");
         }

@@ -2,7 +2,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { BaseUrl } from "@/lib/api/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { showToast } from "@/components/shared/showToast";
 
 export const updateCourse = createAsyncThunk(
   "courses/updateCourse",
@@ -25,7 +24,6 @@ export const updateCourse = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      // Log detailed error
       console.error("Update course failed:", error.response?.data || error.message);
       console.error("Error details:", error);
       return rejectWithValue(error.response?.data || error.message);
@@ -36,7 +34,6 @@ export const updateCourse = createAsyncThunk(
 export const UpdateCoursesRequestHandler = (builder) => {
   builder
     .addCase(updateCourse.fulfilled, (state, action) => {
-      // Ensure state.courses is an array before using map
       if (Array.isArray(state.courses)) {
         state.courses = state.courses.map(course =>
           course.id === action.payload.id ? action.payload : course

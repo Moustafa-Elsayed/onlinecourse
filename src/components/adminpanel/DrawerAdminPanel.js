@@ -173,13 +173,13 @@ export default function MiniDrawer() {
               sx={{
                 fontWeight: "bold",
                 textTransform: "capitalize",
-                backgroundColor: "secondary.main", // Updates button color
-                color: "white", // Updates text color
+                backgroundColor: "secondary.main", 
+                color: "white", 
                 "&:hover": {
-                  backgroundColor: "secondary.dark", // Darkens button on hover
+                  backgroundColor: "secondary.dark", 
                 },
-                padding: "0.5rem 1.5rem", // Adds padding to button
-                borderRadius: 4, // Rounds the button corners
+                padding: "0.5rem 1.5rem",
+                borderRadius: 4, 
               }}
               onClick={handleWebsiteRoutes}
             >

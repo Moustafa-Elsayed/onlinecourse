@@ -37,7 +37,6 @@ const NavBar = () => {
         <Toolbar disableGutters sx={{ display: "flex", alignItems: "center" }}>
           <Image src={Logo} alt="logo" width={50} height={50} />
           <Box sx={{ flexGrow: 1 }} />{" "}
-          {/* This will push the rest of the content to the right */}
           {/* Show NavMenu only if not on mobile */}
           {!isMobile && <NavMenu router={router} />}
           <Box sx={{ mr: 2 }}>
@@ -49,7 +48,6 @@ const NavBar = () => {
             activeButton={activeButton}
             handleLoginRoute={handleLoginRoute}
           />
-          {/* Optionally, add mobile-specific components here */}
           {isMobile && (
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <NavMenu router={router} />

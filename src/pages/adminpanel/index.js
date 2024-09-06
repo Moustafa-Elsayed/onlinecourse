@@ -6,8 +6,6 @@ const IndexPage = () => {
     <DrawerAdminPanel />
   )
 }
-
-// Set noLayout property on the IndexPage component
 IndexPage.noLayout = true;
 
 export default IndexPage;

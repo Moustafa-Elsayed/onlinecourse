@@ -1,8 +1,6 @@
-// CustomCard.js
 import React from "react";
 import { Box, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/system";
-
 const CardContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   display: "flex",

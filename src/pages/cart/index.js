@@ -83,7 +83,7 @@ const Index = () => {
             xs={12}
             md={4}
             sx={{
-              order: { xs: 1, md: 2 }, // On xs screens, show this first
+              order: { xs: 1, md: 2 }, 
             }}
           >
             <Box sx={{ padding: 3, boxShadow: 3, borderRadius: 4 }}>
@@ -110,7 +110,7 @@ const Index = () => {
             xs={12}
             md={8}
             sx={{
-              order: { xs: 2, md: 1 }, // On xs screens, show this after the right section
+              order: { xs: 2, md: 1 }, 
             }}
           >
             {cartItems.map((item) => (

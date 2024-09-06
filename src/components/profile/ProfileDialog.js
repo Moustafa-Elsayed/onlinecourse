@@ -74,7 +74,6 @@ const ProfileDialog = ({ open, onClose, userData, onRefetch }) => {
       });
   };
 
-  // Add a timestamp to the avatar URL to prevent caching issues
   const avatarSrc = editData?.avatar
     ? `${editData.avatar}?${new Date().getTime()}`
     : undefined;

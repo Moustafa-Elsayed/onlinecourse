@@ -6,8 +6,6 @@ import CustomInput from "../shared/CustomInput";
 import CustomButton from "../shared/CustomButton";
 import theme from "@/styles/theme";
 import { showToast } from "../shared/showToast";
-
-// Validation schema using Yup
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
@@ -31,7 +29,7 @@ const FormInput = () => {
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         showToast("Message sent successfully!", "success");
-        resetForm(); // Reset form after successful submission
+        resetForm(); 
       }}
     >
       {({ errors, touched, handleChange, handleSubmit, values }) => (

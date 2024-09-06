@@ -1,9 +1,8 @@
 import axios from "axios";
-import Cookies from "js-cookie"; // Don't forget to import Cookies
+import Cookies from "js-cookie"; 
 import { BaseUrl } from "@/lib/api/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// Fetch Courses with token in headers
 export const fetchCourses = createAsyncThunk(
   "courses/fetchCourses",
   async (_, { rejectWithValue }) => {
@@ -16,18 +15,16 @@ export const fetchCourses = createAsyncThunk(
 
       const response = await axios.get(`${BaseUrl}/courses/`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Pass the token in the headers
+          Authorization: `Bearer ${token}`, 
         },
       });
       return response.data;
     } catch (error) {
-      // Return a custom error message with rejectWithValue
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-// Request handler for the courses
 export const IndexCoursesRequestHandler = (builder) => {
   builder
     .addCase(fetchCourses.pending, (state) => {
@@ -39,6 +36,6 @@ export const IndexCoursesRequestHandler = (builder) => {
     })
     .addCase(fetchCourses.rejected, (state, action) => {
       state.status = "failed";
-      state.error = action.payload; // Use action.payload for a better error message
+      state.error = action.payload; 
     });
 };

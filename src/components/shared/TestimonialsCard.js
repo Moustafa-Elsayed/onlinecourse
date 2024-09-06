@@ -5,7 +5,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
 } from "@mui/material";
 import React, { useState } from "react";
 import DividerWithText from "./DividerWithText";

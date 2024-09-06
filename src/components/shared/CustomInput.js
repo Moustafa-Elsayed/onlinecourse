@@ -5,18 +5,18 @@ import { styled } from "@mui/system";
 const CustomTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
     color: theme.palette.primary.main,
-    backgroundColor: theme.palette.primary.light, // Customize background color
-    borderRadius: "8px", // Customize border radius
+    backgroundColor: theme.palette.primary.light, 
+    borderRadius: "8px", 
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#f5f0f0", // Remove the border
+      borderColor: "#f5f0f0", 
     },
     "&:hover fieldset": {
-      border: "1px solid transparent", // Remove the border on hover
+      border: "1px solid transparent", 
     },
     "&.Mui-focused fieldset": {
-      border: `1px solid ${theme.palette.secondary.main}`, // Remove the border when focused
+      border: `1px solid ${theme.palette.secondary.main}`, 
     },
   },
 }));

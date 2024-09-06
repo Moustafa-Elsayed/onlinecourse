@@ -20,7 +20,7 @@ export const deleteUsers = createAsyncThunk(
 
       return id;
     } catch (error) {
-      console.error("Delete Users failed:", error); // Log the full error
+      console.error("Delete Users failed:", error);
       return rejectWithValue(
         error.response?.data || "An unexpected error occurred"
       );

@@ -1,4 +1,3 @@
-import theme from "@/styles/theme";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -7,7 +6,7 @@ const Header = () => {
   return (
     <Box
       sx={{
-        bgcolor: "#00274d", // Darker background for better contrast
+        bgcolor: "#00274d", 
         px: "10px",
         display: "flex",
         justifyContent: "center",

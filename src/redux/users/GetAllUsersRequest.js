@@ -3,7 +3,6 @@ import Cookies from "js-cookie"; // Don't forget to import Cookies
 import { BaseUrl } from "@/lib/api/constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// Fetch Users with token in headers
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, { rejectWithValue }) => {

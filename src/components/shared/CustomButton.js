@@ -18,7 +18,7 @@ const CustomButton = ({
   onClick,
   startIcon,
   fontSize,
-  loading = false, // Optional loading prop
+  loading = false,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,8 +27,8 @@ const CustomButton = ({
     if (onClick) {
       if (loading) {
         setIsLoading(true);
-        await onClick(event); // Ensure onClick is awaited if it's a promise
-        setTimeout(() => setIsLoading(false), 1200); // Simulate 1-second delay
+        await onClick(event); 
+        setTimeout(() => setIsLoading(false), 1200);
       } else {
         await onClick(event);
       }
@@ -70,7 +70,7 @@ const CustomButton = ({
       startIcon={imagePosition === "start" ? (isLoading ? null : icon) : null}
       endIcon={imagePosition === "end" ? (isLoading ? null : icon) : null}
       onClick={handleClick}
-      disabled={isLoading} // Disable the button while loading
+      disabled={isLoading} 
     >
       {isLoading ? <CircularProgress size={24} color="inherit" /> : title}
     </Button>

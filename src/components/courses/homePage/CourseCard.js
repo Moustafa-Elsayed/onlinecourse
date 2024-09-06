@@ -127,7 +127,6 @@ const CourseCard = ({
           </Box>
         </Box>
 
-        {/* Content Section with flexGrow to take up remaining space */}
         <Box sx={{ flexGrow: 1, justifyContent: "center", mt: 1, mb: 3 }}>
           <Typography variant="title" sx={{ fontWeight: "bold", mb: 1 }}>
             {title}
@@ -136,8 +135,6 @@ const CourseCard = ({
             {subtitle}
           </Typography>
         </Box>
-
-        {/* Button aligned at the bottom */}
         <CustomButton
           title={"Get It Now"}
           backgroundColor={theme.palette.primary.light}
