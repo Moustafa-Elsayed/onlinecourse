@@ -26,7 +26,6 @@ const CustomInput = ({ label,type,multiline, placeholder, endIcon, ...props }) =
     <Box sx={{ margin: 1 }}>
       <Typography sx={{ textAlign: "left", mb: 1, fontWeight: "bold" }}>{label}</Typography>
       <CustomTextField
-      required
         variant="outlined"
         fullWidth
         {...props}

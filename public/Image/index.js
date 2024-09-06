@@ -5,6 +5,8 @@ import Notion from "./notion.webp";
 import Spotify from "./spotify.webp";
 import Zapier from "./zapier.webp";
 import Zoom from "./zoom.webp";
+import Zoom from "./zoom.webp";
+
 
 const images = [
   { src: Adobe, alt: "Adobe", priority: true },
